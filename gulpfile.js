@@ -5,7 +5,10 @@ var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var browserSync = require('browser-sync');
 
+
+/* Basic tasks */
 gulp.task('lint', function(){
     return gulp.src('js/*js')
         .pipe(jshint())
@@ -15,6 +18,7 @@ gulp.task('lint', function(){
 gulp.task('sass', function(){
    return gulp.src('client/scss/*.scss')
        .pipe(sass())
+       .pipe(rename('app.css'))
        .pipe(gulp.dest('dist'));
 });
 
@@ -23,13 +27,13 @@ gulp.task('scripts', ['assets'], function(){
         '.tmp/assets.js',
         'client/js/*.js'
     ])
-        .pipe(concat('all.js'))
+        .pipe(concat('app.js'))
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('assets', function(){
    gulp.src([
-       'client/bower_components/angular/angular.js',
+       'client/vendors/angular/angular.js',
    ])
        .pipe(concat('assets.js'))
        .pipe(gulp.dest('.tmp'));
@@ -46,19 +50,31 @@ gulp.task('watch', function(){
     gulp.watch('client/*.html', ['html']);
 });
 
-gulp.task('default', ['lint', 'sass', 'assets', 'scripts', 'html', 'watch']);
+/* Browser Sync task */
+gulp.task('serve', ['dev'], function(){
+    browserSync.init({
+        server: {
+            baseDir: './dist/'
+        }
+    });
+
+    gulp.watch('client/**/*.*').on('change', browserSync.reload);
+});
+
+gulp.task('dev', ['lint', 'sass', 'assets', 'scripts', 'html', 'watch']);
 
 
+/* Release tasks */
 gulp.task('buildJS', ['default'], function(){
-    return gulp.src('dist/*.js')
-        .pipe(concat('all.min.js'))
+    return gulp.src('client/**/*.js')
+        .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(gulp.dest('release'));
 });
 
 gulp.task('buildCSS', ['default'], function(){
-    return gulp.src('dist/*.css')
-        .pipe(concat('all.min.css'))
+    return gulp.src('client/**/*.css')
+        .pipe(concat('app.css'))
         .pipe(gulp.dest('release'));
 });
 
@@ -67,4 +83,4 @@ gulp.task('buildHTML', function(){
         .pipe(gulp.dest('release'));
 });
 
-gulp.task('build', ['default', 'buildJS', 'buildCSS', 'buildHTML']);
+gulp.task('build', ['buildJS', 'buildCSS', 'buildHTML']);
