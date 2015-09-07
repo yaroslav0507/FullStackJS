@@ -8,7 +8,11 @@
 </head>
 <body ng-controller="AppController as AppCtrl">
     <div class="main-wrapper">
-        {{AppCtrl.title}}
+        <div class="container">
+            <div class="row">
+                <div ui-view></div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

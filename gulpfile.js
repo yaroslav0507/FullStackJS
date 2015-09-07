@@ -15,39 +15,67 @@ gulp.task('lint', function(){
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('sass', function(){
-   return gulp.src('client/scss/*.scss')
+gulp.task('sass', ['css-assets'], function(){
+   return gulp.src([
+       'client/scss/variables.scss',
+       'client/scss/main.scss'
+   ])
        .pipe(sass())
-       .pipe(rename('app.css'))
-       .pipe(gulp.dest('dist'));
+       .pipe(rename('temp.css'))
+       .pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('scripts', ['assets'], function(){
+gulp.task('compile-styles', ['sass'], function(){
+    return gulp.src('.tmp/*.css')
+        .pipe(concat('app.css'))
+        .pipe(gulp.dest('dist'))
+});
+
+gulp.task('scripts', ['js-assets'], function(){
     gulp.src([
         '.tmp/assets.js',
+        'client/js/app.js',
+        'client/js/controllers/*.js',
         'client/js/*.js'
     ])
         .pipe(concat('app.js'))
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('assets', function(){
+gulp.task('js-assets', function(){
    gulp.src([
        'client/vendors/angular/angular.js',
+       'client/vendors/angular-ui-router/release/angular-ui-router.js'
    ])
        .pipe(concat('assets.js'))
        .pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('html', function(){
+gulp.task('css-assets', function(){
+    gulp.src([
+        'client/vendors/bootstrap/dist/css/bootstrap.css'
+    ])
+        .pipe(concat('assets.css'))
+        .pipe(gulp.dest('.tmp'));
+});
+
+gulp.task('templates', function(){
+    return gulp.src('client/templates/*.html')
+        .pipe(gulp.dest('dist/templates'))
+});
+
+gulp.task('html',['templates'], function(){
    return gulp.src('client/index.html')
        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', function(){
-    gulp.watch('client/js/*.js', ['lint', 'scripts']);
-    gulp.watch('client/scss/*.scss', ['sass']);
-    gulp.watch('client/*.html', ['html']);
+    gulp.watch('client/js/**/*.js', ['lint', 'scripts']);
+    gulp.watch('client/scss/*.scss', ['compile-styles']);
+    gulp.watch([
+        'client/*.html',
+        'client/templates/*.html'
+    ], ['html']);
 });
 
 /* Browser Sync task */
@@ -61,7 +89,7 @@ gulp.task('serve', ['dev'], function(){
     gulp.watch('client/**/*.*').on('change', browserSync.reload);
 });
 
-gulp.task('dev', ['lint', 'sass', 'assets', 'scripts', 'html', 'watch']);
+gulp.task('dev', ['lint', 'compile-styles', 'js-assets', 'scripts', 'html', 'watch']);
 
 
 /* Release tasks */
