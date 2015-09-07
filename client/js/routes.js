@@ -7,17 +7,19 @@
 
     function routeConfig($stateProvider, $urlRouterProvider){
         $stateProvider
-            .state('home', {
-                url: '/home',
-                templateUrl: '/templates/main.html'
+            .state('main', {
+                url: '/main',
+                templateUrl: '/templates/main.html',
+                controller: 'MainController',
+                controllerAs: "MainCtrl"
             })
             .state('login', {
                 url: "/login",
                 templateUrl: '/templates/login.html',
-                controller: 'authController',
-                controllerAs: "authCtrl"
+                controller: 'AuthController',
+                controllerAs: "AuthCtrl"
             });
 
-        $urlRouterProvider.otherwise('login');
+        $urlRouterProvider.otherwise('main');
     }
 })();

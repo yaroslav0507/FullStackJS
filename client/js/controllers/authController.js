@@ -3,22 +3,18 @@
 
     angular
         .module('app')
-        .controller('authController', authController);
+        .controller('AuthController', AuthController);
 
-    function authController($state){
+    function AuthController($state){
 
-        (function(){
-            if(localStorage.getItem("authToken") === "yes"){
-                $state.go('home');
-            }
-        })();
+
 
         var vm = this;
 
         angular.extend(vm, {
             title: "Enter credentials of fuck off",
             loginInput: this.loginInput,
-            loginPassword: this.loginPassword,
+            passwordInput: this.passwordInput,
             login: "balkon94",
             password: "qwerty",
             tryLogin: tryLogin,
@@ -26,19 +22,28 @@
         });
 
         function tryLogin(){
-            if(vm.loginInput === vm.login && vm.loginPassword === vm.password){
-                localStorage.setItem("authToken", "yes");
-                $state.go('home');
+            console.log(1);
+            $state.go('main');
+            //console.log(vm.login);
+            //localStorage.setItem("authToken", "yes");
+            //localStorage.setItem("username", vm.login);
+            if(vm.loginInput === vm.login && vm.passwordInput === vm.password){
             }
         }
 
         function credentialsAreTrue(){
-            if(vm.loginInput === vm.login && vm.loginPassword === vm.password){
+            if(vm.loginInput === vm.login && vm.passwordInput === vm.password){
                 return false;
             }else{
                 return true;
             }
         }
+
+        (function(){
+            if(localStorage.getItem("authToken") === "yes"){
+                $state.go('main');
+            }
+        })();
 
     }
 })();

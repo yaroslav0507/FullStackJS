@@ -42,6 +42,11 @@ gulp.task('scripts', ['js-assets'], function(){
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('fonts', function(){
+   return gulp.src('client/vendors/bootstrap/fonts/*.*')
+       .pipe(gulp.dest('dist/fonts'));
+});
+
 gulp.task('js-assets', function(){
    gulp.src([
        'client/vendors/angular/angular.js',

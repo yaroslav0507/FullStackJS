@@ -1,5 +1,17 @@
+@font-face {
+  font-family: "Glyphicons Halflings";
+  src: url("fonts/glyphicons-halflings-regular.ttf"); }
+
 .main-wrapper {
   font-size: 22px; }
+
+.bordered-right {
+  border-right: 1px solid rgba(255, 255, 255, 0.67);
+  padding-right: 30px;
+  display: inline-block; }
+
+.navbar-nav .glyphicon {
+  font-size: 17px; }
 
 .login-form {
   padding: 15px;
@@ -11,3 +23,16 @@
 .login {
   position: relative;
   top: 250px; }
+
+body {
+  padding-top: 70px;
+  /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */ }
+
+.hero-spacer {
+  margin-top: 50px; }
+
+.hero-feature {
+  margin-bottom: 30px; }
+
+footer {
+  margin: 50px 0; }
