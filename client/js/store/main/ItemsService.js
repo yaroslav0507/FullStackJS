@@ -5,12 +5,19 @@
         .module('app')
         .factory('ItemsService', ItemsService);
 
-    function ItemsService(){
+    function ItemsService($http){
 
-        var o = {
-            items: []
+        var service = {
+            items: [],
+            getAll: getAll
         };
 
-        return o;
+        function getAll(){
+            return $http.get('results.json').then(function(response){
+                service.items = response.data;
+            })
+        };
+
+        return service;
     }
 })();

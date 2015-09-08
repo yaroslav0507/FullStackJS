@@ -25,25 +25,25 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav pull-right">
-                <li ng-hide="mainCtrl.isAuthenticated()">
+                <li ng-hide="headerCtrl.isAuthenticated()">
                     <a ui-sref="auth.login">
                         <span class="glyphicon glyphicon-log-in"></span>
                         <span class="bordered-right">Login</span>
                     </a>
                 </li>
-                <li ng-hide="mainCtrl.isAuthenticated()">
+                <li ng-hide="headerCtrl.isAuthenticated()">
                     <a ui-sref="auth.register">
                         <span class="glyphicon glyphicon-check"></span>
                         <span>Register</span></a>
                 </li>
-                <li ng-show="mainCtrl.isAuthenticated()">
+                <li ng-show="headerCtrl.isAuthenticated()">
                     <a href="#">
                         <span class="glyphicon glyphicon-user"></span>
-                        <span class="bordered-right">{{ mainCtrl.userName }}</span>
+                        <span class="bordered-right">{{ headerCtrl.userName }}</span>
                     </a>
                 </li>
-                <li ng-show="mainCtrl.isAuthenticated()">
-                    <a href="#" ng-click="mainCtrl.logOut()">
+                <li ng-show="headerCtrl.isAuthenticated()">
+                    <a href="#" ng-click="headerCtrl.logOut()">
                         <span class="glyphicon glyphicon-log-out"></span>
                         <span>Log Out</span>
                     </a>

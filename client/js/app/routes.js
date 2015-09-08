@@ -9,18 +9,23 @@
         $stateProvider
             .state('main', {
                 url: '/main',
-                controller: 'MainController',
-                controllerAs: "mainCtrl",
                 views: {
                     '':{
-                      templateUrl: 'store/main/main.html'
+                      templateUrl: 'store/main/main.html',
+                      controller: 'MainController',
+                      controllerAs: "mainCtrl"
                     },
                     'header@main': {
-                        templateUrl: 'store/components/header.html'
+                        templateUrl: 'store/components/header/header.html',
+                        controller: 'HeaderController',
+                        controllerAs: 'headerCtrl'
                     },
                     'footer@main':{
                         templateUrl: 'store/components/footer.html'
                     }
+                },
+                resolve: {
+                    items: resolveItems
                 }
             })
             .state('auth', {
@@ -40,5 +45,9 @@
             });
 
         $urlRouterProvider.otherwise('main');
+
+        function resolveItems(ItemsService){
+            return ItemsService.getAll();
+        }
     }
 })();
