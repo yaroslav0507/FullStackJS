@@ -13,7 +13,10 @@
                     '':{
                       templateUrl: 'store/main/main.html',
                       controller: 'MainController',
-                      controllerAs: "mainCtrl"
+                      controllerAs: "mainCtrl",
+                        resolve: {
+                            items: resolveItems
+                        }
                     },
                     'header@main': {
                         templateUrl: 'store/components/header/header.html',
@@ -23,9 +26,6 @@
                     'footer@main':{
                         templateUrl: 'store/components/footer.html'
                     }
-                },
-                resolve: {
-                    items: resolveItems
                 }
             })
             .state('auth', {

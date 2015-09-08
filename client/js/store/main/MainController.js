@@ -5,12 +5,12 @@
         .module('app')
         .controller('MainController', MainController);
 
-    function MainController(ItemsService){
+    function MainController(items){
 
         var vm = this;
 
         angular.extend(vm, {
-            items: ItemsService.items,
+            items: items
         });
 
     }

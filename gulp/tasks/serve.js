@@ -8,7 +8,8 @@ gulp.task('dev', ['lint', 'scripts', 'html', 'styles', 'watch']);
 gulp.task('serve', ['dev'], function(){
     browserSync.init({
         server: {
-            baseDir: './dist/'
+            baseDir: './dist/',
+            proxy: "http://localhost:4000/"
         }
     });
 

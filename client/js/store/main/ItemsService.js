@@ -8,16 +8,15 @@
     function ItemsService($http){
 
         var service = {
-            items: [],
             getAll: getAll
         };
 
+        return service;
+
         function getAll(){
             return $http.get('results.json').then(function(response){
-                service.items = response.data;
+                return response.data;
             })
         };
-
-        return service;
     }
 })();

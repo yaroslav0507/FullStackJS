@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./server/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,13 +17,18 @@
     "gulp-jshint": "^1.11.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.4.0",
+    "path": "^0.11.14",
     "require-dir": "^0.3.0",
     "sequence-stream": "^0.1.0"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
-    "mongoose": "^4.1.5"
+    "method-override": "^2.3.5",
+    "mongoose": "^4.1.5",
+    "morgan": "^1.6.1",
+    "nodemon": "^1.4.1"
   }
 }
