@@ -33087,11 +33087,53 @@ angular.module('ui.router.state')
 
     angular
         .module('app')
+        .config(routeConfig);
+
+    function routeConfig($stateProvider, $urlRouterProvider){
+        $stateProvider
+            .state('main', {
+                url: '/main',
+                controller: 'MainController',
+                controllerAs: "mainCtrl",
+                views: {
+                    '':{
+                      templateUrl: 'store/main/main.html'
+                    },
+                    'header@main': {
+                        templateUrl: 'store/components/header.html'
+                    },
+                    'footer@main':{
+                        templateUrl: 'store/components/footer.html'
+                    }
+                }
+            })
+            .state('auth', {
+                url: "/auth",
+                abstract: true,
+                templateUrl: 'auth/auth-base.html',
+                controller: 'AuthController',
+                controllerAs: "authCtrl"
+            })
+            .state('auth.login', {
+                url: '/login',
+                views: {
+                    'auth':{
+                        templateUrl: 'auth/login/login.html'
+                    }
+                }
+            });
+
+        $urlRouterProvider.otherwise('main');
+    }
+})();
+(function(){
+    'use strict';
+
+    angular
+        .module('app')
         .controller('AuthController', AuthController);
 
     function AuthController($state){
-
-
 
         var vm = this;
 
@@ -33106,12 +33148,10 @@ angular.module('ui.router.state')
         });
 
         function tryLogin(){
-            console.log(1);
-            $state.go('main');
-            //console.log(vm.login);
-            //localStorage.setItem("authToken", "yes");
-            //localStorage.setItem("username", vm.login);
             if(vm.loginInput === vm.login && vm.passwordInput === vm.password){
+                localStorage.setItem("userName", vm.login);
+                localStorage.setItem("authToken", "yes");
+                $state.go('main');
             }
         }
 
@@ -33136,16 +33176,15 @@ angular.module('ui.router.state')
 
     angular
         .module('app')
-        .controller('MainController', MainController);
+        .factory('ItemsService', ItemsService);
 
-    function MainController(){
+    function ItemsService(){
 
-        var vm = this;
+        var o = {
+            items: []
+        };
 
-        angular.extend(vm, {
-            login: localStorage.getItem("username")
-        });
-
+        return o;
     }
 })();
 (function(){
@@ -33153,23 +33192,34 @@ angular.module('ui.router.state')
 
     angular
         .module('app')
-        .config(routeConfig);
+        .controller('MainController', MainController);
 
-    function routeConfig($stateProvider, $urlRouterProvider){
-        $stateProvider
-            .state('main', {
-                url: '/main',
-                templateUrl: '/templates/main.html',
-                controller: 'MainController',
-                controllerAs: "MainCtrl"
-            })
-            .state('login', {
-                url: "/login",
-                templateUrl: '/templates/login.html',
-                controller: 'AuthController',
-                controllerAs: "AuthCtrl"
-            });
+    function MainController(ItemsService){
 
-        $urlRouterProvider.otherwise('main');
+        var vm = this;
+
+        angular.extend(vm, {
+            isAuthenticated: isAuthenticated,
+            logOut: logOut,
+            userName: localStorage.getItem("userName"),
+            items: ItemsService
+        });
+
+        function isAuthenticated(){
+            if(localStorage.getItem("userName")){
+                return true;
+            }
+        }
+
+        function logOut(){
+            localStorage.removeItem("userName");
+            localStorage.removeItem("authToken");
+        }
+
     }
 })();
+angular.module("app").run(["$templateCache", function($templateCache) {$templateCache.put("auth/auth-base.html","<div class=\"col-xs-4 col-xs-offset-4 login\">\r\n    <h3 class=\"text-center\">{{ authCtrl.title }}</h3>\r\n    <div ui-view=\"auth\"></div>\r\n</div>");
+$templateCache.put("store/components/footer.html","<footer>\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-12\">\r\n            <p>Copyright &copy; Your Website 2014</p>\r\n        </div>\r\n    </div>\r\n</footer>");
+$templateCache.put("store/components/header.html","<!-- Navigation -->\r\n<nav class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"container\">\r\n        <!-- Brand and toggle get grouped for better mobile display -->\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\r\n                <span class=\"sr-only\">Toggle navigation</span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand\" href=\"#\">E-commerce</a>\r\n        </div>\r\n        <!-- Collect the nav links, forms, and other content for toggling -->\r\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li>\r\n                    <a href=\"#\">About</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\">Products</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\">Contact</a>\r\n                </li>\r\n            </ul>\r\n            <ul class=\"nav navbar-nav pull-right\">\r\n                <li ng-hide=\"mainCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"auth.login\">\r\n                        <span class=\"glyphicon glyphicon-log-in\"></span>\r\n                        <span class=\"bordered-right\">Login</span>\r\n                    </a>\r\n                </li>\r\n                <li ng-hide=\"mainCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"auth.register\">\r\n                        <span class=\"glyphicon glyphicon-check\"></span>\r\n                        <span>Register</span></a>\r\n                </li>\r\n                <li ng-show=\"mainCtrl.isAuthenticated()\">\r\n                    <a href=\"#\">\r\n                        <span class=\"glyphicon glyphicon-user\"></span>\r\n                        <span class=\"bordered-right\">{{ mainCtrl.userName }}</span>\r\n                    </a>\r\n                </li>\r\n                <li ng-show=\"mainCtrl.isAuthenticated()\">\r\n                    <a href=\"#\" ng-click=\"mainCtrl.logOut()\">\r\n                        <span class=\"glyphicon glyphicon-log-out\"></span>\r\n                        <span>Log Out</span>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n        <!-- /.navbar-collapse -->\r\n    </div>\r\n    <!-- /.container -->\r\n</nav>");
+$templateCache.put("store/main/main.html","<div ui-view=\"header\"></div>\r\n\r\n<!-- Page Content -->\r\n<div class=\"container\">\r\n\r\n    <!-- Jumbotron Header -->\r\n    <header class=\"jumbotron hero-spacer\">\r\n        <h1>A Warm Welcome!</h1>\r\n        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>\r\n        <p><a class=\"btn btn-primary btn-large\">Call to action!</a>\r\n        </p>\r\n    </header>\r\n\r\n    <hr>\r\n\r\n    <!-- Title -->\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-12\">\r\n            <h3>Latest Features</h3>\r\n        </div>\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <!-- Page Features -->\r\n    <div class=\"row text-center\">\r\n\r\n        <div class=\"col-md-3 col-sm-6 hero-feature\">\r\n            <div class=\"thumbnail\">\r\n                <img src=\"http://placehold.it/800x500\" alt=\"\">\r\n                <div class=\"caption\">\r\n                    <h3>Feature Label</h3>\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n                    <p>\r\n                        <a href=\"#\" class=\"btn btn-primary\">Buy Now!</a> <a href=\"#\" class=\"btn btn-default\">More Info</a>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-3 col-sm-6 hero-feature\">\r\n            <div class=\"thumbnail\">\r\n                <img src=\"http://placehold.it/800x500\" alt=\"\">\r\n                <div class=\"caption\">\r\n                    <h3>Feature Label</h3>\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n                    <p>\r\n                        <a href=\"#\" class=\"btn btn-primary\">Buy Now!</a> <a href=\"#\" class=\"btn btn-default\">More Info</a>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-3 col-sm-6 hero-feature\">\r\n            <div class=\"thumbnail\">\r\n                <img src=\"http://placehold.it/800x500\" alt=\"\">\r\n                <div class=\"caption\">\r\n                    <h3>Feature Label</h3>\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n                    <p>\r\n                        <a href=\"#\" class=\"btn btn-primary\">Buy Now!</a> <a href=\"#\" class=\"btn btn-default\">More Info</a>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-3 col-sm-6 hero-feature\">\r\n            <div class=\"thumbnail\">\r\n                <img src=\"http://placehold.it/800x500\" alt=\"\">\r\n                <div class=\"caption\">\r\n                    <h3>Feature Label</h3>\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n                    <p>\r\n                        <a href=\"#\" class=\"btn btn-primary\">Buy Now!</a> <a href=\"#\" class=\"btn btn-default\">More Info</a>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <hr>\r\n\r\n    <div ui-view=\"footer\"></div>\r\n\r\n</div>\r\n<!-- /.container -->");
+$templateCache.put("auth/login/login.html","<form class=\"login-form\">\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputEmail1\">Login {{ authCtrl.loginInput }}</label>\r\n        <input type=\"text\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputEmail1\"\r\n               placeholder=\"Enter Your Login\"\r\n               ng-model=\"authCtrl.loginInput\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputPassword1\">Password</label>\r\n        <input type=\"password\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputPassword1\"\r\n               placeholder=\"Enter Your Password\"\r\n               ng-model=\"authCtrl.passwordInput\">\r\n    </div>\r\n    <button type=\"submit\"\r\n            class=\"btn btn-primary\"\r\n            ng-disabled=\"authCtrl.credentialsAreTrue()\"\r\n            ng-click=\"authCtrl.tryLogin()\">Submit</button>\r\n</form>\r\n\r\n\r\n");}]);
