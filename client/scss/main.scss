@@ -52,6 +52,12 @@ body {
   margin-bottom: 30px;
 }
 
+.item-short-description{
+  height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 footer {
   margin: 50px 0;
 }

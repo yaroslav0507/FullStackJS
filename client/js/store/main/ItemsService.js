@@ -14,7 +14,7 @@
         return service;
 
         function getAll(){
-            return $http.get('results.json').then(function(response){
+            return $http.get('/items').then(function(response){
                 return response.data;
             })
         };

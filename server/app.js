@@ -6,17 +6,39 @@ var path            = require('path');
 var methodOverride  = require('method-override');
 var app = express();
 
+require('dotenv').load();
+require('./models/Items');
+
+var routes = require('./routes/index');
+
+mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@ds041583.mongolab.com:41583/pet');
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Methods", "POST, PUT, GET");
+    next();
+});
+
 app.use(logger('dev'));
 app.use(methodOverride());
-//app.use(app.router);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../dist")));
+
+app.use('/', routes);
 
 app.get('/api', function(req, res){
     res.send('API is running');
 });
 
-app.listen(4000, function(){
-    console.log('port 4000');
+app.use(function(err, req, res, next){
+    res.status(500).send({err: err.stack});
 });
 
-//mongoose.connect('');
+app.listen(process.env.SERVER_PORT, function(){
+    console.log('Server is runing on port: ' + process.env.SERVER_PORT);
+});
+
+module.exports = app;
+
