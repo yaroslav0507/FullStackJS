@@ -5,27 +5,16 @@
         .module('app')
         .controller('HeaderController', HeaderController);
 
-    function HeaderController(ItemsService){
+    function HeaderController(ItemsService, AuthService){
 
         var vm = this;
 
         angular.extend(vm, {
-            isAuthenticated: isAuthenticated,
-            logOut: logOut,
-            userName: localStorage.getItem("userName"),
+            isAuthenticated: AuthService.isLoggedIn,
+            logOut: AuthService.logOut,
+            userName: AuthService.currentUser(),
             items: ItemsService
         });
-
-        function isAuthenticated(){
-            if(localStorage.getItem("userName")){
-                return true;
-            }
-        }
-
-        function logOut(){
-            localStorage.removeItem("userName");
-            localStorage.removeItem("authToken");
-        }
 
     }
 })();

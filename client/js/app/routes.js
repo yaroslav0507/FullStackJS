@@ -32,17 +32,17 @@
                 url: "/auth",
                 abstract: true,
                 templateUrl: 'auth/auth-base.html',
-                controller: 'AuthController',
+                controller: "AuthController",
                 controllerAs: "authCtrl"
             })
-            .state('auth.login', {
-                url: '/login',
-                views: {
-                    'auth':{
-                        templateUrl: 'auth/login/login.html'
+                .state('auth.login', {
+                    url: '/login',
+                    views: {
+                        'auth':{
+                            templateUrl: 'auth/login/login.html'
+                        }
                     }
-                }
-            });
+                });
 
         $urlRouterProvider.otherwise('main');
 
