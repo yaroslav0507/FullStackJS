@@ -39,10 +39,18 @@
                     url: '/login',
                     views: {
                         'auth':{
-                            templateUrl: 'auth/login/login.html'
+                            templateUrl: 'auth/templates/login.html'
                         }
                     }
-                });
+                })
+                .state('auth.register', {
+                        url: '/register',
+                        views: {
+                            'auth':{
+                                templateUrl: 'auth/templates/register.html'
+                            }
+                        }
+                    });
 
         $urlRouterProvider.otherwise('main');
 
