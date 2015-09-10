@@ -21,11 +21,13 @@ gulp.task('scripts', function(){
     ], {base: 'vendors'});
 
     var app = gulp.src([
-        'client/js/app/app.js',
-        'client/js/**/*.js'
+        './client/js/app/app.js',
+        './client/js/**/*.js'
     ]);
 
-    var views = gulp.src('client/js/**/*.html')
+    var views = gulp.src([
+        './client/js/**/*.html'
+    ])
         .pipe(templateCache({
             module: 'app'
         }));

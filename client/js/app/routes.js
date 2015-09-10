@@ -50,11 +50,46 @@
                                 templateUrl: 'auth/templates/register.html'
                             }
                         }
-                    });
+                    })
+            .state('admin', {
+                url: '/admin',
+                abstract: true,
+                views:{
+                    '':{
+                        templateUrl: 'admin/index.html'
+                    },
+                    'navigation@admin': {
+                        templateUrl: 'admin/components/navigation.html'
+                    },
+                    'sidebar@admin': {
+                        templateUrl: 'admin/components/sidebar.html'
+                    }
+                }
+            })
+                .state('admin.main', {
+                    url: '/main',
+                    views: {
+                        'content@admin': { templateUrl: 'admin/templates/main.html' }
+                    }
+                })
+                .state('admin.items', {
+                    url: '/items',
+                    views: {
+                        'content@admin': {
+                            templateUrl: 'admin/templates/items/items.html',
+                            controller: 'ItemsController',
+                            controllerAs: 'itemsCtrl',
+                            resolve: {
+                                items: resolveItems
+                            }
+                        }
+                    }
+                });
 
         $urlRouterProvider.otherwise('main');
 
         function resolveItems(ItemsService){
+            console.log(ItemsService.getAll());
             return ItemsService.getAll();
         }
     }

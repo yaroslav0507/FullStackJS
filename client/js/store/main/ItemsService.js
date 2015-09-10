@@ -8,7 +8,8 @@
     function ItemsService($http){
 
         var service = {
-            getAll: getAll
+            getAll: getAll,
+            deleteItem: deleteItem
         };
 
         return service;
@@ -17,6 +18,12 @@
             return $http.get('/items').then(function(response){
                 return response.data;
             })
-        };
+        }
+
+        function deleteItem(id){
+            return $http.delete('/items/', id).then(function(response){
+                return response.data;
+            })
+        }
     }
 })();

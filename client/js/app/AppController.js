@@ -10,7 +10,7 @@
         var vm = this;
 
         angular.extend(vm, {
-           title: 'aassdss'
+           title: 'E-commerce'
         });
     }
 

@@ -9,7 +9,8 @@ gulp.task('styles', function(){
     var reset = gulp.src('client/scss/reset.css');
 
     var compile = gulp.src([
-        'client/scss/main.scss'
+        'client/scss/main.scss',
+        'client/scss/admin.scss'
     ])
         .pipe(sass());
 

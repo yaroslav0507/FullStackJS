@@ -1,0 +1,25 @@
+<h1 class="page-header">Item management</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in itemsCtrl.items">
+            <td>{{ item._id }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.shortDescription }}</td>
+            <td>{{ item.price }}</td>
+            <td ng-click="itemsCtrl.deleteItem(item._id)">x</td>
+        </tr>
+        </tbody>
+    </table>
+    {{itemsCtrl.items}}
+</div>
