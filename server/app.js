@@ -4,10 +4,14 @@ var logger          = require('morgan');
 var mongoose        = require('mongoose');
 var path            = require('path');
 var methodOverride  = require('method-override');
-var app = express();
+var passport        = require('passport');
+var app             = express();
 
 require('dotenv').load();
 require('./models/Items');
+require('./models/Users');
+
+require('./config/passport');
 
 var routes = require('./routes/index');
 
@@ -25,6 +29,7 @@ app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../dist")));
+app.use(passport.initialize());
 
 app.use('/', routes);
 
