@@ -1,4 +1,4 @@
-var gulp = require('gulp');
+'use strict';
 
 var jshint = require('gulp-jshint');
 var seq = require('sequence-stream');
@@ -35,6 +35,7 @@ gulp.task('scripts', function(){
         .pipe(sourcemaps.init())
         .pipe(concat('app.js'))
         .pipe(sourcemaps.write('maps', {sourceRoot: '/client'}))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
+        .on('end', browserSync.reload);
 });
 

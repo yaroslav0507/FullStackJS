@@ -10,7 +10,7 @@
         var vm = this;
 
         angular.extend(vm, {
-           title: 'asdsad'
+           title: 'aassdss'
         });
     }
 

@@ -1,8 +1,6 @@
 'use strict';
 
-var gulp = require('gulp');
 var sass = require('gulp-sass');
-var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var seq = require('sequence-stream');
 
@@ -23,5 +21,7 @@ gulp.task('styles', function(){
     // Combine all the streams
     return seq([reset, assets, compile])
         .pipe(concat('app.css'))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
+        .pipe(browserSync.stream());
+
 });

@@ -1,0 +1,9 @@
+{
+  "verbose": false,
+  "ignore": [
+    "client",
+    "dist",
+    ".git",
+    ".idea"
+  ]
+}

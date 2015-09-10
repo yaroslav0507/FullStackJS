@@ -1,8 +1,5 @@
 'use strict';
 
-var gulp = require('gulp');
-var browserSync = require('browser-sync');
-
 gulp.task('dev', ['lint', 'scripts', 'html', 'styles', 'fonts', 'watch']);
 
 gulp.task('serve', ['dev'], function(){
@@ -15,5 +12,7 @@ gulp.task('serve', ['dev'], function(){
     });
     console.log(process.env.SERVER_PORT);
 
-    gulp.watch('client/**/*.*').on('change', browserSync.reload);
+    gulp.watch('./dist/index.html').on('change', browserSync.reload);
+
 });
+
