@@ -3,7 +3,8 @@
 
     angular
         .module('app', [
-            'ui.router'
+            'ui.router',
+            'ui.bootstrap'
         ])
 
 })();

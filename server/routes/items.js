@@ -1,5 +1,7 @@
 'use strict';
 
+var multer = require('multer');
+var upload = multer({dest: 'client/img'});
 var Item = mongoose.model('Items');
 
 router.get('/items', function(req, res, next){
@@ -9,13 +11,13 @@ router.get('/items', function(req, res, next){
     });
 });
 
-router.post('/items', function(req, res, next){
+router.post('/items', upload.single('image'), function(req, res, next){
     var item = new Item(req.body);
 
     item.title = req.body.title;
-    item.shortDescription = req.body.shortDescription;
+    item.description = req.body.description;
     item.price = req.body.price;
-
+    item.image = req.file;
     item.save(function(err, item){
         if(err){ return next(err) }
         res.json(item);
@@ -47,5 +49,6 @@ router.delete('/items/:item', function(req, res){
         req.item.remove(function(err, next){
             if(err){ return next(err); }
         });
+        res.json(items);
     });
 });

@@ -17,7 +17,8 @@ gulp.task('scripts', function(){
 
     var vendors = gulp.src([
         'client/vendors/angular/angular.js',
-        'client/vendors/angular-ui-router/release/angular-ui-router.js'
+        'client/vendors/angular-ui-router/release/angular-ui-router.js',
+        'client/vendors/angular-bootstrap/ui-bootstrap-tpls.js'
     ], {base: 'vendors'});
 
     var app = gulp.src([

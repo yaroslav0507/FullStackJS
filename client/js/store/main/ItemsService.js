@@ -9,6 +9,7 @@
 
         var service = {
             getAll: getAll,
+            addItem: addItem,
             deleteItem: deleteItem
         };
 
@@ -20,8 +21,14 @@
             })
         }
 
+        function addItem(item){
+            return $http.post('/items/', item).then(function(response){
+               return response.data;
+            });
+        }
+
         function deleteItem(id){
-            return $http.delete('/items/', id).then(function(response){
+            return $http.delete('/items/' + id).then(function(response){
                 return response.data;
             })
         }

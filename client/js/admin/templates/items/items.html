@@ -1,5 +1,58 @@
-<h1 class="page-header">Item management</h1>
+<h1 class="page-header">Dashboard</h1>
 
+<div class="row">
+    <form enctype="multipart/form-data">
+        <div class="col-xs-12">
+            <h2>Add a new item</h2>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="ItemTitle">Title</label>
+                <input type="text"
+                       class="form-control"
+                       id="ItemTitle"
+                       placeholder="Title"
+                       ng-model="itemsCtrl.item.title">
+            </div>
+            <div class="form-group">
+                <label for="ItemPrice">Price</label>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="text"
+                           class="form-control"
+                           id="ItemPrice"
+                           placeholder="Price"
+                           ng-model="itemsCtrl.item.price">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="ItemDescription">Description</label>
+                <textarea class="form-control"
+                          id="ItemDescription"
+                          rows="5"
+                          placeholder="Description"
+                          ng-model="itemsCtrl.item.description"></textarea>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="PhotoUpload">Upload photo</label>
+                <input type="file" id="PhotoUpload" file-model="itemsCtrl.imageFile">
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <button type="submit"
+                    class="btn btn-primary"
+                    ng-click="itemsCtrl.addItem()">Add item</button>
+        </div>
+    </form>
+</div>
+<hr/>
+
+<h2 class="sub-header">All items</h2>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
@@ -13,13 +66,22 @@
         </thead>
         <tbody>
         <tr ng-repeat="item in itemsCtrl.items">
-            <td>{{ item._id }}</td>
+            <td>{{ $index + 1 }}</td>
             <td>{{ item.title }}</td>
             <td>{{ item.shortDescription }}</td>
             <td>{{ item.price }}</td>
-            <td ng-click="itemsCtrl.deleteItem(item._id)">x</td>
+            <td ng-click="itemsCtrl.deleteItem(item)">
+                <button class="btn btn-default">X</button>
+            </td>
         </tr>
         </tbody>
     </table>
-    {{itemsCtrl.items}}
+</div>
+
+<div ng-controller="DialogController as dialogCtrl">
+    <button type="button" class="btn btn-default" ng-click="dialogCtrl.open()">Open me!</button>
+    <button type="button" class="btn btn-default" ng-click="dialogCtrl.open('lg')">Large modal</button>
+    <button type="button" class="btn btn-default" ng-click="dialogCtrl.open('sm')">Small modal</button>
+    <button type="button" class="btn btn-default" ng-click="dialogCtrl.toggleAnimation()">Toggle Animation ({{ animationsEnabled }})</button>
+    <div ng-show="selected">Selection from a modal: {{ selected }}</div>
 </div>

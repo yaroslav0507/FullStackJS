@@ -69,12 +69,6 @@
                 .state('admin.main', {
                     url: '/main',
                     views: {
-                        'content@admin': { templateUrl: 'admin/templates/main.html' }
-                    }
-                })
-                .state('admin.items', {
-                    url: '/items',
-                    views: {
                         'content@admin': {
                             templateUrl: 'admin/templates/items/items.html',
                             controller: 'ItemsController',
@@ -84,12 +78,19 @@
                             }
                         }
                     }
+                })
+                .state('admin.items', {
+                    url: '/items',
+                    views: {
+                        'content@admin': {
+                            templateUrl: 'admin/templates/one-item/one-item.html'
+                        }
+                    }
                 });
 
         $urlRouterProvider.otherwise('main');
 
         function resolveItems(ItemsService){
-            console.log(ItemsService.getAll());
             return ItemsService.getAll();
         }
     }
