@@ -33,6 +33,7 @@
     "mongoose": "^4.1.5",
     "morgan": "^1.6.1",
     "multer": "^1.0.3",
+    "ng-file-upload": "^7.0.17",
     "nodemon": "^1.4.1",
     "passport": "^0.3.0",
     "passport-local": "^1.0.0"
