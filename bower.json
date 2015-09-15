@@ -15,7 +15,8 @@
   "dependencies": {
     "angular": "~1.4.5",
     "bootstrap": "~3.3.5",
-    "angular-bootstrap": "~0.13.4"
+    "angular-bootstrap": "~0.13.4",
+    "ng-file-upload": "~7.2.1"
   },
   "devDependencies": {
     "angular-ui-router": "~0.2.15"

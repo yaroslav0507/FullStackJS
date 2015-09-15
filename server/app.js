@@ -29,6 +29,7 @@ app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../dist")));
+app.use(express.static(path.join(__dirname, "./static")));
 app.use(passport.initialize());
 
 app.use('/', routes);
@@ -42,7 +43,7 @@ app.use(function(err, req, res, next){
 });
 
 app.listen(process.env.SERVER_PORT, function(){
-    console.log('Server is runing on port: ' + process.env.SERVER_PORT);
+    console.log('Express server listening on port: ' + process.env.SERVER_PORT);
 });
 
 module.exports = app;

@@ -1,7 +1,7 @@
 <h1 class="page-header">Dashboard</h1>
 
 <div class="row">
-    <form enctype="multipart/form-data">
+    <form enctype="multipart/form-data" name="form">
         <div class="col-xs-12">
             <h2>Add a new item</h2>
         </div>
@@ -39,14 +39,37 @@
         </div>
         <div class="col-xs-6">
             <div class="form-group">
-                <label for="PhotoUpload">Upload photo</label>
-                <input type="file" id="PhotoUpload" file-model="itemsCtrl.imageFile">
+
+                <input type="file" ngf-select ng-model="itemsCtrl.picture" name="file"
+                       accept="image/*" ngf-max-size="2MB" required>
+
+                <img ng-show="form.file.$valid"
+                     ngf-src="!itemsCtrl.picture.$error && itemsCtrl.picture">
+
+                {{itemsCtrl.file}}
             </div>
         </div>
         <div class="col-xs-6">
             <button type="submit"
                     class="btn btn-primary"
                     ng-click="itemsCtrl.addItem()">Add item</button>
+
+            <button type="submit"
+                    class="btn btn-success"
+                    ng-disabled="!form.file.$valid"
+                    ng-click="itemsCtrl.uploadFile(itemsCtrl.picture)">Add file</button>
+
+        </div>
+        <div class="col-xs-12"
+             ng-show="itemsCtrl.error.flag">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Error occured</h3>
+                </div>
+                <div class="panel-body">
+                    {{itemsCtrl.error.message}}
+                </div>
+            </div>
         </div>
     </form>
 </div>
@@ -76,12 +99,4 @@
         </tr>
         </tbody>
     </table>
-</div>
-
-<div ng-controller="DialogController as dialogCtrl">
-    <button type="button" class="btn btn-default" ng-click="dialogCtrl.open()">Open me!</button>
-    <button type="button" class="btn btn-default" ng-click="dialogCtrl.open('lg')">Large modal</button>
-    <button type="button" class="btn btn-default" ng-click="dialogCtrl.open('sm')">Small modal</button>
-    <button type="button" class="btn btn-default" ng-click="dialogCtrl.toggleAnimation()">Toggle Animation ({{ animationsEnabled }})</button>
-    <div ng-show="selected">Selection from a modal: {{ selected }}</div>
 </div>
