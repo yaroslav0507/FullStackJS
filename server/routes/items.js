@@ -11,10 +11,12 @@ router.get('/items', function(req, res, next){
 
 router.post('/items', function(req, res, next){
     var item = new Item(req.body);
+    console.log(req.body);
 
     item.title = req.body.title;
     item.description = req.body.description;
     item.price = req.body.price;
+    item.imageURL = req.body.imageURL;
 
     item.save(function(err, item){
         if(err){ return next(err) }

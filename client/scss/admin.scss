@@ -107,3 +107,11 @@ body {
 textarea.form-control{
   resize: vertical;
 }
+
+.item-image-thumbnail{
+  min-height: 147px;
+  display: block;
+  background-color: #eee;
+  box-shadow: inset 0 0 0 4px #FFF;
+  vertical-align: middle;
+}

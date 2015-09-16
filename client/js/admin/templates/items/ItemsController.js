@@ -5,9 +5,10 @@
         .module('app')
         .controller('ItemsController', ItemsController);
 
-    function ItemsController(items, ItemsService, Upload, $timeout) {
+    function ItemsController($window, items, ItemsService, Upload, $q) {
 
         var vm = this;
+        var tempImageName = 'uploaded_item_image_name';
 
         angular.extend(vm, {
             items: items.map(makeShortDescriptions.bind(null, 140)),
@@ -37,32 +38,31 @@
 
         function addItem() {
             if (vm.validateInputs()) {
-                ItemsService.addItem(vm.item).then(function () {
-                    vm.items.push(makeShortDescriptions(160, vm.item));
+                vm.uploadFile(vm.item.file).then(function(filename){
+                    vm.item.imageURL = '/images/' + filename;
 
-                    /* Clear input fields */
-                    vm.item = {};
-                });
+                    ItemsService.addItem(vm.item).then(function () {
+                        vm.items.push(makeShortDescriptions(160, vm.item));
+                        vm.item = {};
+                    });
+                }).catch(function(response){
+                        vm.error.message = response.status + ': ' + response.data;
+                        vm.error.flag = true;
+                        return $q.reject();
+                    });
+
             }
         }
 
         function uploadFile(file) {
-            file.upload = Upload.upload({
+            return Upload.upload({
                 url: '/upload',
                 method: 'POST',
                 file: file
+            }).then(function (response) {
+                $window.localStorage.setItem(tempImageName, response.data);
+                return response.data
             });
-
-            file.upload.then(function (response) {
-                $timeout(function () {
-                    file.result = response.data;
-                })
-            }, function (response) {
-                if (response.status > 0) {
-                    vm.error.message = response.status + ': ' + response.data;
-                    vm.error.flag = true;
-                }
-            })
         }
 
         function deleteItem(item) {
