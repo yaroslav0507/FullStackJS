@@ -6,6 +6,7 @@ var path            = require('path');
 var methodOverride  = require('method-override');
 var passport        = require('passport');
 var app             = express();
+var multer = require('multer');
 
 require('dotenv').load();
 require('./models/Items');

@@ -1,5 +1,5 @@
 {
-  "name": "kupon",
+  "name": "NodeJS_Store",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -28,12 +28,13 @@
     "dotenv": "^1.2.0",
     "express": "^4.13.3",
     "express-jwt": "^3.1.0",
+    "fs": "0.0.2",
+    "gm": "^1.18.1",
     "jsonwebtoken": "^5.0.5",
     "method-override": "^2.3.5",
     "mongoose": "^4.1.5",
     "morgan": "^1.6.1",
     "multer": "^1.0.3",
-    "ng-file-upload": "^7.0.17",
     "nodemon": "^1.4.1",
     "passport": "^0.3.0",
     "passport-local": "^1.0.0"

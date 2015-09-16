@@ -10,15 +10,25 @@
         var vm = this;
 
         angular.extend(vm, {
-            items: items
+            items: items.map(makeShortDescriptions.bind(null, 120)),
+            predicate: 'price',
+            reverse: false,
+            order: order
         });
 
-        function makeShortDescriptions(length){
-            vm.items.forEach(function(item){
+        function makeShortDescriptions(length, item) {
+            if (item.description.length > length) {
                 item.shortDescription = item.description.substr(0, length) + '..';
-            });
+            } else {
+                item.shortDescription = item.description
+            }
+            return item;
         }
 
-        makeShortDescriptions(120);
+        function order(predicate){
+            vm.reverse = (vm.predicate === predicate) ? !vm.reverse : false;
+            vm.predicate = predicate;
+        }
+
     }
 })();
