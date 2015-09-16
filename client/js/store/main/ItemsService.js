@@ -24,7 +24,7 @@
         }
 
         function getItem(id){
-            return $http.get('/items/', id).then(function(response){
+            return $http.get('/items/' + id).then(function(response){
                return response.data;
             });
         }

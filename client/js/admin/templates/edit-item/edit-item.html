@@ -1,1 +1,40 @@
-<h1 class="page-header">Item edit</h1>
+<h1 class="page-header"><i class="glyphicon glyphicon-pencil"></i> Edit item </h1>
+
+<div class="row">
+    <form name="editItem">
+        <div class="col-xs-4">
+            <div class="thumbnail item-image-thumbnail"
+                 ngf-drop
+                 ngf-select
+                 ngf-drag-over-class="dragover"
+                 ng-model="editCtrl.item.file"
+                 name="file"
+                 accept="image/*"
+                 ngf-max-size="2MB">
+                <img ng-hide="editCtrl.item.file" ng-src="{{editCtrl.item.imageURL}}" alt=""/>
+                <img ng-show="editItem.file.$valid"
+                     ngf-src="!editCtrl.item.file.$error && editCtrl.item.file">
+            </div>
+            <div class="text-center save-changes">
+                <button class="btn btn-primary btn-lg">Save changes</button>
+            </div>
+        </div>
+        <div class="col-xs-8">
+                <div class="col-xs-9 form-group">
+                    <label>Title</label>
+                    <input class="form-control" type="text" value="{{editCtrl.item.title}}">
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label>Price</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input class="form-control" type="text" value="{{editCtrl.item.price}}">
+                    </div>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="10">{{editCtrl.item.description}}</textarea>
+                </div>
+        </div>
+    </form>
+</div>

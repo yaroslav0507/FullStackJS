@@ -1,4 +1,4 @@
-<h1 class="page-header">Dashboard</h1>
+<h1 class="page-header"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</h1>
 
 <div class="row">
     <form enctype="multipart/form-data" name="form" novalidate>
@@ -90,7 +90,16 @@
         <tbody>
         <tr ng-repeat="item in itemsCtrl.items">
             <td>{{ $index + 1 }}</td>
-            <td><a href="/items/{{item._id}}"><img ng-src="{{item.imageURL}}" alt=""/></a></td>
+            <td><a href="#/admin/items/{{item._id}}">
+                <span class="item-edit-thumbnail">
+                    <span class="item-edit-mask">
+                        <i class="glyphicon glyphicon-edit">
+                            <span class="small">Edit</span>
+                        </i>
+                    </span>
+                    <img ng-src="{{item.imageURL}}" alt=""/>
+                </span>
+            </a></td>
             <td>{{ item.title }}</td>
             <td>{{ item.shortDescription }}</td>
             <td>{{ item.price }}</td>

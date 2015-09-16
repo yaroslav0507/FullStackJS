@@ -45,8 +45,10 @@
                 views: {
                     'content@admin': {
                         templateUrl: 'admin/templates/edit-item/edit-item.html',
+                        controller: 'EditItemsController',
+                        controllerAs: 'editCtrl',
                         resolve: {
-                            items: resolveItem
+                            item: resolveItem
                         }
                     }
                 }
@@ -57,7 +59,7 @@
             return ItemsService.getAll();
         }
 
-        function resolveItem($stateParams, ItemsServicse){
+        function resolveItem($stateParams, ItemsService){
             return ItemsService.getItem($stateParams.id);
         }
     }
