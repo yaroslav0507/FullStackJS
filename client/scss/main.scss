@@ -9,10 +9,6 @@
 .main-wrapper{
 }
 
-.asd{
-  color: whitesmoke;
-}
-
 a{
   &:hover{
     cursor: pointer;
@@ -62,7 +58,7 @@ footer {
 .store-item-thumbnail{
   position: relative;
   overflow: hidden;
-  & > img{
+  .image{
     height: 160px;
   }
 }
@@ -94,4 +90,8 @@ footer {
   &__items-sort-by{
     margin-top: 15px;
   }
+}
+
+.btn-wide{
+  width: 100%;
 }

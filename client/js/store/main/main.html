@@ -1,20 +1,17 @@
-<div class="main-wrapper">
-    <div ui-view="header"></div>
-    <!-- Page Content -->
-    <div class="container">
+<div class="container">
+    <!-- Jumbotron Header -->
+    <header class="jumbotron hero-spacer">
+        <h1>A Warm Welcome!</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+        <p><a class="btn btn-primary btn-large">Call to action!</a>
+        </p>
+    </header>
 
-        <!-- Jumbotron Header -->
-        <header class="jumbotron hero-spacer">
-            <h1>A Warm Welcome!</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-            <p><a class="btn btn-primary btn-large">Call to action!</a>
-            </p>
-        </header>
+    <hr>
 
-        <hr>
-
-        <!-- Title -->
-        <div class="row">
+    <!-- Title -->
+    <div class="row">
+        <div class="form-group clearfix">
             <div class="col-xs-9">
                 <h3>Latest Goods</h3>
             </div>
@@ -33,33 +30,34 @@
                 </div>
             </div>
         </div>
-        <!-- /.row -->
+    </div>
+    <!-- /.row -->
 
-        <!-- Page Features -->
-        <div class="row text-center">
+    <!-- Page Features -->
+    <div class="row text-center">
 
-            <div class="col-md-3 col-sm-6 hero-feature"
-                 ng-repeat="item in mainCtrl.items | orderBy: mainCtrl.predicate: mainCtrl.reverse">
-                <div class="thumbnail store-item-thumbnail">
-                    <img ng-src="{{item.imageURL}}" alt=""/>
-                    <div class="caption">
-                        <h3>{{ item.title }}</h3>
-                        <p class="item-thumbnail__description">{{ item.shortDescription }}</p>
-                        <p class="item-thumbnail__price">{{ item.price | currency: "$":0 }}</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
+        <div class="col-md-3 col-sm-6 hero-feature"
+             ng-repeat="item in mainCtrl.items | orderBy: mainCtrl.predicate: mainCtrl.reverse">
+            <div class="thumbnail store-item-thumbnail">
+                <a href="{{ '#/items/' + item._id }}">
+                    <img ng-src="{{item.imageURL}}" alt="{{item.title}}" class="image"/>
+                </a>
+                <div class="caption">
+                    <h4>{{ item.title }}</h4>
+                    <p class="item-thumbnail__description">{{ item.shortDescription }}</p>
+                    <p class="item-thumbnail__price">{{ item.price | currency: "$":0 }}</p>
+                    <p>
+                        <a href="#" class="btn btn-primary">Buy Now!</a>
+                        <a href="{{ '#/items/' + item._id }}" class="btn btn-default">More Info</a>
+                    </p>
                 </div>
             </div>
-
         </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <div ui-view="footer"></div>
 
     </div>
-    <!-- /.container -->
+    <!-- /.row -->
+
+    <hr>
+
+
 </div>

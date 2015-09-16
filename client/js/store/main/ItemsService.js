@@ -11,6 +11,7 @@
             getAll: getAll,
             getItem: getItem,
             addItem: addItem,
+            updateItem: updateItem,
             deleteItem: deleteItem
         };
 
@@ -33,6 +34,12 @@
             return $http.post('/items/', item).then(function(response){
                return response.data;
             });
+        }
+
+        function updateItem(item){
+            return $http.put('/items/' + item.id, item).then(function(response){
+                return response.data;
+            })
         }
 
         function deleteItem(id){

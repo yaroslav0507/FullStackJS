@@ -5,13 +5,20 @@
         .module('app')
         .controller('EditItemsController', EditItemsController);
 
-    function EditItemsController($window, item, ItemsService, Upload, $q) {
+    function EditItemsController(item, ItemsService) {
 
         var vm = this;
 
         angular.extend(vm, {
-            item: item
+            item: item,
+            saveChanges: saveChanges
         });
+
+        function saveChanges(){
+            ItemsService.updateItem(vm.item).then(function () {
+
+            });
+        }
 
     }
 })();

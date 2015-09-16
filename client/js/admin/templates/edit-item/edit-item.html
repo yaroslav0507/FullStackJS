@@ -16,7 +16,8 @@
                      ngf-src="!editCtrl.item.file.$error && editCtrl.item.file">
             </div>
             <div class="text-center save-changes">
-                <button class="btn btn-primary btn-lg">Save changes</button>
+                <button class="btn btn-primary btn-lg"
+                        ng-click="editItem.saveChanges()">Save changes</button>
             </div>
         </div>
         <div class="col-xs-8">
