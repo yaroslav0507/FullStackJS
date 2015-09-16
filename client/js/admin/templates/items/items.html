@@ -1,15 +1,21 @@
 <h1 class="page-header">Dashboard</h1>
 
 <div class="row">
-    <form enctype="multipart/form-data" name="form">
+    <form enctype="multipart/form-data" name="form" novalidate>
         <div class="col-xs-12">
             <h2>Add a new item</h2>
         </div>
         <div class="col-xs-2">
             <label>Image</label>
             <div class="thumbnail item-image-thumbnail"
-                 ngf-select ng-model="itemsCtrl.item.file" name="file"
-                 accept="image/*" ngf-max-size="2MB">
+                 ngf-drop
+                 ngf-select
+                 ngf-drag-over-class="dragover"
+                 ng-model="itemsCtrl.item.file"
+                 name="file"
+                 accept="image/*"
+                 ngf-max-size="2MB">
+                <span ng-hide="itemsCtrl.item.file" class="item-image-thumbnail__message">Drag'n drop file, or click to download.</span>
                 <img ng-show="form.file.$valid"
                      ngf-src="!itemsCtrl.item.file.$error && itemsCtrl.item.file">
             </div>
@@ -21,7 +27,8 @@
                        class="form-control"
                        id="ItemTitle"
                        placeholder="Title"
-                       ng-model="itemsCtrl.item.title">
+                       ng-model="itemsCtrl.item.title"
+                       required>
             </div>
             <div class="form-group">
                 <label for="ItemPrice">Price</label>
@@ -31,11 +38,10 @@
                            class="form-control"
                            id="ItemPrice"
                            placeholder="Price"
-                           ng-model="itemsCtrl.item.price">
+                           ng-model="itemsCtrl.item.price"
+                           required>
                 </div>
             </div>
-            {{itemsCtrl.item}}
-
         </div>
 
         <div class="col-xs-5">
@@ -45,16 +51,13 @@
                           id="ItemDescription"
                           rows="5"
                           placeholder="Description"
-                          ng-model="itemsCtrl.item.description"></textarea>
+                          ng-model="itemsCtrl.item.description"
+                          required></textarea>
             </div>
             <button type="submit"
+                    ng-disabled="!form.$valid"
                     class="btn btn-primary"
                     ng-click="itemsCtrl.addItem()">Add item</button>
-
-            <button type="submit"
-                    class="btn btn-success"
-                    ng-disabled="!form.file.$valid"
-                    ng-click="itemsCtrl.uploadFile(itemsCtrl.item.file)">Add file</button>
         </div>
         <div class="col-xs-12"
              ng-show="itemsCtrl.error.flag">
@@ -98,3 +101,4 @@
         </tbody>
     </table>
 </div>
+

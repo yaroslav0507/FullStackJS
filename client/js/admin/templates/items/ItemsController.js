@@ -11,7 +11,7 @@
         var tempImageName = 'uploaded_item_image_name';
 
         angular.extend(vm, {
-            items: items.map(makeShortDescriptions.bind(null, 140)),
+            items: items.map(makeShortDescriptions.bind(null, 1200)),
             item: {},
 
             error: {

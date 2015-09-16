@@ -49,3 +49,7 @@ app.listen(process.env.SERVER_PORT, function(){
 
 module.exports = app;
 
+// mongodump -h ds041583.mongolab.com:41583 -d pet -u administrator -p styleworks -o D:\dump &#45;&#45;oplog
+// mongorestore -h ds041583.mongolab.com:41583 -d pet -u administrator -p styleworks D:\dump\pet\ &#45;&#45;oplogReplay
+
+
