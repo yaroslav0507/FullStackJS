@@ -12,7 +12,8 @@
 
         angular.extend(vm, {
             items: items.map(makeShortDescriptions.bind(null, 1200)),
-            item: {},
+            item: {
+            },
 
             error: {
                 flag: false,

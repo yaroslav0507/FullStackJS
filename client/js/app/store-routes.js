@@ -50,43 +50,7 @@
                                 templateUrl: 'auth/templates/register.html'
                             }
                         }
-                    })
-            .state('admin', {
-                url: '/admin',
-                abstract: true,
-                views:{
-                    '':{
-                        templateUrl: 'admin/index.html'
-                    },
-                    'navigation@admin': {
-                        templateUrl: 'admin/components/navigation.html'
-                    },
-                    'sidebar@admin': {
-                        templateUrl: 'admin/components/sidebar.html'
-                    }
-                }
-            })
-                .state('admin.main', {
-                    url: '/main',
-                    views: {
-                        'content@admin': {
-                            templateUrl: 'admin/templates/items/items.html',
-                            controller: 'ItemsController',
-                            controllerAs: 'itemsCtrl',
-                            resolve: {
-                                items: resolveItems
-                            }
-                        }
-                    }
-                })
-                .state('admin.items', {
-                    url: '/items',
-                    views: {
-                        'content@admin': {
-                            templateUrl: 'admin/templates/one-item/one-item.html'
-                        }
-                    }
-                });
+                    });
 
         $urlRouterProvider.otherwise('main');
 

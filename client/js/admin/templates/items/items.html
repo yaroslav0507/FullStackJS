@@ -90,7 +90,7 @@
         <tbody>
         <tr ng-repeat="item in itemsCtrl.items">
             <td>{{ $index + 1 }}</td>
-            <td><img ng-src="{{item.imageURL}}" alt=""/></td>
+            <td><a href="/items/{{item._id}}"><img ng-src="{{item.imageURL}}" alt=""/></a></td>
             <td>{{ item.title }}</td>
             <td>{{ item.shortDescription }}</td>
             <td>{{ item.price }}</td>

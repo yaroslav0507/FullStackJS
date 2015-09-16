@@ -9,6 +9,7 @@
 
         var service = {
             getAll: getAll,
+            getItem: getItem,
             addItem: addItem,
             deleteItem: deleteItem
         };
@@ -17,8 +18,15 @@
 
         function getAll(){
             return $http.get('/items').then(function(response){
+                console.log(response.data);
                 return response.data;
             })
+        }
+
+        function getItem(id){
+            return $http.get('/items/', id).then(function(response){
+               return response.data;
+            });
         }
 
         function addItem(item){

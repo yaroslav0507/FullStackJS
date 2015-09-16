@@ -10,6 +10,5 @@ global.auth          = jwt({secret: process.env.JWT_CERT, userProperty: 'payload
 
 require('./items');
 require('./users');
-require('./fileUpload');
 
 module.exports = router;
