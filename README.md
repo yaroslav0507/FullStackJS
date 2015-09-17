@@ -1,13 +1,13 @@
-# node-js E-commerce
+# MEAN Stack E-commerce
 
-My pet Node.js app using [Express 4](http://expressjs.com/).
+Let me introduce my pet application.
 
 ## Stack of technologies
+
 - [Mongo DB](https://www.mongodb.org/);
+- [Express JS](http://expressjs.com/);
 - [Angular JS](https://angularjs.org/);
-
 - [Node JS](https://nodejs.org/);
-
 
 ## Running Locally
 
