@@ -5,12 +5,13 @@
         .module('app')
         .factory('ItemsService', ItemsService);
 
-    function ItemsService($http){
+    function ItemsService($http, Upload){
 
         var service = {
             getAll: getAll,
             getItem: getItem,
             addItem: addItem,
+            uploadImage: uploadImage,
             updateItem: updateItem,
             deleteItem: deleteItem
         };
@@ -19,7 +20,6 @@
 
         function getAll(){
             return $http.get('/items').then(function(response){
-                console.log(response.data);
                 return response.data;
             })
         }
@@ -33,6 +33,16 @@
         function addItem(item){
             return $http.post('/items/', item).then(function(response){
                return response.data;
+            });
+        }
+
+        function uploadImage(file) {
+            return Upload.upload({
+                url: '/upload',
+                method: 'POST',
+                file: file
+            }).then(function (response) {
+                return response.data;
             });
         }
 

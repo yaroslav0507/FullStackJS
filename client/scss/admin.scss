@@ -64,6 +64,9 @@ textarea.form-control{
 .item-edit-thumbnail{
   position: relative;
   display: block;
+  width: 180px;
+  text-align: center;
+
 }
 
 .item-edit-mask{
@@ -71,6 +74,8 @@ textarea.form-control{
   height: 100%;
   text-align: center;
   position: absolute;
+  left: 0;
+  top: 0;
   background-color: #FFF;
   transition: ease all .3s;
   opacity: 0;
@@ -102,6 +107,10 @@ textarea.form-control{
     right: 0;
     bottom: -23px;
   }
+}
+
+.item-edit-image{
+  max-width: 100%;
 }
 
 .save-changes{

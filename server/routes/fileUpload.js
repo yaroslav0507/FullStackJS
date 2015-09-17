@@ -28,5 +28,9 @@ router.post('/upload', upload.single('file'), function(req, res, next){
     //        }
     //    });
     //console.log('trace');
-    res.status(200).send(req.file.filename);
+
+    var filename;
+    filename = (req.file) ? req.file.filename : '';
+
+    res.status(200).send(filename);
 });

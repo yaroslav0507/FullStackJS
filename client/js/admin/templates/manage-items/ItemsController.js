@@ -5,7 +5,7 @@
         .module('app')
         .controller('ItemsController', ItemsController);
 
-    function ItemsController($window, items, ItemsService, Upload, $q) {
+    function ItemsController(items, ItemsService, $q) {
 
         var vm = this;
         var tempImageName = 'uploaded_item_image_name';
@@ -16,7 +16,7 @@
             },
             message: '',
             addItem: addItem,
-            uploadFile: uploadFile,
+            uploadImage: ItemsService.uploadImage,
             deleteItem: deleteItem,
             validateInputs: validateInputs
         });
@@ -33,30 +33,21 @@
 
         function addItem() {
             if (vm.validateInputs()) {
-                vm.uploadFile(vm.item.file).then(function(filename){
-                    vm.item.imageURL = '/images/' + filename;
+                vm.uploadImage(vm.item.file).then(function(filename){
+
+                    generateURL(filename);
 
                     ItemsService.addItem(vm.item).then(function () {
                         vm.items.push(makeShortDescriptions(160, vm.item));
                         vm.item = {};
                     });
+
                 }).catch(function(response){
-                        vm.message = response.status + ': ' + response.data;
-                        return $q.reject();
-                    });
+                    vm.message = response.status + ': ' + response.data;
+                    return $q.reject();
+                });
 
             }
-        }
-
-        function uploadFile(file) {
-            return Upload.upload({
-                url: '/upload',
-                method: 'POST',
-                file: file
-            }).then(function (response) {
-                $window.localStorage.setItem(tempImageName, response.data);
-                return response.data
-            });
         }
 
         function deleteItem(item) {
@@ -76,6 +67,15 @@
                 item.shortDescription = item.description
             }
             return item;
+        }
+
+        /*Check if item has image*/
+        function generateURL(filename){
+            if(filename){
+                vm.item.imageURL = '/images/' + filename;
+            } else {
+                vm.item.imageURL = '/images/service/no-image.png';
+            }
         }
 
     }
