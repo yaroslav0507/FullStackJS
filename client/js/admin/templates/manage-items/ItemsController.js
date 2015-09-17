@@ -14,11 +14,7 @@
             items: items.map(makeShortDescriptions.bind(null, 1200)),
             item: {
             },
-
-            error: {
-                flag: false,
-                message: ''
-            },
+            message: '',
             addItem: addItem,
             uploadFile: uploadFile,
             deleteItem: deleteItem,
@@ -28,11 +24,9 @@
 
         function validateInputs() {
             if (vm.item.title && vm.item.price && vm.item.description) {
-                vm.error.flag = false;
                 return true;
             } else {
-                vm.error.message = 'Please fill out all fields';
-                vm.error.flag = true;
+                vm.message = 'Please fill out all fields';
                 return false;
             }
         }
@@ -47,8 +41,7 @@
                         vm.item = {};
                     });
                 }).catch(function(response){
-                        vm.error.message = response.status + ': ' + response.data;
-                        vm.error.flag = true;
+                        vm.message = response.status + ': ' + response.data;
                         return $q.reject();
                     });
 

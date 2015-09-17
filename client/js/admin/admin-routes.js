@@ -31,7 +31,7 @@
                 url: '/main',
                 views: {
                     'content@admin': {
-                        templateUrl: 'admin/templates/items/items.html',
+                        templateUrl: 'admin/templates/manage-items/items.html',
                         controller: 'ItemsController',
                         controllerAs: 'itemsCtrl',
                         resolve: {

@@ -16,9 +16,8 @@
         });
 
         function saveChanges(){
-            vm.message = vm.item.title + ' successfully updated.';
             ItemsService.updateItem(vm.item).then(function () {
-
+                vm.message = vm.item.title + ' successfully updated.';
             });
         }
 
