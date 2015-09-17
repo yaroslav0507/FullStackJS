@@ -22,7 +22,7 @@
             AuthService.register(vm.user).error(function(error){
                vm.error = error;
             }).then(function(){
-                $state.go('main');
+                $state.go('store.main');
             });
         }
 
@@ -30,7 +30,7 @@
             AuthService.logIn(vm.user).error(function(error){
                 vm.error = error;
             }).then(function(){
-                $state.go('main');
+                $state.go('store.main');
             });
         }
 

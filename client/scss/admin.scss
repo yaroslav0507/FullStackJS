@@ -40,6 +40,7 @@ textarea.form-control{
   &__message{
     display: block;
     width: 120px;
+    max-width: 100%;
     margin: auto;
     margin-top: 40px;
     font-size: 14px;
@@ -50,4 +51,51 @@ textarea.form-control{
 
 .dragover {
   border: 5px dashed $successColor;
+}
+
+.item-edit-thumbnail{
+  position: relative;
+  display: block;
+}
+
+.item-edit-mask{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  position: absolute;
+  background-color: #FFF;
+  transition: ease all .3s;
+  opacity: 0;
+
+  &:hover{
+    transition: ease all .3s;
+    opacity: 0.5;
+  }
+
+  i{
+    font-size: 80px;
+    position: absolute;
+    top: -23px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    height: 1em;
+
+  }
+
+  .small{
+    font-size: 16px;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: sans-serif;
+    left: 0;
+    right: 0;
+    bottom: -23px;
+  }
+}
+
+.save-changes{
+  margin-top: 35px;
 }
