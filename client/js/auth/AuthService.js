@@ -12,7 +12,8 @@
             currentUser: currentUser,
             register: register,
             logIn: logIn,
-            logOut: logOut
+            logOut: logOut,
+            getUsers: getUsers
         };
 
         return auth;
@@ -37,6 +38,12 @@
 
                 return payload.username;
             }
+        }
+
+        function getUsers(){
+            return $http.get('/users').success(function (response) {
+                return response;
+            });
         }
         
         function register(user){

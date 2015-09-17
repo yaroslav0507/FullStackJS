@@ -1,7 +1,14 @@
+<div class="admin-user clearfix">
+    <span class="admin-user__avatar">
+        <img src="http://webapplayers.com/inspinia_admin-v2.3/img/profile_small.jpg" alt=""/>
+    </span>
+    <span class="admin-user__username">{{dashboardCtrl.user}}</span>
+
+</div>
 <ul class="nav nav-sidebar">
     <li ui-sref-active="active"><a ui-sref="admin.main">Dashboard</a></li>
     <li><a>Item management</a></li>
-    <li><a href="#">Analytics</a></li>
+    <li><a ui-sref="admin.users">Users</a></li>
     <li><a href="#">Export</a></li>
 </ul>
 <ul class="nav nav-sidebar">

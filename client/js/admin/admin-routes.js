@@ -23,7 +23,9 @@
                         templateUrl: 'admin/components/navigation.html'
                     },
                     'sidebar@admin': {
-                        templateUrl: 'admin/components/sidebar.html'
+                        templateUrl: 'admin/components/sidebar.html',
+                        controller: 'DashboardController',
+                        controllerAs: 'dashboardCtrl'
                     }
                 }
             })
@@ -52,6 +54,19 @@
                         }
                     }
                 }
+            })
+            .state('admin.users', {
+                url: '/users',
+                views: {
+                    'content@admin': {
+                        templateUrl: 'admin/templates/manage-users/users.html',
+                        controller: 'UsersController',
+                        controllerAs: 'usersCtrl',
+                        resolve: {
+                            users: resolveUsers
+                        }
+                    }
+                }
             });
 
 
@@ -61,6 +76,10 @@
 
         function resolveItem($stateParams, ItemsService){
             return ItemsService.getItem($stateParams.id);
+        }
+
+        function resolveUsers(AuthService){
+            return AuthService.getUsers();
         }
     }
 })();

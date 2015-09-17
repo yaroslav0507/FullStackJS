@@ -5,15 +5,14 @@
         .module('app')
         .controller('HeaderController', HeaderController);
 
-    function HeaderController(ItemsService, AuthService){
+    function HeaderController(AuthService){
 
         var vm = this;
 
         angular.extend(vm, {
             isAuthenticated: AuthService.isLoggedIn,
             logOut: AuthService.logOut,
-            userName: AuthService.currentUser(),
-            items: ItemsService
+            userName: AuthService.currentUser()
         });
 
     }

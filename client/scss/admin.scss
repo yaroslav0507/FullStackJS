@@ -56,9 +56,6 @@ textarea.form-control{
 
 .dragover {
   border: 5px dashed $successColor;
-  i{
-    color: $successColor;
-  }
 }
 
 .item-edit-thumbnail{
@@ -115,4 +112,24 @@ textarea.form-control{
 
 .save-changes{
   margin-top: 35px;
+}
+
+.admin-user{
+  margin-bottom: 15px;
+  &__avatar{
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+    overflow: hidden;
+    display: block;
+    float: left;
+  }
+
+  &__username{
+    font-size: 20px;
+    font-weight: 700;
+    display: block;
+    float: left;
+    margin: 10px 15px;
+  }
 }
