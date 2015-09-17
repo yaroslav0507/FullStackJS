@@ -7,7 +7,7 @@
         </div>
         <div class="col-xs-2">
             <label>Image</label>
-            <div class="thumbnail item-image-thumbnail"
+            <div class="thumbnail drag-drop-field"
                  ngf-drop
                  ngf-select
                  ngf-drag-over-class="dragover"
@@ -15,7 +15,10 @@
                  name="file"
                  accept="image/*"
                  ngf-max-size="2MB">
-                <span ng-hide="itemsCtrl.item.file" class="item-image-thumbnail__message">Drag'n drop file, or click to download.</span>
+                <span ng-hide="itemsCtrl.item.file" class="drag-drop-field__message">
+                    <i class="glyphicon glyphicon-download-alt"></i>
+                    <p>Drag & Drop, or click to download.</p>
+                </span>
                 <img ng-show="form.file.$valid"
                      ngf-src="!itemsCtrl.item.file.$error && itemsCtrl.item.file">
             </div>

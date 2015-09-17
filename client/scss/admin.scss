@@ -25,7 +25,7 @@ textarea.form-control{
   resize: vertical;
 }
 
-.item-image-thumbnail{
+.drag-drop-field{
   position: relative;
   min-height: 147px;
   display: block;
@@ -42,15 +42,23 @@ textarea.form-control{
     width: 120px;
     max-width: 100%;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 25px;
     font-size: 14px;
     text-align: center;
-    opacity: .7;
+    color: #B2B2B2;
+    
+    i{
+      font-size: 34px;
+      color: #ddd;
+    }
   }
 }
 
 .dragover {
   border: 5px dashed $successColor;
+  i{
+    color: $successColor;
+  }
 }
 
 .item-edit-thumbnail{

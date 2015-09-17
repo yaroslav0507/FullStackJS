@@ -11,10 +11,12 @@
 
         angular.extend(vm, {
             item: item,
+            message: '',
             saveChanges: saveChanges
         });
 
         function saveChanges(){
+            vm.message = vm.item.title + ' successfully updated.';
             ItemsService.updateItem(vm.item).then(function () {
 
             });

@@ -17,7 +17,7 @@
                 }],
                 views:{
                     '':{
-                        templateUrl: 'admin/index.html'
+                        templateUrl: 'admin/admin-base.html'
                     },
                     'navigation@admin': {
                         templateUrl: 'admin/components/navigation.html'

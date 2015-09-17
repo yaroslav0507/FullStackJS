@@ -10,7 +10,6 @@ gulp.task('serve', ['dev'], function(){
         browser: "google chrome",
         port: 7000
     });
-    console.log(process.env.SERVER_PORT);
 
     gulp.watch('./dist/index.html').on('change', browserSync.reload);
 
