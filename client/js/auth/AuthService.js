@@ -9,11 +9,13 @@
 
         var auth = {
             isLoggedIn: isLoggedIn,
-            currentUser: currentUser,
+            userName: userName,
+            userAccessLevel: userAccessLevel,
             register: register,
             logIn: logIn,
             logOut: logOut,
-            getUsers: getUsers
+            getUsers: getUsers,
+            getUserRole: getUserRole
         };
 
         return auth;
@@ -30,7 +32,7 @@
             }
         }
 
-        function currentUser(){
+        function userName(){
             var token = HttpTokenAuthService.getToken();
 
             if(token){
@@ -40,10 +42,26 @@
             }
         }
 
+        function userAccessLevel(){
+            var token = HttpTokenAuthService.getToken();
+
+            if(token){
+                var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+                return payload.accessLevel;
+            }
+        }
+
         function getUsers(){
             return $http.get('/users').success(function (response) {
                 return response;
             });
+        }
+
+        function getUserRole(user){
+            var accessLevel = userAccessLevel();
+            var userRoles = ['User', 'Redactor', 'Administrator'];
+            return userRoles[accessLevel];
         }
         
         function register(user){

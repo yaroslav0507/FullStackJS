@@ -12,7 +12,7 @@
         angular.extend(vm, {
             isAuthenticated: AuthService.isLoggedIn,
             logOut: AuthService.logOut,
-            userName: AuthService.currentUser()
+            userName: AuthService.userName()
         });
 
     }

@@ -48,7 +48,7 @@ router.post('/login', function(req, res, next) {
     })(req, res, next);
 });
 
-router.get('/users', function(req, res, next){
+router.get('/users', auth, function(req, res, next){
     User.find(function(err, users){
         if(err){ return next(err); }
         res.json(users);

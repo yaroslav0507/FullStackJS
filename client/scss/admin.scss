@@ -114,8 +114,9 @@ textarea.form-control{
   margin-top: 35px;
 }
 
-.admin-user{
+.sidebar-user{
   margin-bottom: 15px;
+  position: relative;
   &__avatar{
     width: 48px;
     height: 48px;
@@ -123,13 +124,51 @@ textarea.form-control{
     overflow: hidden;
     display: block;
     float: left;
+    margin-right: 15px;
   }
 
   &__username{
     font-size: 20px;
+    line-height: 1.1em;
     font-weight: 700;
     display: block;
     float: left;
-    margin: 10px 15px;
+    width: 70%;
+  }
+
+  &__role{
+    font-size: 15px;
+    margin-top: 10px;
+    color: #6D6D6D;
+    float: left;
+    display: block;
+  }
+
+  &__actions{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    .btn{
+      padding: 1px 8px;
+    }
+
+    .dropdown-menu{
+      right: 0;
+      left: auto;
+
+      .glyphicon{
+        color: #9A9A9A;
+        margin-right: 5px;
+        padding-right: 8px;
+        border-right: 1px solid #D7D2D2;
+      }
+    }
+  }
+}
+
+.user-profile-progress{
+  .progress{
+    height: 15px;
+    background-color: #e7e7e7;
   }
 }

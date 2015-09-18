@@ -33,6 +33,7 @@ UserSchema.methods.generateJWT = function(){
     return jwt.sign({
         _id: this.id,
         username: this.username,
+        accessLevel: this.accessLevel,
         exp: parseInt(exp.getTime() / 1000)
     }, process.env.JWT_CERT);
 };

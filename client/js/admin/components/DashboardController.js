@@ -9,7 +9,9 @@
         var vm = this;
 
         angular.extend(vm, {
-           user: AuthService.currentUser()
+            user: AuthService.userName(),
+            userRole: AuthService.getUserRole(),
+            userAccessLevel: AuthService.userAccessLevel()
         });
     }
 })();
