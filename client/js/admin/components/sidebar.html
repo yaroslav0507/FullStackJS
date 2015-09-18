@@ -1,12 +1,12 @@
 <div class="sidebar-user clearfix">
     <span class="sidebar-user__avatar">
-        <img src="http://webapplayers.com/inspinia_admin-v2.3/img/profile_small.jpg" alt=""/>
+        <img ng-src="{{dashboardCtrl.userPic}}" alt=""/>
     </span>
     <span class="sidebar-user__username">{{dashboardCtrl.user}}</span>
     <div class="sidebar-user__role">
-        <i class="glyphicon glyphicon-king" ng-show="dashboardCtrl.userAccessLevel == 2"></i>
-        <i class="glyphicon glyphicon-knight" ng-show="dashboardCtrl.userAccessLevel == 1"></i>
-        <i class="glyphicon glyphicon-pawn" ng-show="dashboardCtrl.userAccessLevel == 0"></i>
+        <i class="glyphicon glyphicon-king" ng-show="dashboardCtrl.getUserAccessLevel == 2"></i>
+        <i class="glyphicon glyphicon-knight" ng-show="dashboardCtrl.getUserAccessLevel == 1"></i>
+        <i class="glyphicon glyphicon-pawn" ng-show="dashboardCtrl.getUserAccessLevel == 0"></i>
         {{ dashboardCtrl.userRole }}
     </div>
     <div class="dropdown sidebar-user__actions clearfix">
@@ -15,9 +15,9 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#"><i class="glyphicon glyphicon-user"></i> Edit profile</a></li>
+            <li><a ui-sref="admin.profile"><i class="glyphicon glyphicon-user"></i> Edit profile</a></li>
             <!--<li role="separator" class="divider"></li>-->
-            <li><a href="#"><i class="glyphicon glyphicon glyphicon-off"></i> Log out</a></li>
+            <li ng-click="dashboardCtrl.logOut()"><a href="#"><i class="glyphicon glyphicon glyphicon-off"></i> Log out</a></li>
 
         </ul>
     </div>

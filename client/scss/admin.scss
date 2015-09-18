@@ -40,17 +40,20 @@ textarea.form-control{
   &__message{
     display: block;
     width: 120px;
+    height: 80px;
     max-width: 100%;
-    margin: auto;
-    margin-top: 25px;
     font-size: 14px;
     text-align: center;
     color: #B2B2B2;
-    
+    @include centered;
     i{
       font-size: 34px;
       color: #ddd;
     }
+  }
+
+  &_ava{
+    min-height: 183px;
   }
 }
 
@@ -117,6 +120,7 @@ textarea.form-control{
 .sidebar-user{
   margin-bottom: 15px;
   position: relative;
+  
   &__avatar{
     width: 48px;
     height: 48px;
@@ -125,6 +129,10 @@ textarea.form-control{
     display: block;
     float: left;
     margin-right: 15px;
+    background-color: #fff;
+    img{
+      width: 100%;
+    }
   }
 
   &__username{

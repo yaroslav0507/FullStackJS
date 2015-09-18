@@ -20,14 +20,17 @@
         function saveChanges(){
             var productImage = vm.item.file;
             if(productImage){
-                console.log(productImage);
                 ItemsService.uploadImage(productImage).then(function(filename){
-                    vm.item.imageURL = '/images/' + filename;
+                    vm.item.imageURL = '/images/items/' + filename;
 
                     ItemsService.updateItem(vm.item).then(function () {
                         vm.message = vm.item.title + ' successfully updated.';
                     });
                 })
+            } else {
+                ItemsService.updateItem(vm.item).then(function () {
+                    vm.message = vm.item.title + ' successfully updated.';
+                });
             }
         }
 

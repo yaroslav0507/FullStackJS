@@ -5,13 +5,21 @@
         .module('app')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController(AuthService){
+    function DashboardController(UsersService, AuthService, $state){
         var vm = this;
+        var user = UsersService.getUserInfo();
 
         angular.extend(vm, {
-            user: AuthService.userName(),
-            userRole: AuthService.getUserRole(),
-            userAccessLevel: AuthService.userAccessLevel()
+            user: user.username,
+            userPic: user.imageURL,
+            getUserAccessLevel: user.accessLevel,
+            userRole: UsersService.getUserRole(),
+            logOut: logOut
         });
+
+        function logOut(){
+            AuthService.logOut();
+            $state.go('store.main');
+        }
     }
 })();

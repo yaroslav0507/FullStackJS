@@ -35,7 +35,7 @@
             if (vm.validateInputs()) {
                 vm.uploadImage(vm.item.file).then(function(filename){
 
-                    generateURL(filename);
+                    ItemsService.generateURL(filename);
 
                     ItemsService.addItem(vm.item).then(function () {
                         vm.items.push(makeShortDescriptions(160, vm.item));
@@ -69,14 +69,6 @@
             return item;
         }
 
-        /*Check if item has image*/
-        function generateURL(filename){
-            if(filename){
-                vm.item.imageURL = '/images/' + filename;
-            } else {
-                vm.item.imageURL = '/images/service/no-image.png';
-            }
-        }
 
     }
 })();

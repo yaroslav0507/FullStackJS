@@ -12,7 +12,7 @@
                 abstract: true,
                 onEnter: ['$state', 'AuthService', function($state, AuthService){
                     if(!AuthService.isLoggedIn()){
-                        $state.go('main');
+                        $state.go('store.main');
                     }
                 }],
                 views:{
@@ -59,11 +59,24 @@
                 url: '/users',
                 views: {
                     'content@admin': {
-                        templateUrl: 'admin/templates/manage-users/users.html',
+                        templateUrl: 'admin/templates/user-management/edit-users/users.html',
                         controller: 'UsersController',
                         controllerAs: 'usersCtrl',
                         resolve: {
                             users: resolveUsers
+                        }
+                    }
+                }
+            })
+            .state('admin.profile', {
+                url: '/profile',
+                views: {
+                    'content@admin': {
+                        templateUrl: 'admin/templates/user-management/edit-profile/profile.html',
+                        controller: 'ProfileController',
+                        controllerAs: 'profileCtrl',
+                        resolve: {
+                            user: resolveUser
                         }
                     }
                 }
@@ -78,8 +91,12 @@
             return ItemsService.getItem($stateParams.id);
         }
 
-        function resolveUsers(AuthService){
-            return AuthService.getUsers();
+        function resolveUsers(UsersService){
+            return UsersService.getUsers();
+        }
+
+        function resolveUser(UsersService){
+            return UsersService.getUserInfo();
         }
     }
 })();

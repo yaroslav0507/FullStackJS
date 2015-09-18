@@ -12,6 +12,7 @@
             getItem: getItem,
             addItem: addItem,
             uploadImage: uploadImage,
+            generateURL: generateURL,
             updateItem: updateItem,
             deleteItem: deleteItem
         };
@@ -44,6 +45,14 @@
             }).then(function (response) {
                 return response.data;
             });
+        }
+
+        function generateURL(filename){
+            if(filename){
+                vm.item.imageURL = '/images/items/' + filename;
+            } else {
+                vm.item.imageURL = '/images/service/no-image.png';
+            }
         }
 
         function updateItem(item){
