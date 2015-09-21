@@ -43,7 +43,8 @@ app.use(function(err, req, res, next){
     res.status(500).send({err: err.stack});
 });
 
-app.listen(process.env.SERVER_PORT, function(){
+var port = normalizePort(process.env.SERVER_PORT || '4000');
+app.listen(port, function(){
     console.log('Express server listening on port: ' + process.env.SERVER_PORT);
 });
 
