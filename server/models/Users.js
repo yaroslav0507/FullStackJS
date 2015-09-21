@@ -8,6 +8,8 @@ var jwt = require('jsonwebtoken');
 
 var UserSchema = new mongoose.Schema({
     username: {type: String, lowercase: true, unique: true},
+    accessLevel: {type: Number, default: 0},
+    imageURL: String,
     hash: String,
     salt: String
 });
@@ -32,8 +34,10 @@ UserSchema.methods.generateJWT = function(){
     return jwt.sign({
         _id: this.id,
         username: this.username,
+        accessLevel: this.accessLevel,
+        imageURL: this.imageURL,
         exp: parseInt(exp.getTime() / 1000)
-    }, process.env.JWT_CERT, {algorythm: 'RS256'});
+    }, process.env.JWT_CERT);
 };
 
 mongoose.model('User', UserSchema);

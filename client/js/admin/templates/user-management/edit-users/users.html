@@ -1,0 +1,22 @@
+<h2 class="sub-header">All items</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>User</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in usersCtrl.users.data">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ user._id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ usersCtrl.user.role(user) }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

@@ -12,18 +12,20 @@
                 abstract: true,
                 onEnter: ['$state', 'AuthService', function($state, AuthService){
                     if(!AuthService.isLoggedIn()){
-                        $state.go('main');
+                        $state.go('store.main');
                     }
                 }],
                 views:{
                     '':{
-                        templateUrl: 'admin/index.html'
+                        templateUrl: 'admin/admin-base.html'
                     },
                     'navigation@admin': {
                         templateUrl: 'admin/components/navigation.html'
                     },
                     'sidebar@admin': {
-                        templateUrl: 'admin/components/sidebar.html'
+                        templateUrl: 'admin/components/sidebar.html',
+                        controller: 'DashboardController',
+                        controllerAs: 'dashboardCtrl'
                     }
                 }
             })
@@ -31,7 +33,7 @@
                 url: '/main',
                 views: {
                     'content@admin': {
-                        templateUrl: 'admin/templates/items/items.html',
+                        templateUrl: 'admin/templates/manage-items/items.html',
                         controller: 'ItemsController',
                         controllerAs: 'itemsCtrl',
                         resolve: {
@@ -52,6 +54,32 @@
                         }
                     }
                 }
+            })
+            .state('admin.users', {
+                url: '/users',
+                views: {
+                    'content@admin': {
+                        templateUrl: 'admin/templates/user-management/edit-users/users.html',
+                        controller: 'UsersController',
+                        controllerAs: 'usersCtrl',
+                        resolve: {
+                            users: resolveUsers
+                        }
+                    }
+                }
+            })
+            .state('admin.profile', {
+                url: '/profile',
+                views: {
+                    'content@admin': {
+                        templateUrl: 'admin/templates/user-management/edit-profile/profile.html',
+                        controller: 'ProfileController',
+                        controllerAs: 'profileCtrl',
+                        resolve: {
+                            user: resolveUser
+                        }
+                    }
+                }
             });
 
 
@@ -61,6 +89,14 @@
 
         function resolveItem($stateParams, ItemsService){
             return ItemsService.getItem($stateParams.id);
+        }
+
+        function resolveUsers(UsersService){
+            return UsersService.getUsers();
+        }
+
+        function resolveUser(UsersService){
+            return UsersService.getUserInfo();
         }
     }
 })();

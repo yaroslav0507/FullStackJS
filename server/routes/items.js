@@ -9,9 +9,9 @@ router.get('/items', function(req, res, next){
     });
 });
 
+/* Add item */
 router.post('/items', function(req, res, next){
     var item = new Item(req.body);
-    console.log(req.body);
 
     item.title = req.body.title;
     item.description = req.body.description;
@@ -22,6 +22,19 @@ router.post('/items', function(req, res, next){
         if(err){ return next(err) }
         res.json(item);
     });
+});
+
+/* Update item */
+router.put('/items/:item', function(req, res, next){
+
+    var obj = req.body;
+    var id = req.body._id;
+
+    Item.update({_id: id}, obj, {upsert: true}, function(err, item){
+        if(err){ return next(err); }
+        res.json(item);
+    });
+
 });
 
 /* Preloading item objects */

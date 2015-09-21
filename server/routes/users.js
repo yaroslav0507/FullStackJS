@@ -3,6 +3,12 @@
 var passport = require('passport');
 var User = mongoose.model('User');
 
+var jwt = require('express-jwt');
+var auth = jwt({
+    secret: 'SECRET',
+    userProperty: 'payload'
+});
+
 router.post('/register', function(req, res, next){
    if(!req.body.username || !req.body.password) {
        return res.status(400).json({
@@ -40,4 +46,37 @@ router.post('/login', function(req, res, next) {
             return res.status(400).json(info);
         }
     })(req, res, next);
+});
+
+router.get('/users', function(req, res, next){
+    User.find(function(err, users){
+        if(err){ return next(err); }
+        res.json(users);
+    });
+});
+
+/* Preloading user objects */
+router.param('user', function(req, res, next, id){
+    var query = User.findById(id);
+
+    query.exec(function(err, user){
+        if (err){ return next(err); }
+        if (!user){ return next(new Error('can\'t find user')); }
+
+        req.user = user;
+        return next();
+    });
+});
+
+router.put('/users/:user', function(req, res, next){
+
+    var obj = req.body;
+    var id = req.body._id;
+
+    User.update({_id: id}, obj, {upsert: true}, function(err, user){
+        if(err){ return next(err); }
+        console.log(req.user);
+        res.json(req.user.imageURL);
+    });
+
 });

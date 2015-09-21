@@ -7,7 +7,7 @@
         </div>
         <div class="col-xs-2">
             <label>Image</label>
-            <div class="thumbnail item-image-thumbnail"
+            <div class="thumbnail drag-drop-field"
                  ngf-drop
                  ngf-select
                  ngf-drag-over-class="dragover"
@@ -15,7 +15,10 @@
                  name="file"
                  accept="image/*"
                  ngf-max-size="2MB">
-                <span ng-hide="itemsCtrl.item.file" class="item-image-thumbnail__message">Drag'n drop file, or click to download.</span>
+                <span ng-hide="itemsCtrl.item.file" class="drag-drop-field__message">
+                    <i class="glyphicon glyphicon-download-alt"></i>
+                    <p>Drag & Drop, or click to download.</p>
+                </span>
                 <img ng-show="form.file.$valid"
                      ngf-src="!itemsCtrl.item.file.$error && itemsCtrl.item.file">
             </div>
@@ -60,13 +63,13 @@
                     ng-click="itemsCtrl.addItem()">Add item</button>
         </div>
         <div class="col-xs-12"
-             ng-show="itemsCtrl.error.flag">
+             ng-show="itemsCtrl.message.length">
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h3 class="panel-title">Error occured</h3>
                 </div>
                 <div class="panel-body">
-                    {{itemsCtrl.error.message}}
+                    {{itemsCtrl.message}}
                 </div>
             </div>
         </div>
@@ -97,7 +100,7 @@
                             <span class="small">Edit</span>
                         </i>
                     </span>
-                    <img ng-src="{{item.imageURL}}" alt=""/>
+                    <img ng-src="{{item.imageURL}}" class="item-edit-image">{{itemsCtrl.item.hasImage(item)}}
                 </span>
             </a></td>
             <td>{{ item.title }}</td>
