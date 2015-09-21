@@ -7,13 +7,13 @@
 
     function DashboardController(UsersService, AuthService, $state){
         var vm = this;
-        var user = UsersService.getUserInfo();
+        var user = UsersService.getUserPayload();
 
         angular.extend(vm, {
-            user: user.username,
-            userPic: user.imageURL,
+            user: user,
             getUserAccessLevel: user.accessLevel,
             userRole: UsersService.getUserRole(),
+            userData: userData(),
             logOut: logOut
         });
 
@@ -21,5 +21,12 @@
             AuthService.logOut();
             $state.go('store.main');
         }
+
+        function userData(){
+            return UsersService.getUserData(user._id).success(function (response) {
+                user.imageURL = response.image;
+            });
+        }
+
     }
 })();

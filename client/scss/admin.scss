@@ -164,19 +164,28 @@ textarea.form-control{
       right: 0;
       left: auto;
 
-      .glyphicon{
-        color: #9A9A9A;
-        margin-right: 5px;
-        padding-right: 8px;
-        border-right: 1px solid #D7D2D2;
-      }
     }
   }
+}
+
+.glyphicon_bordered{
+  color: #9A9A9A;
+  margin-right: 5px;
+  padding-right: 8px;
+  border-right: 1px solid #D7D2D2;
 }
 
 .user-profile-progress{
   .progress{
     height: 15px;
     background-color: #e7e7e7;
+  }
+}
+
+.nav-sidebar{
+  .active{
+    i{
+      color: #FFF;
+    }
   }
 }

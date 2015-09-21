@@ -55,6 +55,14 @@ router.get('/users', function(req, res, next){
     });
 });
 
+router.get('/users/:user', function(req, res){
+    var data = {
+        image: req.user.imageURL
+    };
+
+    res.send(data);
+});
+
 /* Preloading user objects */
 router.param('user', function(req, res, next, id){
     var query = User.findById(id);
@@ -75,7 +83,7 @@ router.put('/users/:user', function(req, res, next){
 
     User.update({_id: id}, obj, {upsert: true}, function(err, user){
         if(err){ return next(err); }
-        console.log(req.user);
+
         res.json(req.user.imageURL);
     });
 
