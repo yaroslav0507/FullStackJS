@@ -76,7 +76,7 @@
                         controller: 'ProfileController',
                         controllerAs: 'profileCtrl',
                         resolve: {
-                            user: resolveUser
+                            user: resolveUserPayload
                         }
                     }
                 }
@@ -95,8 +95,12 @@
             return UsersService.getUsers();
         }
 
-        function resolveUser(UsersService){
-            return UsersService.getUserInfo();
+        function resolveUserPayload(UsersService){
+            return UsersService.getUserPayload();
+        }
+
+        function resolveUserData(UsersService){
+            return UsersService.getUserData();
         }
     }
 })();

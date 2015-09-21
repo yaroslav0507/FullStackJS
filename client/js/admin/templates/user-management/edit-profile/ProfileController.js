@@ -5,7 +5,7 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    function ProfileController(user, UsersService) {
+    function ProfileController(user, UsersService, $state) {
 
         var vm = this;
 
@@ -13,7 +13,8 @@
             user: user,
             userRole: UsersService.getUserRole(vm.user),
             uploadPhoto: uploadPhoto,
-            updateUser: updateUser
+            updateUser: updateUser,
+            userData: userData()
         });
 
         function updateUser(){
@@ -38,10 +39,17 @@
             UsersService.uploadImage(userImage).then(function(response){
                 return UsersService.generateURL(response);
             }).then(function(response){
-                console.log(response);
                 vm.user.imageURL = response;
                 UsersService.updateUser(vm.user);
+
+                $state.reload();
             })
+        }
+
+        function userData(){
+            return UsersService.getUserData(user._id).success(function (response) {
+                vm.user.imageURL = response.image;
+            });
         }
     }
 })();

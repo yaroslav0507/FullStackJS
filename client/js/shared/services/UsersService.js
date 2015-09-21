@@ -8,7 +8,8 @@
     function UsersService($http, Upload, HttpTokenAuthService, $window){
 
         var service = {
-            getUserInfo: getUserInfo,
+            getUserPayload: getUserPayload,
+            getUserData: getUserData,
             getUserRole: getUserRole,
             getUsers: getUsers,
             uploadImage: uploadImage,
@@ -18,7 +19,7 @@
 
         return service;
 
-        function getUserInfo(){
+        function getUserPayload(){
             var token = HttpTokenAuthService.getToken();
 
             if(token){
@@ -30,9 +31,15 @@
             }
         }
 
+        function getUserData(id){
+            return $http.get('/users/' + id).success(function(response){
+                return response;
+            });
+        }
+
 
         function getUserRole(user){
-            var accessLevel = getUserInfo().accessLevel;
+            var accessLevel = getUserPayload().accessLevel;
             var userRoles = ['User', 'Redactor', 'Administrator'];
             return userRoles[accessLevel];
         }

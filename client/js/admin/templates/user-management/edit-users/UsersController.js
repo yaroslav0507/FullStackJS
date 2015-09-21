@@ -5,7 +5,7 @@
         .module('app')
         .controller('UsersController', UsersController);
 
-    function UsersController(users) {
+    function UsersController(users, UsersService) {
 
         var vm = this;
 
@@ -16,7 +16,7 @@
                     return vm.userRole[user.accessLevel];
                 }
             },
-            userRole: ['user', 'redactor', 'admin']
+            userRole: ['User', 'Redactor', 'Administrator']
         });
 
     }

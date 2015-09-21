@@ -35,7 +35,6 @@ UserSchema.methods.generateJWT = function(){
         _id: this.id,
         username: this.username,
         accessLevel: this.accessLevel,
-        imageURL: this.imageURL,
         exp: parseInt(exp.getTime() / 1000)
     }, process.env.JWT_CERT);
 };

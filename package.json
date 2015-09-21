@@ -2,7 +2,7 @@
   "name": "NodeJS_Store",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/app.js",
   "scripts": {
     "start": "nodemon ./server/app.js"
   },
