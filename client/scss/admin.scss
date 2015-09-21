@@ -189,3 +189,7 @@ textarea.form-control{
     }
   }
 }
+
+.image-centered{
+  @include centered;
+}

@@ -76,7 +76,8 @@
 
 
                     <img ng-show="profileCtrl.user.imageURL && !profileCtrl.file"
-                         ngf-src="profileCtrl.user.imageURL">
+                         ngf-src="profileCtrl.user.imageURL"
+                         class="image-centered">
 
                     <img ng-show="userInfoForm.file.$valid"
                          ngf-src="!profileCtrl.file.$error && profileCtrl.file">
@@ -85,8 +86,7 @@
                 <button class="btn btn-primary"
                         ng-disabled="!profileCtrl.file"
                         ng-click="profileCtrl.uploadPhoto()">Upload photo</button>
-            </div> as
+            </div>
         </div>
     </div>
-</form>
-{{profileCtrl.user}}
+</form
