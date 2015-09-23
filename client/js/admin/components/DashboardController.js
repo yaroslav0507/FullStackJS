@@ -5,15 +5,14 @@
         .module('app')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController(UsersService, AuthService, $state){
+    function DashboardController(UsersService, AuthService, $state, $scope){
         var vm = this;
-        var user = UsersService.getUserPayload();
+        var user = getUser();
 
         angular.extend(vm, {
-            user: user,
             getUserAccessLevel: user.accessLevel,
             userRole: UsersService.getUserRole(),
-            userData: userData(),
+            onNameChange: onNameChange(),
             logOut: logOut
         });
 
@@ -22,11 +21,18 @@
             $state.go('store.main');
         }
 
-        function userData(){
-            return UsersService.getUserData(user._id).success(function (response) {
-                user.imageURL = response.image;
+        function getUser(){
+            return UsersService.getUserData().then(function(response){
+                vm.user = response.data;
+            })
+        }
+
+        function onNameChange(){
+            $scope.$on('change-name', function(event, args){
+                vm.user.username = args;
             });
         }
+
 
     }
 })();

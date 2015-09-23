@@ -9,12 +9,14 @@
 
         var service = {
             getUserPayload: getUserPayload,
+            getUserId: getUserId,
             getUserData: getUserData,
             getUserRole: getUserRole,
             getUsers: getUsers,
             uploadImage: uploadImage,
             generateURL: generateURL,
-            updateUser: updateUser
+            updateUser: updateUser,
+            changeUserName: changeUserName
         };
 
         return service;
@@ -31,10 +33,15 @@
             }
         }
 
-        function getUserData(id){
+        function getUserData(){
+            var id = getUserId();
             return $http.get('/users/' + id).success(function(response){
                 return response;
             });
+        }
+
+        function getUserId(){
+            return getUserPayload()._id;
         }
 
 
@@ -71,7 +78,13 @@
         }
 
         function updateUser(user){
-            return $http.put('/users/' + user._id, user).then(function(response){
+            return $http.put('/users/change-image/' + user._id, user).then(function(response){
+                return response.data;
+            });
+        }
+
+        function changeUserName(user){
+            return $http.put('/users/change-name/' + user._id, user).then(function(response){
                 return response.data;
             });
         }

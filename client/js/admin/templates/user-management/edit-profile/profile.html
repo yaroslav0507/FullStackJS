@@ -2,13 +2,18 @@
 
 <form name="userInfoForm">
     <div class="row">
-        <div class="col-xs-3">
+
+        <div class="alert alert-success" role="alert" ng-show="profileCtrl.message.length">
+            {{profileCtrl.message}}
+        </div>
+
+        <div class="col-xs-12 col-md-4">
             <h3 class="sub-header">Change password</h3>
             <div class="form-group">
                 <label>Enter old password</label>
                 <input type="password"
                        class="form-control"
-                       ng-model="profileCtrl.user.password.old"
+                       ng-model="profileCtrl.user.oldPassword"
                        value="">
             </div>
 
@@ -16,7 +21,7 @@
                 <label>Enter new password</label>
                 <input type="password"
                        class="form-control"
-                       ng-model="profileCtrl.user.password.new"
+                       ng-model="profileCtrl.user.newPassword"
                        value="">
             </div>
 
@@ -24,25 +29,17 @@
                 <label>Repeat new password</label>
                 <input type="password"
                        class="form-control"
-                       ng-model="profileCtrl.user.password.repeat"
+                       ng-model="profileCtrl.user.repeatPassword"
                        value="">
             </div>
 
             <button class="btn btn-primary">Change password</button>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-md-4">
             <h3 class="sub-header">Change username</h3>
 
             <div class="form-group">
-                <label>User role</label>
-                <input type="text"
-                       class="form-control"
-                       value="{{profileCtrl.userRole}}"
-                       disabled="true">
-            </div>
-
-            <div class="form-group">
-                <label>Enter new username</label>
+                <label>Enter old username</label>
                 <input type="text"
                        class="form-control"
                        ng-model="profileCtrl.user.oldUsername"
@@ -50,18 +47,25 @@
             </div>
 
             <div class="form-group">
-                <label>Repeat new username</label>
+                <label>Enter new username</label>
                 <input type="text"
                        class="form-control"
                        ng-model="profileCtrl.user.newUsername"
                        value="">
             </div>
 
+            <div class="form-group">
+                <label>Enter password</label>
+                <input type="password"
+                       class="form-control"
+                       ng-model="profileCtrl.user.password">
+            </div>
+
             <button class="btn btn-primary"
-                    ng-click="profileCtrl.updateUser()">Change name</button>
+                    ng-click="profileCtrl.changeUserName()">Change name</button>
         </div>
 
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-md-4">
             <h3 class="sub-header">Change photo</h3>
             <div class="form-group">
                 <label>Upload new photo</label>
@@ -75,8 +79,8 @@
                      ngf-max-size="2MB">
 
 
-                    <img ng-show="profileCtrl.user.imageURL && !profileCtrl.file"
-                         ngf-src="profileCtrl.user.imageURL"
+                    <img ng-show="profileCtrl.user.image && !profileCtrl.file"
+                         ngf-src="profileCtrl.user.image"
                          class="image-centered">
 
                     <img ng-show="userInfoForm.file.$valid"

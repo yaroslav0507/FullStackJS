@@ -13,6 +13,7 @@ var itemPicStorage = multer.diskStorage({
     }
 });
 
+
 var userPicStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './server/static/images/users/')

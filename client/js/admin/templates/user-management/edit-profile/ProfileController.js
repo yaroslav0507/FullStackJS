@@ -5,16 +5,18 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    function ProfileController(user, UsersService, $state) {
+    function ProfileController(user, UsersService, $state, $scope) {
 
         var vm = this;
 
         angular.extend(vm, {
             user: user,
+            message: '',
             userRole: UsersService.getUserRole(vm.user),
             uploadPhoto: uploadPhoto,
             updateUser: updateUser,
-            userData: userData()
+            getUserData: getUserData,
+            changeUserName: changeUserName
         });
 
         function updateUser(){
@@ -46,10 +48,24 @@
             })
         }
 
-        function userData(){
-            return UsersService.getUserData(user._id).success(function (response) {
+        function getUserData(){
+            return UsersService.getUserData(user._id).then(function (response) {
                 vm.user.imageURL = response.image;
             });
+        }
+
+        function changeUserName(){
+            vm.user._id = UsersService.getUserId();
+            UsersService.changeUserName(vm.user).then(function (response) {
+                if(response.message){
+                    vm.message = response.message;
+                } else {
+                    vm.user.username = response;
+                    vm.message = 'Your login successfuly changed to ' + vm.user.username;
+                    $scope.$emit('change-name', response);
+                }
+            });
+
         }
     }
 })();

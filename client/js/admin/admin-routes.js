@@ -17,15 +17,15 @@
                 }],
                 views:{
                     '':{
-                        templateUrl: 'admin/admin-base.html'
+                        templateUrl: 'admin/admin-base.html',
+                        controller: 'DashboardController',
+                        controllerAs: 'dashboardCtrl',
                     },
                     'navigation@admin': {
                         templateUrl: 'admin/components/navigation.html'
                     },
                     'sidebar@admin': {
-                        templateUrl: 'admin/components/sidebar.html',
-                        controller: 'DashboardController',
-                        controllerAs: 'dashboardCtrl'
+                        templateUrl: 'admin/components/sidebar.html'
                     }
                 }
             })
@@ -76,7 +76,7 @@
                         controller: 'ProfileController',
                         controllerAs: 'profileCtrl',
                         resolve: {
-                            user: resolveUserPayload
+                            user: resolveUserData
                         }
                     }
                 }
@@ -100,7 +100,11 @@
         }
 
         function resolveUserData(UsersService){
-            return UsersService.getUserData();
+            var payload = UsersService.getUserPayload();
+
+            return UsersService.getUserData(payload._id).then(function(response){
+                return response.data;
+            });
         }
     }
 })();
