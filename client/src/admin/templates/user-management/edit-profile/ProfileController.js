@@ -16,7 +16,8 @@
             uploadPhoto: uploadPhoto,
             updateUser: updateUser,
             getUserData: getUserData,
-            changeUserName: changeUserName
+            changeUserName: changeUserName,
+            changeUserPassword: changeUserPassword
         });
 
         function updateUser(){
@@ -42,7 +43,7 @@
                 return UsersService.generateURL(response);
             }).then(function(response){
                 vm.user.imageURL = response;
-                UsersService.updateUser(vm.user);
+                UsersService.changeUserPhoto(vm.user);
 
                 $state.reload();
             })
@@ -66,6 +67,14 @@
                 }
             });
 
+        }
+
+        function changeUserPassword(){
+            UsersService.changeUserPassword(vm.user).then(function (response) {
+                if(response.message){
+                    vm.message = response.message;
+                }
+            });
         }
     }
 })();

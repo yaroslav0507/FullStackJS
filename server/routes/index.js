@@ -9,6 +9,6 @@ global.mongoose      = require('mongoose');
 
 require('./items');
 require('./users');
-require('./fileUpload');
+require('./file-upload');
 
 module.exports = router;

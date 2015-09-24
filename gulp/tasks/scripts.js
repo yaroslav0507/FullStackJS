@@ -8,7 +8,7 @@ var templateCache = require('gulp-angular-templatecache');
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('lint', function(){
-    return gulp.src('js/*js')
+    return gulp.src('src/*js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
@@ -25,12 +25,12 @@ gulp.task('scripts', function(){
     ], {base: 'vendors'});
 
     var app = gulp.src([
-        './client/js/app/app.js',
-        './client/js/**/*.js'
+        './client/src/app/app.js',
+        './client/src/**/*.js'
     ]);
 
     var views = gulp.src([
-        './client/js/**/*.html'
+        './client/src/**/*.html'
     ])
         .pipe(templateCache({
             module: 'app'
