@@ -57,9 +57,9 @@
 
         function getUsers(){
             return $http.get('/users').then(function(res){
-                return res.data;
+                return res;
             }, function(err){
-                return err.data;
+                return err;
             });
         }
 
