@@ -7104,9 +7104,7 @@ textarea.form-control {
     font-size: 20px;
     line-height: 1.1em;
     font-weight: 700;
-    display: block;
-    float: left;
-    width: 80%; }
+    display: block; }
   .sidebar-user__role {
     font-size: 15px;
     margin-top: 10px;
