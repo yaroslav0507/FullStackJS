@@ -2,4 +2,3 @@ node_modules
 client/vendors
 .idea
 dist
-release

@@ -5,7 +5,7 @@
         .module('app')
         .controller('MainController', MainController);
 
-    function MainController(items){
+    function MainController(items, CartService){
 
         var vm = this;
 
@@ -13,7 +13,8 @@
             items: items.map(makeShortDescriptions.bind(null, 120)),
             predicate: 'price',
             reverse: false,
-            order: order
+            order: order,
+            addToCart: CartService.addToCart
         });
 
         function makeShortDescriptions(length, item) {

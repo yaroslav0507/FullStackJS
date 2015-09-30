@@ -47,7 +47,8 @@
                     <p class="item-thumbnail__description">{{ item.shortDescription }}</p>
                     <p class="item-thumbnail__price">{{ item.price | currency: "$":0 }}</p>
                     <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a>
+                        <a href="#" class="btn btn-primary"
+                                ng-click="mainCtrl.addToCart(item)">Buy Now!</a>
                         <a href="{{ '#/items/' + item._id }}" class="btn btn-default">More Info</a>
                     </p>
                 </div>

@@ -16,7 +16,7 @@
                     return vm.userRole[user.accessLevel];
                 }
             },
-            userRole: ['User', 'Redactor', 'Administrator']
+            userRole: ['User', 'Moderator', 'Administrator']
         });
 
     }

@@ -5,12 +5,14 @@ var mongoose        = require('mongoose');
 var path            = require('path');
 var methodOverride  = require('method-override');
 var passport        = require('passport');
+var session         = require('express-session');
 var app             = express();
-var multer = require('multer');
 
 require('dotenv').load();
 require('./models/Items');
 require('./models/Users');
+require('./models/Cart');
+require('./models/CartItem');
 
 require('./config/passport');
 
@@ -32,6 +34,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../dist")));
 app.use(express.static(path.join(__dirname, "./static")));
 app.use(passport.initialize());
+app.use(session({
+    secret: process.env.JWT_CERT,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        items: [],
+        secure: true,
+        maxAge: 60000
+    }
+}));
 
 app.use('/', routes);
 

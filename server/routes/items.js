@@ -65,3 +65,5 @@ router.delete('/items/:item', function(req, res){
         res.json(items);
     });
 });
+
+require('./cart/add-to-cart');
