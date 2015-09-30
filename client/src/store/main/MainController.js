@@ -5,7 +5,7 @@
         .module('app')
         .controller('MainController', MainController);
 
-    function MainController(items, CartService){
+    function MainController(items, LocalCartService){
 
         var vm = this;
 
@@ -14,8 +14,23 @@
             predicate: 'price',
             reverse: false,
             order: order,
-            addToCart: CartService.addToCart
+            cart: {
+                itemsCount: LocalCartService.getItemsCount()
+            },
+            addToCart: addToCart,
+            deleteFromCart: removeFromCart
         });
+
+
+        function addToCart(id){
+            LocalCartService.addToCart(id);
+            vm.cart.itemsCount += 1;
+        }
+
+        function removeFromCart(id){
+            LocalCartService.deleteFromCart(id);
+            vm.cart.itemsCount -= 1;
+        }
 
         function makeShortDescriptions(length, item) {
             if (item.description.length > length) {

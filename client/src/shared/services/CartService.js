@@ -3,74 +3,124 @@
 
     angular
         .module('app')
-        .factory('CartService', CartService);
+        .factory('LocalCartService', LocalCartService);
 
-    function CartService($window, $http){
+    function LocalCartService($window, $http){
+
+        var cartName = 'cart';
 
         var service = {
             getCart: getCart,
             addToCart: addToCart,
             createCart: createCart,
-            updateCart: updateCart
+            updateCart: updateCart,
+            getItemById: getItemById,
+            deleteFromCart: deleteFromCart,
+            getItemsCount: getItemsCount
         };
 
         return service;
 
-        function createCart(objName, obj){
+        function createCart(cartName, obj){
+            /* initializing an empty cart object */
             var cart = {
                 total: 0,
                 items: []
             };
+
+            _addItemToCart(cartName, cart, obj);
+        }
+
+        function getCart(cartName){
+            var cart = $window.localStorage[cartName];
+            if (cart){
+                return JSON.parse(cart);
+            }
+        }
+
+        function getItemsCount(){
+            var cart = getCart(cartName);
+
+            if(cart){
+                console.log(cart);
+                return cart.items.length;
+            } else {
+                return 0;
+            }
+        }
+
+        function _addItemToCart(cartName, cart, obj){
+
             var items = cart.items;
             var item = {
                 id: obj._id,
+                name: obj.title,
                 qty: 1
             };
 
             items.push(item);
+            //cart.total += obj.price;
 
             cart = JSON.stringify(cart);
 
-            $window.localStorage.setItem(objName, cart);
+            $window.localStorage.setItem(cartName, cart);
+
         }
 
-        function updateCart(objName, obj){
-            var cart = JSON.parse($window.localStorage.getItem(objName));
-            var items = cart.items;
-            items.forEach(function(item){
-               if(item._id == obj._id){
-                   item.qty += 1;
-               }
+        function updateCart(cartName, obj){
+            /* getting cart object from local storage */
+            var cart = getCart(cartName);
+
+            _addItemToCart(cartName, cart, obj);
+        }
+
+        function getItemById(cartName, id){
+            var cart = getCart(cartName);
+            var result;
+
+            cart.items.forEach(function(item){
+                if(item.id == id){
+                    result = item;
+                } else {
+                    result = 'Item not found by id: ' + id;
+                }
             });
 
-            var item = {
-                id: obj._id,
-                qty: 1
-            };
-
-            items.push(item);
-            cart.total += obj.price;
-
-            cart = JSON.stringify(cart);
-
-            $window.localStorage.setItem(objName, cart);
+            return result;
         }
 
-        function getCart(objName){
-            return JSON.parse($window.localStorage[objName]);
+        function deleteFromCart(id){
+            var cart = getCart(cartName);
+
+            var searchTerm = id,
+                index = -1;
+            for(var i = 0, len = cart.items.length; i < len; i++) {
+                if (cart.items[i].id === searchTerm) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if(index >= 0){
+                cart.items.splice(index,1);
+
+                cart = JSON.stringify(cart);
+                $window.localStorage.setItem(cartName, cart);
+
+                console.log(getCart(cartName));
+            }
         }
 
         function addToCart(item){
-            if($window.localStorage['cart']){
-                updateCart('cart', item);
-                console.log(getCart('cart'));
+
+            if($window.localStorage[cartName]){
+                updateCart(cartName, item);
+                console.log(getCart(cartName));
             } else {
-                createCart('cart', item);
-                console.log(getCart('cart'));
+                createCart(cartName, item);
+                console.log(getCart(cartName));
             }
-
         }
-
 
     }
 })();
