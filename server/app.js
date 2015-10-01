@@ -11,8 +11,8 @@ var app             = express();
 require('dotenv').load();
 require('./models/Items');
 require('./models/Users');
-require('./models/Cart');
-require('./models/CartItem');
+require('./models/cart/Cart');
+require('./models/cart/CartItem');
 
 require('./config/passport');
 

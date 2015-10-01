@@ -2,9 +2,7 @@
     <!-- Jumbotron Header -->
     <header class="jumbotron hero-spacer">
         <h1>A Warm Welcome!</h1>
-        <p ng-hide="mainCtrl.cart.itemsCount">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-        <p ng-show="mainCtrl.cart.itemsCount">
-            There are {{mainCtrl.cart.itemsCount}} items in your cart.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
         <p><a class="btn btn-primary btn-large">Call to action!</a>
         </p>
     </header>
@@ -53,7 +51,7 @@
                                 ng-click="mainCtrl.addToCart(item)">Add</a>
                         <a href="#" class="btn btn-danger"
                            ng-click="mainCtrl.deleteFromCart(item._id)">Delete</a>
-                        <a href="{{ '#/items/' + item._id }}" class="btn btn-default">More Info</a>
+                        <a href="{{ '#/items/' + item._id }}" class="btn btn-default">More</a>
                     </p>
                 </div>
             </div>

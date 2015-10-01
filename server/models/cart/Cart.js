@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var CartSchema = new mongoose.Schema({
     _id: String,
     total: Number,
-    qty: Number,
     items: []
 });
 

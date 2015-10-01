@@ -117,13 +117,16 @@
 
         function addToCart(item){
 
-            if($window.localStorage[cartName]){
-                updateCart(cartName, item);
-                console.log(getCart(cartName));
-            } else {
-                createCart(cartName, item);
-                console.log(getCart(cartName));
-            }
+            $http.post('/add-to-cart/', item, function(response){
+                return response;
+            });
+            //if($window.localStorage[cartName]){
+            //    updateCart(cartName, item);
+            //    console.log(getCart(cartName));
+            //} else {
+            //    createCart(cartName, item);
+            //    console.log(getCart(cartName));
+            //}
         }
 
     }
