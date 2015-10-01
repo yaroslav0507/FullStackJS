@@ -28,8 +28,12 @@
         }
 
         function removeFromCart(id){
-            LocalCartService.deleteFromCart(id);
-            vm.cart.itemsCount -= 1;
+            if(LocalCartService.deleteFromCart(id) == -1){
+                console.log("Object not found");
+            } else {
+                vm.cart.itemsCount -= 1;
+            }
+
         }
 
         function makeShortDescriptions(length, item) {

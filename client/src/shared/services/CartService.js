@@ -101,6 +101,8 @@
                 }
             }
 
+            console.log(index);
+
             if(index >= 0){
                 cart.items.splice(index,1);
 
@@ -109,6 +111,8 @@
 
                 console.log(getCart(cartName));
             }
+
+            return index;
         }
 
         function addToCart(item){
