@@ -55,6 +55,10 @@ textarea.form-control{
   &_ava{
     min-height: 183px;
   }
+
+  img{
+    max-height: 100%;
+  }
 }
 
 .dragover {

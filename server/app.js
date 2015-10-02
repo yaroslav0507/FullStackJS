@@ -18,7 +18,7 @@ require('./config/passport');
 
 var routes = require('./routes/index');
 
-mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@ds041583.mongolab.com:41583/pet');
+mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@' + process.env.DB_CONNECTION );
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -86,5 +86,7 @@ module.exports = app;
 
 // mongodump -h ds041583.mongolab.com:41583 -d pet -u administrator -p styleworks -o D:\dump &#45;&#45;oplog
 // mongorestore -h ds041583.mongolab.com:41583 -d pet -u administrator -p styleworks D:\dump\pet\ &#45;&#45;oplogReplay
+
+//mongorestore -h ds063833.mongolab.com:63833 -d mean-store -u administrator -p styleworks D:\dump\pet\ &#45;&#45;oplogReplay
 
 
