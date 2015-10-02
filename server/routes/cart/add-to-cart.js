@@ -10,6 +10,7 @@ router.post('/add-to-cart/', function (req, res, next) {
 
     //Retrieving item id and qty
     var item = req.body;
+    var cartID = req.cookies['connect.sid'];
 
     //Search for item in store items by ID
     Item.findById(item.id, function (err, result) {
@@ -19,9 +20,19 @@ router.post('/add-to-cart/', function (req, res, next) {
         return result;
     }).then(function (result) {
 
+        //TODO check for existing cart
+        //Find cart by id
+        Cart.findById(cartID, function (err, cart) {
+            if (err) {
+                return next(err)
+            }
+            console.log(cart);
+            return cart;
+        });
+
         //Creating a new instance of shopping cart
         var cart = new Cart({
-            _id: req.cookies['connect.sid']
+            _id: cartID
         });
 
         var cartItem = new CartItem({

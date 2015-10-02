@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f5aeb54-dcce-4583-bdb6-a30e8f5d3e7e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.env" afterPath="$PROJECT_DIR$/.env" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/cart/Cart.js" afterPath="$PROJECT_DIR$/server/models/cart/Cart.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/cart/add-to-cart.js" afterPath="$PROJECT_DIR$/server/routes/cart/add-to-cart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.js" afterPath="$PROJECT_DIR$/server/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="kupon.iws" />
@@ -27,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Cart.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Cart.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/models/cart/Cart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5483871">
-              <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -67,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="add-to-cart.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="add-to-cart.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/routes/cart/add-to-cart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.29528537">
+              <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -1022,7 +1019,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443788313099</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Add cartItem to CartSchema">
+      <created>1443798088714</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1443798088714</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1065,7 +1068,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Ability to change product image" />
     <MESSAGE value="User access levels" />
     <MESSAGE value="User sidebar info UI" />
     <MESSAGE value="upload user picture" />
@@ -1090,7 +1092,8 @@
     <MESSAGE value="Cart refactoring" />
     <MESSAGE value="Database changed&#10;" />
     <MESSAGE value="Generate session ID on the server" />
-    <option name="LAST_COMMIT_MESSAGE" value="Generate session ID on the server" />
+    <MESSAGE value="Add cartItem to CartSchema" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add cartItem to CartSchema" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1407,18 +1410,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/routes/cart/add-to-cart.js">
+    <entry file="file://$PROJECT_DIR$/server/models/cart/Cart.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/cart/Cart.js">
+    <entry file="file://$PROJECT_DIR$/server/routes/cart/add-to-cart.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5483871">
-          <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.29528537">
+          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
           <folding />
         </state>
       </provider>
