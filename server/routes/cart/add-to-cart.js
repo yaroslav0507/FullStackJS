@@ -6,7 +6,7 @@ var Item = mongoose.model('Items');
 var CartItem = mongoose.model('CartItem');
 
 router.post('/add-to-cart/', function (req, res, next) {
-    console.log(req.cookies['connect.sid']);
+    //console.log(req.cookies['connect.sid']);
 
     //Retrieving item id and qty
     var item = req.body;
@@ -22,12 +22,8 @@ router.post('/add-to-cart/', function (req, res, next) {
 
         //TODO check for existing cart
         //Find cart by id
-        Cart.findById(cartID, function (err, cart) {
-            if (err) {
-                return next(err)
-            }
-            console.log(cart);
-            return cart;
+        checkForExistingCart(cartID, function (cart) {
+            console.log("asd: " + cart)
         });
 
         //Creating a new instance of shopping cart
@@ -51,3 +47,14 @@ router.post('/add-to-cart/', function (req, res, next) {
         });
     });
 });
+
+function checkForExistingCart(cartID, cb) {
+
+    Cart.findById(cartID, function (err, cart) {
+        if (err) {
+            return next(err)
+        }
+        return cart;
+    }).then(cb)
+
+}
