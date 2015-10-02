@@ -1,5 +1,6 @@
 var express         = require('express');
 var bodyParser      = require('body-parser');
+var cookieParser      = require('cookie-parser');
 var logger          = require('morgan');
 var mongoose        = require('mongoose');
 var path            = require('path');
@@ -29,27 +30,16 @@ app.use(function (req, res, next) {
 
 app.use(logger('dev'));
 app.use(methodOverride());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../dist")));
 app.use(express.static(path.join(__dirname, "./static")));
 app.use(passport.initialize());
-app.use(session({
-    secret: process.env.JWT_CERT,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        items: [],
-        secure: true,
-        maxAge: 60000
-    }
-}));
+
+app.use(session({ secret: 'keyboard cat', resave: true, cookie: { maxAge: 60000, httpOnly: true }}))
 
 app.use('/', routes);
-
-app.get('/api', function(req, res){
-    res.send('API is running');
-});
 
 app.use(function(err, req, res, next){
     res.status(500).send({err: err.stack});

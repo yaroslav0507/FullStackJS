@@ -115,7 +115,11 @@
             return index;
         }
 
-        function addToCart(item){
+        function addToCart(obj){
+            var item = {
+                id: obj._id,
+                qty: 1
+            };
 
             $http.post('/add-to-cart/', item, function(response){
                 return response;
