@@ -5,29 +5,38 @@ var Cart = mongoose.model('Cart');
 var Item = mongoose.model('Items');
 var CartItem = mongoose.model('CartItem');
 
-router.post('/add-to-cart/', function(req, res, next){
+router.post('/add-to-cart/', function (req, res, next) {
+    console.log(req.cookies['connect.sid']);
+
+    //Retrieving item id and qty
     var item = req.body;
 
-    console.log(req.cookies);
-    res.send();
-    //
-    //
-    //
-    //Item.findById(item.id, function (err, result) {
-    //    if (err) { return next(err) }
-    //
-    //    return result;
-    //
-    //}).then(function(result){
-    //    var cart = new Cart();
-    //
-    //    cart.total = 100;
-    //    console.log(cart);
-    //
-    //
-    //    cart.save(function(err, cart){
-    //        if(err){ return next(err) }
-    //        res.json(cart);
-    //    });
-    //});
+    //Search for item in store items by ID
+    Item.findById(item.id, function (err, result) {
+        if (err) {
+            return next(err)
+        }
+        return result;
+    }).then(function (result) {
+
+        //Creating a new instance of shopping cart
+        var cart = new Cart({
+            _id: req.cookies['connect.sid']
+        });
+
+        var cartItem = new CartItem({
+            _id:    result.id,
+            price:  result.price,
+            qty:    item.qty
+        });
+
+        cart.addItem(cartItem);
+
+        cart.save(function (err, cart) {
+            if (err) {
+                return next(err)
+            }
+            res.json(cart);
+        });
+    });
 });

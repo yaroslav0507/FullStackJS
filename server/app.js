@@ -37,7 +37,15 @@ app.use(express.static(path.join(__dirname, "../dist")));
 app.use(express.static(path.join(__dirname, "./static")));
 app.use(passport.initialize());
 
-app.use(session({ secret: 'keyboard cat', resave: true, cookie: { maxAge: 60000, httpOnly: true }}))
+
+app.use(session({
+    secret: process.env.JWT_CERT,
+    resave: true,
+    cookie: {
+        maxAge: 1000*60*60*24, // One day expiration for cookies
+        httpOnly: true
+    }
+}));
 
 app.use('/', routes);
 
