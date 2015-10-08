@@ -9,3 +9,4 @@ var CartItemSchema = new mongoose.Schema({
 mongoose.model('CartItem', CartItemSchema);
 
 module.exports = CartItemSchema;
+

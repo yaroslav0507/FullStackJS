@@ -33,7 +33,7 @@ app.use(methodOverride());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "../dist")));
+app.use(express.static(path.join(__dirname, "../release")));
 app.use(express.static(path.join(__dirname, "./static")));
 app.use(passport.initialize());
 

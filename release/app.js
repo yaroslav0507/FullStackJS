@@ -52715,6 +52715,40 @@ ngFileUpload.service('UploadResize', ['UploadValidate', '$q', '$timeout', functi
 
     angular
         .module('app')
+        .controller('DialogController', DialogController);
+
+    function DialogController($modal, $scope, ItemsService){
+
+        var vm = this;
+
+        angular.extend(vm, {
+            open: open,
+            animationsEnabled: true
+        });
+
+        function open(size){
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'shared/dialog/base-dialog.html',
+                controller: 'DialogController',
+                controllerAs: 'dialogCtrl',
+                size: size
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                vm.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        }
+
+    }
+})();
+(function(){
+    'use strict';
+
+    angular
+        .module('app')
         .factory('AuthService', AuthService);
 
     function AuthService(HttpTokenAuthService, $http, $window){
@@ -52755,6 +52789,143 @@ ngFileUpload.service('UploadResize', ['UploadValidate', '$q', '$timeout', functi
         function logOut(){
             HttpTokenAuthService.deleteToken();
         }
+    }
+})();
+(function(){
+    'use strict';
+
+    angular
+        .module('app')
+        .factory('LocalCartService', LocalCartService);
+
+    function LocalCartService($window, $http){
+
+        var cartName = 'cart';
+
+        var service = {
+            getCart: getCart,
+            addToCart: addToCart,
+            createCart: createCart,
+            updateCart: updateCart,
+            getItemById: getItemById,
+            deleteFromCart: deleteFromCart,
+            getItemsCount: getItemsCount
+        };
+
+        return service;
+
+        function createCart(cartName, obj){
+            /* initializing an empty cart object */
+            var cart = {
+                total: 0,
+                items: []
+            };
+
+            _addItemToCart(cartName, cart, obj);
+        }
+
+        function getCart(cartName){
+            var cart = $window.localStorage[cartName];
+            if (cart){
+                return JSON.parse(cart);
+            }
+        }
+
+        function getItemsCount(){
+            var cart = getCart(cartName);
+
+            if(cart){
+                console.log(cart);
+                return cart.items.length;
+            } else {
+                return 0;
+            }
+        }
+
+        function _addItemToCart(cartName, cart, obj){
+
+            var items = cart.items;
+            var item = {
+                id: obj._id,
+                name: obj.title,
+                qty: 1
+            };
+
+            items.push(item);
+            //cart.total += obj.price;
+
+            cart = JSON.stringify(cart);
+
+            $window.localStorage.setItem(cartName, cart);
+
+        }
+
+        function updateCart(cartName, obj){
+            /* getting cart object from local storage */
+            var cart = getCart(cartName);
+
+            _addItemToCart(cartName, cart, obj);
+        }
+
+        function getItemById(cartName, id){
+            var cart = getCart(cartName);
+            var result;
+
+            cart.items.forEach(function(item){
+                if(item.id == id){
+                    result = item;
+                } else {
+                    result = 'Item not found by id: ' + id;
+                }
+            });
+
+            return result;
+        }
+
+        function deleteFromCart(id){
+            var cart = getCart(cartName);
+
+            var searchTerm = id,
+                index = -1;
+            for(var i = 0, len = cart.items.length; i < len; i++) {
+                if (cart.items[i].id === searchTerm) {
+                    index = i;
+                    break;
+                }
+            }
+
+            console.log(index);
+
+            if(index >= 0){
+                cart.items.splice(index,1);
+
+                cart = JSON.stringify(cart);
+                $window.localStorage.setItem(cartName, cart);
+
+                console.log(getCart(cartName));
+            }
+
+            return index;
+        }
+
+        function addToCart(obj){
+            var item = {
+                id: obj._id,
+                qty: 1
+            };
+
+            $http.post('/add-to-cart/', item, function(response){
+                return response;
+            });
+            //if($window.localStorage[cartName]){
+            //    updateCart(cartName, item);
+            //    console.log(getCart(cartName));
+            //} else {
+            //    createCart(cartName, item);
+            //    console.log(getCart(cartName));
+            //}
+        }
+
     }
 })();
 (function(){
@@ -52944,43 +53115,9 @@ ngFileUpload.service('UploadResize', ['UploadValidate', '$q', '$timeout', functi
 
     angular
         .module('app')
-        .controller('DialogController', DialogController);
-
-    function DialogController($modal, $scope, ItemsService){
-
-        var vm = this;
-
-        angular.extend(vm, {
-            open: open,
-            animationsEnabled: true
-        });
-
-        function open(size){
-            var modalInstance = $modal.open({
-                animation: true,
-                templateUrl: 'shared/dialog/base-dialog.html',
-                controller: 'DialogController',
-                controllerAs: 'dialogCtrl',
-                size: size
-            });
-
-            modalInstance.result.then(function (selectedItem) {
-                vm.selected = selectedItem;
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        }
-
-    }
-})();
-(function(){
-    'use strict';
-
-    angular
-        .module('app')
         .controller('MainController', MainController);
 
-    function MainController(items){
+    function MainController(items, LocalCartService){
 
         var vm = this;
 
@@ -52988,8 +53125,28 @@ ngFileUpload.service('UploadResize', ['UploadValidate', '$q', '$timeout', functi
             items: items.map(makeShortDescriptions.bind(null, 120)),
             predicate: 'price',
             reverse: false,
-            order: order
+            order: order,
+            cart: {
+                itemsCount: LocalCartService.getItemsCount()
+            },
+            addToCart: addToCart,
+            deleteFromCart: removeFromCart
         });
+
+
+        function addToCart(id){
+            LocalCartService.addToCart(id);
+            vm.cart.itemsCount += 1;
+        }
+
+        function removeFromCart(id){
+            if(LocalCartService.deleteFromCart(id) == -1){
+                console.log("Object not found");
+            } else {
+                vm.cart.itemsCount -= 1;
+            }
+
+        }
 
         function makeShortDescriptions(length, item) {
             if (item.description.length > length) {
@@ -53022,50 +53179,6 @@ ngFileUpload.service('UploadResize', ['UploadValidate', '$q', '$timeout', functi
             item: item
         });
 
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .controller('EditItemsController', EditItemsController);
-
-    function EditItemsController(item, ItemsService, $state) {
-
-        var vm = this;
-
-        angular.extend(vm, {
-            item: item,
-            message: '',
-            saveChanges: saveChanges,
-            uploadImage: ItemsService.uploadImage,
-            deleteItem: deleteItem
-        });
-
-        function saveChanges(){
-            var productImage = vm.item.file;
-            if(productImage){
-                ItemsService.uploadImage(productImage).then(function(filename){
-                    vm.item.imageURL = '/images/items/' + filename;
-
-                    ItemsService.updateItem(vm.item).then(function () {
-                        vm.message = vm.item.title + ' successfully updated.';
-                    });
-                })
-            } else {
-                ItemsService.updateItem(vm.item).then(function () {
-                    vm.message = vm.item.title + ' successfully updated.';
-                });
-            }
-        }
-
-        function deleteItem() {
-            var id = vm.item._id;
-            ItemsService.deleteItem(id).then(function () {
-                $state.go('admin.main');
-            });
-        }
     }
 })();
 (function () {
@@ -53139,6 +53252,75 @@ ngFileUpload.service('UploadResize', ['UploadValidate', '$q', '$timeout', functi
             return item;
         }
 
+
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('EditItemsController', EditItemsController);
+
+    function EditItemsController(item, ItemsService, $state) {
+
+        var vm = this;
+
+        angular.extend(vm, {
+            item: item,
+            message: '',
+            saveChanges: saveChanges,
+            uploadImage: ItemsService.uploadImage,
+            deleteItem: deleteItem
+        });
+
+        function saveChanges(){
+            var productImage = vm.item.file;
+            if(productImage){
+                ItemsService.uploadImage(productImage).then(function(filename){
+                    vm.item.imageURL = '/images/items/' + filename;
+
+                    ItemsService.updateItem(vm.item).then(function () {
+                        vm.message = vm.item.title + ' successfully updated.';
+                    });
+                })
+            } else {
+                ItemsService.updateItem(vm.item).then(function () {
+                    vm.message = vm.item.title + ' successfully updated.';
+                });
+            }
+        }
+
+        function deleteItem() {
+            var id = vm.item._id;
+            ItemsService.deleteItem(id).then(function () {
+                $state.go('admin.main');
+            });
+        }
+    }
+})();
+(function(){
+    'use strict';
+
+    angular
+        .module('app')
+        .directive('shoppingCart', shoppingCart);
+
+    function shoppingCart(){
+        return {
+            restrict: 'EA',
+            replace: true,
+            controller: shoppingCartController,
+            controllerAs: 'cartCtrl',
+            templateUrl: 'shared/directives/shoppingCart/shopping-cart.html',
+            link: function(scope, element, attrs){
+
+            }
+        }
+
+    }
+
+    function shoppingCartController(){
 
     }
 })();
@@ -53272,18 +53454,19 @@ ngFileUpload.service('UploadResize', ['UploadValidate', '$q', '$timeout', functi
 })();
 angular.module("app").run(["$templateCache", function($templateCache) {$templateCache.put("admin/admin-base.html","<div ui-view=\"navigation\"></div>\r\n\r\n<div class=\"container-fluid\">\r\n    <div class=\"row\">\r\n\r\n        <div class=\"col-sm-3 col-md-3 sidebar\" ui-view=\"sidebar\"></div>\r\n\r\n        <div class=\"col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main\" ui-view=\"content\">\r\n\r\n        </div>\r\n\r\n    </div>\r\n</div>");
 $templateCache.put("auth/auth-base.html","<div class=\"col-xs-4 col-xs-offset-4 login\">\r\n    <h3 class=\"text-center\">{{ authCtrl.error.message }}</h3>\r\n    <div ui-view=\"auth\"></div>\r\n</div>");
-$templateCache.put("store/store-base.html","<div class=\"main-wrapper\">\r\n    <div ui-view=\"navigation\"></div>\r\n\r\n    <!-- Page Content -->\r\n    <div ui-view=\"content\"></div>\r\n\r\n    <div ui-view=\"footer\"></div>\r\n    <!-- /.container -->\r\n</div>\r\n");
+$templateCache.put("store/store-base.html","<div class=\"main-wrapper\">\r\n    <div ui-view=\"navigation\"></div>\r\n\r\n    <shopping-cart></shopping-cart>\r\n\r\n    <!-- Page Content -->\r\n    <div ui-view=\"content\"></div>\r\n\r\n    <div ui-view=\"footer\"></div>\r\n    <!-- /.container -->\r\n</div>\r\n");
 $templateCache.put("admin/components/navigation.html","<nav class=\"navbar navbar-inverse navbar-fixed-top\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\r\n                <span class=\"sr-only\">Toggle navigation</span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand navbar-logo\" ui-sref=\"store.main\"><span><i class=\"glyphicon glyphicon-shopping-cart\"></i> {{ appCtrl.title }}</span></a>\r\n        </div>\r\n        <div id=\"navbar\" class=\"navbar-collapse collapse\">\r\n            <ul class=\"nav navbar-nav navbar-right\">\r\n                <li><a href=\"#\">Dashboard</a></li>\r\n                <li><a href=\"#\">Settings</a></li>\r\n                <li><a href=\"#\">Profile</a></li>\r\n                <li><a href=\"#\">Help</a></li>\r\n            </ul>\r\n            <form class=\"navbar-form navbar-right\">\r\n                <input type=\"text\" class=\"form-control\" placeholder=\"Search...\">\r\n            </form>\r\n        </div>\r\n    </div>\r\n</nav>");
 $templateCache.put("admin/components/sidebar.html","<div class=\"sidebar-user clearfix\">\r\n\r\n    <a class=\"sidebar-user__avatar\" ui-sref=\"admin.profile\">\r\n        <img ng-src=\"{{dashboardCtrl.user.image}}\" alt=\"\"/>\r\n    </a>\r\n    <span class=\"sidebar-user__username\">{{dashboardCtrl.user.username}}</span>\r\n    <div class=\"sidebar-user__role\">\r\n        <i class=\"glyphicon glyphicon-king\" ng-show=\"dashboardCtrl.getUserAccessLevel == 2\"></i>\r\n        <i class=\"glyphicon glyphicon-knight\" ng-show=\"dashboardCtrl.getUserAccessLevel == 1\"></i>\r\n        <i class=\"glyphicon glyphicon-pawn\" ng-show=\"dashboardCtrl.getUserAccessLevel == 0\"></i>\r\n        {{ dashboardCtrl.userRole }}\r\n    </div>\r\n    <div class=\"dropdown sidebar-user__actions clearfix\">\r\n        <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\r\n            Actions\r\n            <span class=\"caret\"></span>\r\n        </button>\r\n        <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\r\n            <li><a ui-sref=\"admin.profile\"><i class=\"glyphicon glyphicon_bordered glyphicon-user\"></i> Edit profile</a></li>\r\n            <!--<li role=\"separator\" class=\"divider\"></li>-->\r\n            <li ng-click=\"dashboardCtrl.logOut()\"><a href=\"#\"><i class=\"glyphicon glyphicon_bordered glyphicon-off\"></i> Log out</a></li>\r\n\r\n        </ul>\r\n    </div>\r\n</div>\r\n<div class=\"form-group user-profile-progress\">\r\n    <label>Profile completed 45%</label>\r\n    <div class=\"progress\">\r\n        <div class=\"progress-bar progress-bar-info active\" role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 45%\">\r\n            <span class=\"sr-only\">45% Complete</span>\r\n        </div>\r\n    </div>\r\n</div>\r\n<ul class=\"nav nav-sidebar\">\r\n    <li ui-sref-active=\"active\"><a ui-sref=\"admin.main\"><i class=\"glyphicon glyphicon_bordered glyphicon-filter\"></i> Item management</a></li>\r\n    <li ui-sref-active=\"active\"><a ui-sref=\"admin.users\"><i class=\"glyphicon glyphicon_bordered glyphicon-pencil\"></i> Users</a></li>\r\n    <li ui-sref-active=\"active\"><a ui-sref=\"admin.profile\"><i class=\"glyphicon glyphicon_bordered glyphicon-user\"></i> Edit profile</a></li>\r\n</ul>");
 $templateCache.put("auth/templates/login.html","<form class=\"login-form\">\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputEmail1\">Login</label>\r\n        <input type=\"text\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputEmail1\"\r\n               placeholder=\"Enter Your Login\"\r\n               ng-model=\"authCtrl.user.username\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputPassword1\">Password</label>\r\n        <input type=\"password\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputPassword1\"\r\n               placeholder=\"Enter Your Password\"\r\n               ng-model=\"authCtrl.user.password\">\r\n    </div>\r\n    <button type=\"submit\"\r\n            class=\"btn btn-primary\"\r\n            ng-click=\"authCtrl.logIn()\">Log In</button>\r\n\r\n    <button ui-sref=\"auth.register\" class=\"btn btn-default pull-right\">Register</button>\r\n</form>\r\n\r\n\r\n");
 $templateCache.put("auth/templates/register.html","<form class=\"login-form\">\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputEmail1\">Login</label>\r\n        <input type=\"text\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputEmail1\"\r\n               placeholder=\"Enter Your Login\"\r\n               ng-model=\"authCtrl.user.username\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputPassword1\">Password</label>\r\n        <input type=\"password\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputPassword1\"\r\n               placeholder=\"Enter Your Password\"\r\n               ng-model=\"authCtrl.user.password\">\r\n    </div>\r\n    <button type=\"submit\"\r\n            class=\"btn btn-primary\"\r\n            ng-click=\"authCtrl.register()\">Register</button>\r\n\r\n    <button ui-sref=\"auth.login\" class=\"btn btn-default pull-right\">Log In</button>\r\n</form>\r\n\r\n\r\n");
-$templateCache.put("store/components/footer.html","<footer>\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-12\">\r\n                <p>Copyright &copy; Your Website 2014</p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</footer>");
 $templateCache.put("shared/dialog/base-dialog.html","<div class=\"modal-header\">\r\n    <h3 class=\"modal-title\">I\'m a modal!</h3>\r\n</div>\r\n<div class=\"modal-body\">\r\n    Selected: <b>{{ }}</b>\r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">Cancel</button>\r\n</div>");
-$templateCache.put("store/main/main.html","<div class=\"container\">\r\n    <!-- Jumbotron Header -->\r\n    <header class=\"jumbotron hero-spacer\">\r\n        <h1>A Warm Welcome!</h1>\r\n        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>\r\n        <p><a class=\"btn btn-primary btn-large\">Call to action!</a>\r\n        </p>\r\n    </header>\r\n\r\n    <hr>\r\n\r\n    <!-- Title -->\r\n    <div class=\"row\">\r\n        <div class=\"form-group clearfix\">\r\n            <div class=\"col-xs-9\">\r\n                <h3>Latest Goods</h3>\r\n            </div>\r\n            <div class=\"col-xs-3\">\r\n                <!-- Split button -->\r\n                <div class=\"dropdown pull-right latest__items-sort-by\">\r\n                    <span>Sort by: </span>\r\n                    <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        <span ng-show=\"mainCtrl.reverse\">Price Down <i class=\"glyphicon glyphicon-arrow-down\"></i></span>\r\n                        <span ng-show=\"!mainCtrl.reverse\">Price Up <i class=\"glyphicon glyphicon-arrow-up\"></i></span>\r\n                    </button>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li ng-click=\"mainCtrl.reverse = true\"><a href=\"#\">Price Down</a></li>\r\n                        <li ng-click=\"mainCtrl.reverse = false\"><a href=\"#\">Price Up</a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <!-- Page Features -->\r\n    <div class=\"row text-center\">\r\n\r\n        <div class=\"col-md-3 col-sm-6 hero-feature\"\r\n             ng-repeat=\"item in mainCtrl.items | orderBy: mainCtrl.predicate: mainCtrl.reverse\">\r\n            <div class=\"thumbnail store-item-thumbnail\">\r\n                <a href=\"{{ \'#/items/\' + item._id }}\">\r\n                    <img ng-src=\"{{item.imageURL}}\" alt=\"{{item.title}}\" class=\"image\"/>\r\n                </a>\r\n                <div class=\"caption\">\r\n                    <h4>{{ item.title }}</h4>\r\n                    <p class=\"item-thumbnail__description\">{{ item.shortDescription }}</p>\r\n                    <p class=\"item-thumbnail__price\">{{ item.price | currency: \"$\":0 }}</p>\r\n                    <p>\r\n                        <a href=\"#\" class=\"btn btn-primary\">Buy Now!</a>\r\n                        <a href=\"{{ \'#/items/\' + item._id }}\" class=\"btn btn-default\">More Info</a>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <hr>\r\n\r\n\r\n</div>");
+$templateCache.put("store/components/footer.html","<footer>\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-12\">\r\n                <p>Copyright &copy; Your Website 2014</p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</footer>");
+$templateCache.put("store/main/main.html","<div class=\"container\">\r\n    <!-- Jumbotron Header -->\r\n    <header class=\"jumbotron hero-spacer\">\r\n        <h1>A Warm Welcome!</h1>\r\n        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>\r\n        <p><a class=\"btn btn-primary btn-large\">Call to action!</a>\r\n        </p>\r\n    </header>\r\n\r\n    <hr>\r\n\r\n    <!-- Title -->\r\n    <div class=\"row\">\r\n        <div class=\"form-group clearfix\">\r\n            <div class=\"col-xs-9\">\r\n                <h3>Latest Goods</h3>\r\n            </div>\r\n            <div class=\"col-xs-3\">\r\n                <!-- Split button -->\r\n                <div class=\"dropdown pull-right latest__items-sort-by\">\r\n                    <span>Sort by: </span>\r\n                    <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        <span ng-show=\"mainCtrl.reverse\">Price Down <i class=\"glyphicon glyphicon-arrow-down\"></i></span>\r\n                        <span ng-show=\"!mainCtrl.reverse\">Price Up <i class=\"glyphicon glyphicon-arrow-up\"></i></span>\r\n                    </button>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li ng-click=\"mainCtrl.reverse = true\"><a href=\"#\">Price Down</a></li>\r\n                        <li ng-click=\"mainCtrl.reverse = false\"><a href=\"#\">Price Up</a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <!-- Page Features -->\r\n    <div class=\"row text-center\">\r\n\r\n        <div class=\"col-md-3 col-sm-6 hero-feature\"\r\n             ng-repeat=\"item in mainCtrl.items | orderBy: mainCtrl.predicate: mainCtrl.reverse\">\r\n            <div class=\"thumbnail store-item-thumbnail\">\r\n                <a href=\"{{ \'#/items/\' + item._id }}\">\r\n                    <img ng-src=\"{{item.imageURL}}\" alt=\"{{item.title}}\" class=\"image\"/>\r\n                </a>\r\n                <div class=\"caption\">\r\n                    <h4>{{ item.title }}</h4>\r\n                    <p class=\"item-thumbnail__description\">{{ item.shortDescription }}</p>\r\n                    <p class=\"item-thumbnail__price\">{{ item.price | currency: \"$\":0 }}</p>\r\n                    <p>\r\n                        <a href=\"#\" class=\"btn btn-primary\"\r\n                                ng-click=\"mainCtrl.addToCart(item)\">Add</a>\r\n                        <a href=\"#\" class=\"btn btn-danger\"\r\n                           ng-click=\"mainCtrl.deleteFromCart(item._id)\">Delete</a>\r\n                        <a href=\"{{ \'#/items/\' + item._id }}\" class=\"btn btn-default\">More</a>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <hr>\r\n\r\n\r\n</div>");
 $templateCache.put("store/single-item/single-item.html","<div class=\"main-wrapper\">\r\n    <div class=\"container\">\r\n        <hr/>\r\n        <div class=\"row\">\r\n            <div class=\"col-xs-3\">\r\n                <div class=\"list-group\">\r\n                    <a href=\"#\" class=\"list-group-item active\">\r\n                        Cras justo odio\r\n                    </a>\r\n                    <a href=\"#\" class=\"list-group-item\">item Details</a>\r\n                    <a href=\"#\" class=\"list-group-item\">Replies</a>\r\n                    <a href=\"#\" class=\"list-group-item\">Characteristics</a>\r\n                </div>\r\n                <button class=\"btn btn-primary btn-wide\" ui-sref=\"store.main\">\r\n                    <i class=\"glyphicon glyphicon-chevron-left\"></i>\r\n                    <span>Back to main page</span>\r\n                </button>\r\n            </div>\r\n            <div class=\"col-xs-8\">\r\n                <div class=\"col-xs-4\">\r\n                    <div class=\"thumbnail\">\r\n                        <img ng-hide=\"singleItemCtrl.item.file\" ng-src=\"{{singleItemCtrl.item.imageURL}}\" alt=\"\"/>\r\n                    </div>\r\n                    <div class=\"text-center save-changes\">\r\n                        <button class=\"btn btn-primary btn-lg\"\r\n                                ng-click=\"singleItemCtrl.buyItem()\">Buy now</button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-xs-8\">\r\n                    <div class=\"col-xs-9 form-group\">\r\n                        <label>Title</label>\r\n                        <p>{{singleItemCtrl.item.title}}</p>\r\n                    </div>\r\n                    <div class=\"col-xs-3 form-group\">\r\n                        <label>Price</label>\r\n                        <div class=\"input-group\">\r\n                            <p>{{singleItemCtrl.item.price}}</p>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-xs-12 form-group\">\r\n                        <label>Description</label>\r\n                        <p>{{singleItemCtrl.item.description}}</p>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>");
-$templateCache.put("admin/templates/edit-item/edit-item.html","<h1 class=\"page-header\"><i class=\"glyphicon glyphicon-pencil\"></i> Edit item </h1>\r\n\r\n<div class=\"row\">\r\n    <div class=\"alert alert-success\" role=\"alert\" ng-show=\"editCtrl.message.length\">\r\n        {{editCtrl.message}}\r\n    </div>\r\n    <form name=\"editItem\">\r\n        <div class=\"col-xs-4\">\r\n            <div class=\"thumbnail drag-drop-field\"\r\n                 ngf-drop\r\n                 ngf-select\r\n                 ngf-drag-over-class=\"dragover\"\r\n                 ng-model=\"editCtrl.item.file\"\r\n                 name=\"file\"\r\n                 accept=\"image/*\"\r\n                 ngf-max-size=\"2MB\">\r\n                <img ng-hide=\"editCtrl.item.file\" ng-src=\"{{editCtrl.item.imageURL}}\" alt=\"\"/>\r\n                <img ng-show=\"editItem.file.$valid\"\r\n                     ngf-src=\"!editCtrl.item.file.$error && editCtrl.item.file\">\r\n            </div>\r\n            <div class=\"text-center save-changes\">\r\n                <button class=\"btn btn-primary btn-lg\"\r\n                        ng-click=\"editCtrl.saveChanges()\">Save changes</button>\r\n\r\n                <button class=\"btn btn-danger btn-lg\"\r\n                        ng-click=\"editCtrl.deleteItem()\">Delete item</button>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-8\">\r\n                <div class=\"col-xs-9 form-group\">\r\n                    <label>Title</label>\r\n                    <input class=\"form-control\"\r\n                           type=\"text\"\r\n                           value=\"{{editCtrl.item.title}}\"\r\n                           ng-model=\"editCtrl.item.title\">\r\n                </div>\r\n                <div class=\"col-xs-3 form-group\">\r\n                    <label>Price</label>\r\n                    <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">$</span>\r\n                        <input class=\"form-control\"\r\n                               type=\"text\"\r\n                               value=\"{{editCtrl.item.price}}\"\r\n                               ng-model=\"editCtrl.item.price\">\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-xs-12 form-group\">\r\n                    <label>Description</label>\r\n                    <textarea class=\"form-control\"\r\n                              rows=\"10\"\r\n                            ng-model=\"editCtrl.item.description\">\r\n                            {{editCtrl.item.description}}\r\n                    </textarea>\r\n                </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n");
 $templateCache.put("admin/templates/manage-items/items.html","<h1 class=\"page-header\"><i class=\"glyphicon glyphicon-dashboard\"></i> Dashboard</h1>\r\n\r\n<div class=\"row\">\r\n    <form enctype=\"multipart/form-data\" name=\"form\" novalidate>\r\n        <div class=\"col-xs-12\">\r\n            <h2>Add a new item</h2>\r\n        </div>\r\n        <div class=\"col-xs-12 col-md-3\">\r\n            <label>Image</label>\r\n            <div class=\"thumbnail drag-drop-field\"\r\n                 ngf-drop\r\n                 ngf-select\r\n                 ngf-drag-over-class=\"dragover\"\r\n                 ng-model=\"itemsCtrl.item.file\"\r\n                 name=\"file\"\r\n                 accept=\"image/*\"\r\n                 ngf-max-size=\"2MB\">\r\n                <span ng-hide=\"itemsCtrl.item.file\" class=\"drag-drop-field__message\">\r\n                    <i class=\"glyphicon glyphicon-download-alt\"></i>\r\n                    <p>Drag & Drop, or click to download.</p>\r\n                </span>\r\n                <img ng-show=\"form.file.$valid\"\r\n                     ngf-src=\"!itemsCtrl.item.file.$error && itemsCtrl.item.file\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-12 col-md-5\">\r\n            <div class=\"form-group\">\r\n                <label for=\"ItemTitle\">Title</label>\r\n                <input type=\"text\"\r\n                       class=\"form-control\"\r\n                       id=\"ItemTitle\"\r\n                       placeholder=\"Title\"\r\n                       ng-model=\"itemsCtrl.item.title\"\r\n                       required>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label for=\"ItemPrice\">Price</label>\r\n                <div class=\"input-group\">\r\n                    <span class=\"input-group-addon\">$</span>\r\n                    <input type=\"text\"\r\n                           class=\"form-control\"\r\n                           id=\"ItemPrice\"\r\n                           placeholder=\"Price\"\r\n                           ng-model=\"itemsCtrl.item.price\"\r\n                           required>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-12 col-md-4\">\r\n            <div class=\"form-group\">\r\n                <label for=\"ItemDescription\">Description</label>\r\n                <textarea class=\"form-control\"\r\n                          id=\"ItemDescription\"\r\n                          rows=\"5\"\r\n                          placeholder=\"Description\"\r\n                          ng-model=\"itemsCtrl.item.description\"\r\n                          required></textarea>\r\n            </div>\r\n            <button type=\"submit\"\r\n                    ng-disabled=\"!form.$valid\"\r\n                    class=\"btn btn-primary\"\r\n                    ng-click=\"itemsCtrl.addItem()\">Add item</button>\r\n        </div>\r\n        <div class=\"col-xs-12\"\r\n             ng-show=\"itemsCtrl.message.length\">\r\n            <div class=\"panel panel-warning\">\r\n                <div class=\"panel-heading\">\r\n                    <h3 class=\"panel-title\">Error occured</h3>\r\n                </div>\r\n                <div class=\"panel-body\">\r\n                    {{itemsCtrl.message}}\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n<hr/>\r\n\r\n<h2 class=\"sub-header\">All items</h2>\r\n<div class=\"table-responsive\">\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Image</th>\r\n            <th>Title</th>\r\n            <th>Description</th>\r\n            <th>Price</th>\r\n            <th></th>\r\n        </tr>\r\n        </thead>\r\n        <tbody>\r\n        <tr ng-repeat=\"item in itemsCtrl.items | orderBy:true:true\">\r\n            <td>{{ $index + 1 }}</td>\r\n            <td><a href=\"#/admin/items/{{item._id}}\">\r\n                <span class=\"item-edit-thumbnail\">\r\n                    <span class=\"item-edit-mask\">\r\n                        <i class=\"glyphicon glyphicon-edit\">\r\n                            <span class=\"small\">Edit</span>\r\n                        </i>\r\n                    </span>\r\n                    <img ng-src=\"{{item.imageURL}}\" class=\"item-edit-image\">{{itemsCtrl.item.hasImage(item)}}\r\n                </span>\r\n            </a></td>\r\n            <td>{{ item.title }}</td>\r\n            <td>{{ item.shortDescription }}</td>\r\n            <td>{{ item.price }}</td>\r\n            <td ng-click=\"itemsCtrl.deleteItem(item)\">\r\n                <button class=\"btn btn-default\">X</button>\r\n            </td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n\r\n");
-$templateCache.put("store/components/header/header.html","<!-- Navigation -->\r\n<nav class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"container\">\r\n        <!-- Brand and toggle get grouped for better mobile display -->\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\r\n                <span class=\"sr-only\">Toggle navigation</span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand navbar-logo\" ui-sref=\"store.main\"><i class=\"glyphicon glyphicon-shopping-cart\"></i> {{ appCtrl.title }}</a>\r\n        </div>\r\n        <!-- Collect the nav links, forms, and other content for toggling -->\r\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li>\r\n                    <a href=\"#\">About</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\">Products</a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\">Contact</a>\r\n                </li>\r\n            </ul>\r\n            <ul class=\"nav navbar-nav pull-right\">\r\n                <li ng-hide=\"headerCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"auth.login\">\r\n                        <span class=\"glyphicon glyphicon-log-in\"></span>\r\n                        <span class=\"bordered-right\">Login</span>\r\n                    </a>\r\n                </li>\r\n                <li ng-hide=\"headerCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"auth.register\">\r\n                        <span class=\"glyphicon glyphicon-check\"></span>\r\n                        <span>Register</span></a>\r\n                </li>\r\n                <li ng-show=\"headerCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"admin.main\">\r\n                        <span class=\"glyphicon glyphicon-user\"></span>\r\n                        <span class=\"bordered-right\">{{ headerCtrl.user.username }}</span>\r\n                    </a>\r\n                </li>\r\n                <li ng-show=\"headerCtrl.isAuthenticated()\">\r\n                    <a href=\"#\" ng-click=\"headerCtrl.logOut()\">\r\n                        <span class=\"glyphicon glyphicon-log-out\"></span>\r\n                        <span>Log Out</span>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n        <!-- /.navbar-collapse -->\r\n    </div>\r\n    <!-- /.container -->\r\n</nav>");
+$templateCache.put("admin/templates/edit-item/edit-item.html","<h1 class=\"page-header\"><i class=\"glyphicon glyphicon-pencil\"></i> Edit item </h1>\r\n\r\n<div class=\"row\">\r\n    <div class=\"alert alert-success\" role=\"alert\" ng-show=\"editCtrl.message.length\">\r\n        {{editCtrl.message}}\r\n    </div>\r\n    <form name=\"editItem\">\r\n        <div class=\"col-xs-4\">\r\n            <div class=\"thumbnail drag-drop-field\"\r\n                 ngf-drop\r\n                 ngf-select\r\n                 ngf-drag-over-class=\"dragover\"\r\n                 ng-model=\"editCtrl.item.file\"\r\n                 name=\"file\"\r\n                 accept=\"image/*\"\r\n                 ngf-max-size=\"2MB\">\r\n                <img ng-hide=\"editCtrl.item.file\" ng-src=\"{{editCtrl.item.imageURL}}\" alt=\"\"/>\r\n                <img ng-show=\"editItem.file.$valid\"\r\n                     ngf-src=\"!editCtrl.item.file.$error && editCtrl.item.file\">\r\n            </div>\r\n            <div class=\"text-center save-changes\">\r\n                <button class=\"btn btn-primary btn-lg\"\r\n                        ng-click=\"editCtrl.saveChanges()\">Save changes</button>\r\n\r\n                <button class=\"btn btn-danger btn-lg\"\r\n                        ng-click=\"editCtrl.deleteItem()\">Delete item</button>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-8\">\r\n                <div class=\"col-xs-9 form-group\">\r\n                    <label>Title</label>\r\n                    <input class=\"form-control\"\r\n                           type=\"text\"\r\n                           value=\"{{editCtrl.item.title}}\"\r\n                           ng-model=\"editCtrl.item.title\">\r\n                </div>\r\n                <div class=\"col-xs-3 form-group\">\r\n                    <label>Price</label>\r\n                    <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">$</span>\r\n                        <input class=\"form-control\"\r\n                               type=\"text\"\r\n                               value=\"{{editCtrl.item.price}}\"\r\n                               ng-model=\"editCtrl.item.price\">\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-xs-12 form-group\">\r\n                    <label>Description</label>\r\n                    <textarea class=\"form-control\"\r\n                              rows=\"10\"\r\n                            ng-model=\"editCtrl.item.description\">\r\n                            {{editCtrl.item.description}}\r\n                    </textarea>\r\n                </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n");
+$templateCache.put("shared/directives/shoppingCart/shopping-cart.html","<div class=\"shopping-cart\">\r\n    <p ng-show=\"mainCtrl.cart.itemsCount\">\r\n        There are {{mainCtrl.cart.itemsCount}} items in your cart.</p>\r\n</div>");
+$templateCache.put("store/components/header/header.html","<!-- Navigation -->\r\n<nav class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"container\">\r\n        <!-- Brand and toggle get grouped for better mobile display -->\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\r\n                <span class=\"sr-only\">Toggle navigation</span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand navbar-logo\" ui-sref=\"store.main\"><i class=\"glyphicon glyphicon-shopping-cart\"></i> {{ appCtrl.title }}</a>\r\n        </div>\r\n        <!-- Collect the nav links, forms, and other content for toggling -->\r\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li>\r\n                    <a href=\"#\">Shopping cart</a>\r\n                </li>\r\n            </ul>\r\n            <ul class=\"nav navbar-nav pull-right\">\r\n                <li ng-hide=\"headerCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"auth.login\">\r\n                        <span class=\"glyphicon glyphicon-log-in\"></span>\r\n                        <span class=\"bordered-right\">Login</span>\r\n                    </a>\r\n                </li>\r\n                <li ng-hide=\"headerCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"auth.register\">\r\n                        <span class=\"glyphicon glyphicon-check\"></span>\r\n                        <span>Register</span></a>\r\n                </li>\r\n                <li ng-show=\"headerCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"admin.main\">\r\n                        <span class=\"glyphicon glyphicon-user\"></span>\r\n                        <span class=\"bordered-right\">{{ headerCtrl.user.username }}</span>\r\n                    </a>\r\n                </li>\r\n                <li ng-show=\"headerCtrl.isAuthenticated()\">\r\n                    <a href=\"#\" ng-click=\"headerCtrl.logOut()\">\r\n                        <span class=\"glyphicon glyphicon-log-out\"></span>\r\n                        <span>Log Out</span>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n        <!-- /.navbar-collapse -->\r\n    </div>\r\n    <!-- /.container -->\r\n</nav>");
 $templateCache.put("admin/templates/user-management/edit-profile/profile.html","<h2 class=\"sub-header\">Edit profile</h2>\r\n\r\n<form name=\"userInfoForm\">\r\n    <div class=\"row\">\r\n\r\n        <div class=\"alert alert-success\" role=\"alert\" ng-show=\"profileCtrl.message.length\">\r\n            {{profileCtrl.message}}\r\n        </div>\r\n\r\n        <!--Change password-->\r\n        <div class=\"col-xs-12 col-md-4\">\r\n            <h3 class=\"sub-header\">Change password</h3>\r\n            <div class=\"form-group\">\r\n                <label>Enter old password</label>\r\n                <input type=\"password\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.oldPassword\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Enter new password</label>\r\n                <input type=\"password\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.newPassword\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Repeat new password</label>\r\n                <input type=\"password\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.repeatPassword\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <button class=\"btn btn-primary\"\r\n                    ng-click=\"profileCtrl.changeUserPassword()\">Change password</button>\r\n        </div>\r\n\r\n        <!--Change username-->\r\n        <div class=\"col-xs-12 col-md-4\">\r\n            <h3 class=\"sub-header\">Change username</h3>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Enter old username</label>\r\n                <input type=\"text\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.oldUsername\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Enter new username</label>\r\n                <input type=\"text\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.newUsername\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Enter password</label>\r\n                <input type=\"password\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.password\">\r\n            </div>\r\n\r\n            <button class=\"btn btn-primary\"\r\n                    ng-click=\"profileCtrl.changeUserName()\">Change name</button>\r\n        </div>\r\n\r\n        <!--Change photo-->\r\n        <div class=\"col-xs-12 col-md-4\">\r\n            <h3 class=\"sub-header\">Change photo</h3>\r\n            <div class=\"form-group\">\r\n                <label>Upload new photo</label>\r\n                <div class=\"thumbnail drag-drop-field drag-drop-field_ava\"\r\n                     ngf-drop\r\n                     ngf-select\r\n                     ngf-drag-over-class=\"dragover\"\r\n                     ng-model=\"profileCtrl.file\"\r\n                     name=\"file\"\r\n                     accept=\"image/*\"\r\n                     ngf-max-size=\"2MB\">\r\n\r\n\r\n                    <img ng-show=\"profileCtrl.user.image && !profileCtrl.file\"\r\n                         ngf-src=\"profileCtrl.user.image\"\r\n                         class=\"image-centered\">\r\n\r\n                    <img ng-show=\"userInfoForm.file.$valid\"\r\n                         ngf-src=\"!profileCtrl.file.$error && profileCtrl.file\"\r\n                         class=\"image-centered\">\r\n                </div>\r\n\r\n                <button class=\"btn btn-primary\"\r\n                        ng-disabled=\"!profileCtrl.file\"\r\n                        ng-click=\"profileCtrl.uploadPhoto()\">Upload photo</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</form");
 $templateCache.put("admin/templates/user-management/edit-users/users.html","<h2 class=\"sub-header\">All items</h2>\r\n<div class=\"table-responsive\">\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>ID</th>\r\n            <th>User</th>\r\n            <th>Role</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody>\r\n        <tr ng-repeat=\"user in usersCtrl.users.data\">\r\n            <td>{{ $index + 1 }}</td>\r\n            <td>{{ user._id }}</td>\r\n            <td>{{ user.username }}</td>\r\n            <td>{{ usersCtrl.user.role(user) }}</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n\r\n");}]);
 //# sourceMappingURL=maps/app.js.map

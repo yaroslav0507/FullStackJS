@@ -7038,6 +7038,8 @@ textarea.form-control {
       color: #ddd; }
   .drag-drop-field_ava {
     min-height: 183px; }
+  .drag-drop-field img {
+    max-height: 100%; }
 
 .dragover {
   border: 5px dashed #5cb85c; }
