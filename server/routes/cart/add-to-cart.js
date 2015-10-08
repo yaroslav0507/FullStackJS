@@ -6,9 +6,8 @@ var Item = mongoose.model('Items');
 var CartItem = mongoose.model('CartItem');
 
 router.post('/add-to-cart/', function (req, res, next) {
-    //console.log(req.cookies['connect.sid']);
 
-    //Retrieving item id and qty
+    //Retrieving item id and qty for secure reasons
     var item = req.body;
     var cartID = req.cookies['connect.sid'];
 
@@ -20,41 +19,52 @@ router.post('/add-to-cart/', function (req, res, next) {
         return result;
     }).then(function (result) {
 
-        //TODO check for existing cart
-        //Find cart by id
         checkForExistingCart(cartID, function (cart) {
-            console.log("asd: " + cart)
-        });
+            console.log("CArt: ", cart);
 
-        //Creating a new instance of shopping cart
-        var cart = new Cart({
-            _id: cartID
-        });
+            var cartItem = new CartItem({
+                _id:    result.id,
+                price:  result.price,
+                qty:    item.qty
+            });
 
-        var cartItem = new CartItem({
-            _id:    result.id,
-            price:  result.price,
-            qty:    item.qty
-        });
+            res.send(cart);
+            //cart.addItem(cartItem, function(err, cart){
+            //    if (err) {
+            //        return next(err)
+            //    }
+            //    console.log(cart);
+            //    res.json(cart);
+            //});
 
-        cart.addItem(cartItem);
-
-        cart.save(function (err, cart) {
-            if (err) {
-                return next(err)
-            }
-            res.json(cart);
         });
     });
 });
 
 function checkForExistingCart(cartID, cb) {
-
+    /*
+    * This function search for existing cart
+    * by session id. If cart is found, it returns
+    * cart object. Otherwise it throws error
+    * */
     Cart.findById(cartID, function (err, cart) {
-        if (err) {
-            return next(err)
-        }
-        return cart;
-    }).then(cb)
+        if (err) { return next(err) }
 
+        if(cart){
+            console.log("\nCart found. Start working with existing cart. \n");
+
+            //Using existing cart
+            return cart;
+        } else {
+            console.log(cart);
+            console.log("\nCart not found. Creating a new cart \n");
+
+            //Creating a new instance of shopping cart
+            cart = new Cart({
+                _id: cartID
+            });
+
+            return cart;
+        }
+    }).then(cb);
 }

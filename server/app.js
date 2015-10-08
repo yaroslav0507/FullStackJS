@@ -33,7 +33,13 @@ app.use(methodOverride());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "../release")));
+
+if(app.settings.env === 'development'){
+    app.use(express.static(path.join(__dirname, "../dist")));
+} else {
+    app.use(express.static(path.join(__dirname, "../release")));
+}
+
 app.use(express.static(path.join(__dirname, "./static")));
 app.use(passport.initialize());
 
@@ -41,6 +47,7 @@ app.use(passport.initialize());
 app.use(session({
     secret: process.env.JWT_CERT,
     resave: true,
+    saveUninitialized: false,
     cookie: {
         maxAge: 1000*60*60*24, // One day expiration for cookies
         httpOnly: true

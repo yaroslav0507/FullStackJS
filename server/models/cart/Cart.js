@@ -8,8 +8,14 @@ var CartSchema = new mongoose.Schema({
 });
 
 CartSchema.methods.addItem = function(item, cb){
-    console.log(item);
+    var that = this;
     this.items.push(item);
+
+    this.total = 0;
+    this.items.forEach(function(item){
+        that.total += item.price;
+    });
+
     this.save(cb);
 };
 
