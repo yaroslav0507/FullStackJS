@@ -25,6 +25,7 @@ router.delete('/delete-from-cart/:id', function (req, res, next) {
         cart.removeItem(itemID, function(err, cart){
             if (err) {
                 return next(err)
+                res.json(err);
             }
             console.log(cart);
             res.json(cart);

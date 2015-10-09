@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f5aeb54-dcce-4583-bdb6-a30e8f5d3e7e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/routes/cart/delete-from-cart.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/cart/Cart.js" afterPath="$PROJECT_DIR$/server/models/cart/Cart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/shared/services/CartService.js" afterPath="$PROJECT_DIR$/client/src/shared/services/CartService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/store/main/MainController.js" afterPath="$PROJECT_DIR$/client/src/store/main/MainController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/cart/add-to-cart.js" afterPath="$PROJECT_DIR$/server/routes/cart/add-to-cart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/index.js" afterPath="$PROJECT_DIR$/server/routes/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/items.js" afterPath="$PROJECT_DIR$/server/routes/items.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/cart/delete-from-cart.js" afterPath="$PROJECT_DIR$/server/routes/cart/delete-from-cart.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="kupon.iws" />
@@ -50,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="delete-from-cart.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="delete-from-cart.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/routes/cart/delete-from-cart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8021309">
-              <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -80,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cart.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Cart.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/models/cart/Cart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="47" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.7503805">
+              <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -1076,7 +1071,13 @@
       <option name="project" value="LOCAL" />
       <updated>1444316690108</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Delete from cart endpoint&#10;">
+      <created>1444403290635</created>
+      <option name="number" value="00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1444403290635</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1119,7 +1120,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Edit profile" />
     <MESSAGE value="Profile template" />
     <MESSAGE value="npm start&#10;" />
     <MESSAGE value="procfile&#10;" />
@@ -1144,7 +1144,8 @@
     <MESSAGE value="Check for existing cart when item is added" />
     <MESSAGE value="Release to heroku" />
     <MESSAGE value="Add to cart route refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add to cart route refactoring" />
+    <MESSAGE value="Delete from cart endpoint&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete from cart endpoint&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1419,14 +1420,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/models/cart/Cart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="47" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store/main/MainController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.62069">
@@ -1445,8 +1438,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/cart/delete-from-cart.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8021309">
-          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/models/cart/Cart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7503805">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
           <folding />
         </state>
       </provider>

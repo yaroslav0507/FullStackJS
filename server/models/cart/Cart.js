@@ -21,14 +21,15 @@ CartSchema.methods.addItem = function(item, cb){
 
 CartSchema.methods.removeItem = function(id, cb){
 
-    for (var index = 0; index <= this.items.length; index++ ){
-        if(this.items[index]._id === id){
-            this.total -= this.items[index].price;
-            this.items.splice(index, 1);
-            break;
+    if(this.items.length > 0){
+        for (var index = 0; index <= this.items.length; index++ ){
+            if(this.items[index]._id === id){
+                this.total -= this.items[index].price;
+                this.items.splice(index, 1);
+                break;
+            }
         }
     }
-
     this.save(cb);
 };
 
