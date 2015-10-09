@@ -5,7 +5,7 @@
         .module('app')
         .controller('MainController', MainController);
 
-    function MainController(items, LocalCartService){
+    function MainController(items, CartService){
 
         var vm = this;
 
@@ -15,25 +15,20 @@
             reverse: false,
             order: order,
             cart: {
-                itemsCount: LocalCartService.getItemsCount()
+
             },
             addToCart: addToCart,
-            deleteFromCart: removeFromCart
+            deleteFromCart: deleteFromCart
         });
 
 
         function addToCart(id){
-            LocalCartService.addToCart(id);
+            CartService.addToCart(id);
             vm.cart.itemsCount += 1;
         }
 
-        function removeFromCart(id){
-            if(LocalCartService.deleteFromCart(id) == -1){
-                console.log("Object not found");
-            } else {
-                vm.cart.itemsCount -= 1;
-            }
-
+        function deleteFromCart(id){
+            CartService.deleteFromCart(id);
         }
 
         function makeShortDescriptions(length, item) {

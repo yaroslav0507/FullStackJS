@@ -19,8 +19,22 @@ router.post('/add-to-cart/', function (req, res, next) {
         return result;
     }).then(function (result) {
 
-        checkForExistingCart(cartID, function (cart) {
-            console.log("CArt: ", cart);
+        checkForExistingCart(cartID, function (response) {
+            var cart;
+
+            if(response){
+                console.log("\nCart found. Start working with existing cart. \n");
+
+                //Using existing cart
+                cart = response;
+            } else {
+                console.log("\nCart not found. Creating a new cart \n");
+
+                //Creating a new instance of shopping cart
+                cart = new Cart({
+                    _id: cartID
+                });
+            }
 
             var cartItem = new CartItem({
                 _id:    result.id,
@@ -28,14 +42,13 @@ router.post('/add-to-cart/', function (req, res, next) {
                 qty:    item.qty
             });
 
-            res.send(cart);
-            //cart.addItem(cartItem, function(err, cart){
-            //    if (err) {
-            //        return next(err)
-            //    }
-            //    console.log(cart);
-            //    res.json(cart);
-            //});
+            cart.addItem(cartItem, function(err, cart){
+                if (err) {
+                    return next(err)
+                }
+                console.log(cart);
+                res.json(cart);
+            });
 
         });
     });
@@ -50,21 +63,6 @@ function checkForExistingCart(cartID, cb) {
     Cart.findById(cartID, function (err, cart) {
         if (err) { return next(err) }
 
-        if(cart){
-            console.log("\nCart found. Start working with existing cart. \n");
-
-            //Using existing cart
-            return cart;
-        } else {
-            console.log(cart);
-            console.log("\nCart not found. Creating a new cart \n");
-
-            //Creating a new instance of shopping cart
-            cart = new Cart({
-                _id: cartID
-            });
-
-            return cart;
-        }
+        return cart;
     }).then(cb);
 }
