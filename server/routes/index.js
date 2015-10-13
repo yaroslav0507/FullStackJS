@@ -12,5 +12,6 @@ require('./users');
 require('./file-upload');
 require('./cart/add-to-cart');
 require('./cart/delete-from-cart');
+require('./cart/get-cart');
 
 module.exports = router;

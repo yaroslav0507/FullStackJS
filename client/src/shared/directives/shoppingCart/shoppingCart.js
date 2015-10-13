@@ -14,12 +14,19 @@
             templateUrl: 'shared/directives/shoppingCart/shopping-cart.html',
             link: function(scope, element, attrs){
 
+            },
+            scope: {
+                cart: "="
             }
         }
 
     }
 
     function shoppingCartController(){
+        var vm = this;
 
+        angular.extend(vm, {
+
+        });
     }
 })();

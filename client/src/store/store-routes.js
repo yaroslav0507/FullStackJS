@@ -32,7 +32,8 @@
                         controller: 'MainController',
                         controllerAs: 'mainCtrl',
                         resolve: {
-                            items: resolveItems
+                            items: resolveItems,
+                            cart: resolveCart
                         }
                     }
                 }
@@ -59,6 +60,10 @@
 
         function resolveItem($stateParams, ItemsService){
             return ItemsService.getItem($stateParams.id);
+        }
+
+        function resolveCart(CartService){
+            return CartService.getCart();
         }
     }
 })();

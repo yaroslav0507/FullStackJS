@@ -5,7 +5,7 @@
         .module('app')
         .controller('MainController', MainController);
 
-    function MainController(items, CartService){
+    function MainController(items, cart, CartService){
 
         var vm = this;
 
@@ -14,17 +14,17 @@
             predicate: 'price',
             reverse: false,
             order: order,
-            cart: {
-
-            },
+            cart: cart,
             addToCart: addToCart,
             deleteFromCart: deleteFromCart
         });
 
 
         function addToCart(id){
-            CartService.addToCart(id);
-            vm.cart.itemsCount += 1;
+            CartService.addToCart(id).then(function(cart){
+                vm.cart = cart;
+            });
+            console.log(vm.cart);
         }
 
         function deleteFromCart(id){

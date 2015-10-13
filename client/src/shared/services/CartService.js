@@ -9,7 +9,8 @@
 
         var service = {
             addToCart: addToCart,
-            deleteFromCart: deleteFromCart
+            deleteFromCart: deleteFromCart,
+            getCart: getCart
         };
 
         return service;
@@ -20,8 +21,10 @@
                 qty: 1
             };
 
-            $http.post('/add-to-cart/', item, function(response){
-                return response;
+            $http.post('/add-to-cart/', item).then(function(res){
+                return res;
+            }, function(err){
+                return err;
             });
         }
 
@@ -29,6 +32,12 @@
             return $http.delete('/delete-from-cart/' + id).then(function(response){
                 return response.data;
             });
+        }
+
+        function getCart(){
+            return $http.get('/get-cart/').then(function(response){
+                return response.data;
+            })
         }
 
     }

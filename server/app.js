@@ -47,7 +47,7 @@ app.use(passport.initialize());
 app.use(session({
     secret: process.env.JWT_CERT,
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         maxAge: 1000*60*60*24, // One day expiration for cookies
         httpOnly: true
