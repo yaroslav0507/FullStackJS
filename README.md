@@ -27,14 +27,13 @@ Your app should now be running on [localhost:4000](http://localhost:4000/).
 Open a separate terminal or shell
 ```
 $ gulp serve
-
 ```
 Now app will start in google chrome on the [localhost:7000](http://localhost:7000/).
 All changes in the code will be immediately reflected in your browser by [browser-sync](http://browsersync.io/)
 
 ## Interface
 Store
-![Store](https://www.dropbox.com/s/tsws3n3b1o07h9g/pet_front.png?dl=1)
+![Store](https://www.dropbox.com/s/rocg3kfljg92oxj/Screenshot_1_imac2013_front.png?dl=1)
 
 Dashboard
-![Dashboard](https://www.dropbox.com/s/ptouaxtgml4rw59/pet_back.png?dl=1)
+![Dashboard](https://www.dropbox.com/s/6tangy2d6cg2klf/Screenshot_2_imac2013_front.png?dl=1)
