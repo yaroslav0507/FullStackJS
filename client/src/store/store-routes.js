@@ -54,6 +54,19 @@
                         }
                     }
                 }
+            })
+            .state('store.cart', {
+                url: '/cart/',
+                views: {
+                    'content@store': {
+                        templateUrl: 'store/cart/cart.html',
+                        controller: 'CartController',
+                        controllerAs: 'cartCtrl',
+                        resolve: {
+                            cart: resolveCart
+                        }
+                    }
+                }
             });
 
         $urlRouterProvider.otherwise('/');

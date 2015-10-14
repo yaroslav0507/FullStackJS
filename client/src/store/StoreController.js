@@ -11,18 +11,11 @@
 
         angular.extend(vm, {
             cart: cart,
-            addToCart: addToCart,
-            deleteFromCart: deleteFromCart
+            addToCart: addToCart
         });
 
         function addToCart(id){
             CartService.addToCart(id).then(function(cart){
-                vm.cart = cart;
-            });
-        }
-
-        function deleteFromCart(id){
-            CartService.deleteFromCart(id).then(function(cart){
                 vm.cart = cart;
             });
         }

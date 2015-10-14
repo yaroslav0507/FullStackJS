@@ -38,6 +38,7 @@ router.post('/add-to-cart/', function (req, res, next) {
 
             var cartItem = new CartItem({
                 _id:    result.id,
+                image:  result.imageURL,
                 title:  result.title,
                 price:  result.price,
                 qty:    item.qty

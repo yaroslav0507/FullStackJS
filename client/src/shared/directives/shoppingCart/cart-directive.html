@@ -1,0 +1,16 @@
+<div class="cart-thumbnail"
+     ng-class="{'cart-thumbnail_visible': cart.items.length,
+                'cart-thumbnail_hidden': !cart.items.length}">
+    <p>Cart total: {{ cart.total }}</p>
+
+    <div class="shopping-cart__items">
+        <div class="shopping-cart__item"
+             ng-repeat="item in cart.items">
+            Title: {{item.title}} <br/>
+            Quantity: {{ item.qty }}
+            Price: {{ item.price }}
+
+            <button ng-click="cartCtrl.deleteFromCart(item._id)">X</button>
+        </div>
+    </div>
+</div>

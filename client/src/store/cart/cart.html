@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="form-group clearfix">
+            <div class="col-xs-12">
+                <h3>Shopping Cart</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="cart-view">
+                <div class="cart-view__total text-right">
+                    <h4>Merchandise Total: {{ cartCtrl.cart.total }}</h4>
+                </div>
+
+                <div class="cart-view__items">
+                    <table class="table">
+                        <thead>
+                            <th>Items</th>
+                            <th></th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in cartCtrl.cart.items">
+                                <td>{{ item.title }}</td>
+                                <td>
+                                    <img class="cart-item-image" ng-src="{{item.image}}" alt=""/>
+                                </td>
+                                <td>{{ item.price }}</td>
+                                <td><input class="form-control"
+                                           type="number"
+                                           value="{{ item.qty }}"
+                                           min="1"/></td>
+                                <td>
+                                    <button class="btn btn-primary"
+                                            ng-click="cartCtrl.deleteFromCart(item._id)">Remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <hr/>
+                <div class="cart-view__total text-right">
+                    <h4>Merchandise Total: {{ cartCtrl.cart.total }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
