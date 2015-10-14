@@ -1,3 +1,4 @@
+![Store](https://www.dropbox.com/s/urzxcemvnln55xo/Screenshot_1_imac2013_right.png?dl=1)
 # MEAN Stack E-commerce
 
 Let me introduce my pet application.
@@ -27,7 +28,6 @@ Your app should now be running on [localhost:4000](http://localhost:4000/).
 Open a separate terminal or shell
 ```
 $ gulp serve
-
 ```
 Now app will start in google chrome on the [localhost:7000](http://localhost:7000/).
 All changes in the code will be immediately reflected in your browser by [browser-sync](http://browsersync.io/)
