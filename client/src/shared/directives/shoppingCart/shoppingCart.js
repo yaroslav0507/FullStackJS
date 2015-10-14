@@ -8,25 +8,16 @@
     function shoppingCart(){
         return {
             restrict: 'EA',
-            replace: true,
-            controller: shoppingCartController,
-            controllerAs: 'cartCtrl',
-            templateUrl: 'shared/directives/shoppingCart/shopping-cart.html',
-            link: function(scope, element, attrs){
-
-            },
             scope: {
                 cart: "="
+            },
+            templateUrl: 'shared/directives/shoppingCart/shopping-cart.html',
+            link: function(scope){
+
             }
         }
 
     }
 
-    function shoppingCartController(){
-        var vm = this;
 
-        angular.extend(vm, {
-
-        });
-    }
 })();

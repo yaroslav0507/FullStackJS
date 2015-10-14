@@ -21,16 +21,18 @@
                 qty: 1
             };
 
-            $http.post('/add-to-cart/', item).then(function(res){
-                return res;
+            return $http.post('/add-to-cart/', item).then(function(res){
+                return res.data;
             }, function(err){
                 return err;
             });
         }
 
         function deleteFromCart(id){
-            return $http.delete('/delete-from-cart/' + id).then(function(response){
-                return response.data;
+            return $http.delete('/delete-from-cart/' + id).then(function(res){
+                return res.data;
+            }, function(err){
+                return err;
             });
         }
 

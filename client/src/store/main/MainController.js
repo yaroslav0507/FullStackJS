@@ -5,7 +5,7 @@
         .module('app')
         .controller('MainController', MainController);
 
-    function MainController(items, cart, CartService){
+    function MainController(items, CartService){
 
         var vm = this;
 
@@ -13,23 +13,8 @@
             items: items.map(makeShortDescriptions.bind(null, 120)),
             predicate: 'price',
             reverse: false,
-            order: order,
-            cart: cart,
-            addToCart: addToCart,
-            deleteFromCart: deleteFromCart
+            order: order
         });
-
-
-        function addToCart(id){
-            CartService.addToCart(id).then(function(cart){
-                vm.cart = cart;
-            });
-            console.log(vm.cart);
-        }
-
-        function deleteFromCart(id){
-            CartService.deleteFromCart(id);
-        }
 
         function makeShortDescriptions(length, item) {
             if (item.description.length > length) {

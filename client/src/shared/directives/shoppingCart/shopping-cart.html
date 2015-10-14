@@ -1,3 +1,9 @@
 <div class="shopping-cart">
-    <p>Cart: {{mainCtrl.cart}}</p>
+    <p>Cart total: {{ cart.total }}</p>
+    <hr/>
+    <p ng-repeat="item in cart.items">
+        Title: {{item.title}}
+        Quantity: {{ item.qty }}
+        Price: {{ item.price }}
+    </p>
 </div>

@@ -12,7 +12,12 @@
                 abstract: true,
                 views:{
                     '':{
-                        templateUrl: 'store/store-base.html'
+                        templateUrl: 'store/store-base.html',
+                        controller: 'StoreController',
+                        controllerAs: 'storeCtrl',
+                        resolve: {
+                            cart: resolveCart
+                        }
                     },
                     'navigation@store': {
                         templateUrl: 'store/components/header/header.html',
@@ -32,8 +37,7 @@
                         controller: 'MainController',
                         controllerAs: 'mainCtrl',
                         resolve: {
-                            items: resolveItems,
-                            cart: resolveCart
+                            items: resolveItems
                         }
                     }
                 }
