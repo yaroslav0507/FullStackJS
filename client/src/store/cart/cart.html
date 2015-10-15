@@ -8,7 +8,8 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div class="cart-view">
+            <div class="cart-view"
+                 ng-if="cartCtrl.cart.items.length">
                 <div class="cart-view__total text-right">
                     <h4>Merchandise Total: {{ cartCtrl.cart.total }}</h4>
                 </div>
@@ -35,7 +36,7 @@
                                            min="1"/></td>
                                 <td>
                                     <button class="btn btn-primary"
-                                            ng-click="cartCtrl.deleteFromCart(item._id)">Remove</button>
+                                            ng-click="cartCtrl.deleteFromCart(item)">Remove</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -46,6 +47,10 @@
                 <div class="cart-view__total text-right">
                     <h4>Merchandise Total: {{ cartCtrl.cart.total }}</h4>
                 </div>
+            </div>
+            <div class="cart-view_empty"
+                 ng-if="!cartCtrl.cart.items.length">
+                <h2>There are no items in your shopping cart.</h2>
             </div>
         </div>
     </div>

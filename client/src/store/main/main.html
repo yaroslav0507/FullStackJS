@@ -1,8 +1,5 @@
 <div class="container">
 
-    <shopping-cart cart="storeCtrl.cart"></shopping-cart>
-
-
     <!-- Jumbotron Header -->
     <header class="jumbotron hero-spacer">
         <h1>A Warm Welcome!</h1>
@@ -52,10 +49,7 @@
                     <p class="item-thumbnail__price">{{ item.price | currency: "$":0 }}</p>
                     <p>
                         <a href="#" class="btn btn-primary"
-                                ng-click="storeCtrl.addToCart(item)">Add</a>
-                        <a href="#" class="btn btn-danger"
-                           ng-click="storeCtrl.deleteFromCart(item._id)">Delete</a>
-                        <a href="{{ '#/items/' + item._id }}" class="btn btn-default">More</a>
+                                ng-click="storeCtrl.addToCart(item)">Add to cart</a>
                     </p>
                 </div>
             </div>

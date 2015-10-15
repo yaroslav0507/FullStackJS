@@ -15,7 +15,8 @@ gulp.task('styles', function(){
         .pipe(sass());
 
     var assets = gulp.src([
-        'client/vendors/bootstrap/dist/css/bootstrap.css'
+        'client/vendors/bootstrap/dist/css/bootstrap.css',
+        'client/vendors/toastr/toastr.css'
     ])
         .pipe(concat('assets.css'));
 

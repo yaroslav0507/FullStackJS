@@ -5,19 +5,17 @@
         .module('app')
         .controller('CartController', CartController);
 
-    function CartController(cart, ItemsService, CartService){
+    function CartController(CartService){
 
         var vm = this;
 
         angular.extend(vm, {
-            cart: cart,
+            cart: CartService.getCurrentCart(),
             deleteFromCart: deleteFromCart
         });
 
-        function deleteFromCart(id){
-            CartService.deleteFromCart(id).then(function(cart){
-                vm.cart = cart;
-            });
+        function deleteFromCart(item){
+            CartService.deleteFromCart(item);
         }
 
     }

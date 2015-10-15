@@ -5,13 +5,18 @@
         .module('app')
         .controller('SingleItemController', SingleItemController);
 
-    function SingleItemController(item) {
+    function SingleItemController(item, CartService) {
 
         var vm = this;
 
         angular.extend(vm, {
-            item: item
+            item: item,
+            addToCart: addToCart
         });
+
+        function addToCart(){
+            CartService.addToCart(item);
+        }
 
     }
 })();

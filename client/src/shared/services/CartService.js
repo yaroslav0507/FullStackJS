@@ -6,11 +6,13 @@
         .factory('CartService', CartService);
 
     function CartService($http){
+        var cart = {};
 
         var service = {
             addToCart: addToCart,
             deleteFromCart: deleteFromCart,
-            getCart: getCart
+            getCart: getCart,
+            getCurrentCart: getCurrentCart
         };
 
         return service;
@@ -21,16 +23,29 @@
                 qty: 1
             };
 
-            return $http.post('/add-to-cart/', item).then(function(res){
-                return res.data;
+            return $http.post('/add-to-cart/', item).then(function(response){
+                angular.copy(response.data, cart);
+                toastr["success"]( cart.items[cart.items.length-1].title + " was added to your cart", "Shopping Cart");
+
+                return cart;
             }, function(err){
                 return err;
             });
         }
 
-        function deleteFromCart(id){
-            return $http.delete('/delete-from-cart/' + id).then(function(res){
-                return res.data;
+        function deleteFromCart(item){
+            var deletedItem;
+            cart.items.forEach(function(cartItem){
+                if(cartItem._id === item._id){
+                    deletedItem = cartItem.title;
+                }
+            });
+
+            return $http.delete('/delete-from-cart/' + item._id).then(function(response){
+                angular.copy(response.data, cart);
+                toastr["info"]( deletedItem + " was successfully deleted", "Shopping Cart");
+
+                return cart;
             }, function(err){
                 return err;
             });
@@ -38,8 +53,13 @@
 
         function getCart(){
             return $http.get('/get-cart/').then(function(response){
-                return response.data;
+                angular.copy(response.data, cart);
+                return cart;
             })
+        }
+
+        function getCurrentCart() {
+            return cart;
         }
 
     }

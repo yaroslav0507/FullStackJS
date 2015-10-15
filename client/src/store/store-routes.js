@@ -61,10 +61,7 @@
                     'content@store': {
                         templateUrl: 'store/cart/cart.html',
                         controller: 'CartController',
-                        controllerAs: 'cartCtrl',
-                        resolve: {
-                            cart: resolveCart
-                        }
+                        controllerAs: 'cartCtrl'
                     }
                 }
             });
