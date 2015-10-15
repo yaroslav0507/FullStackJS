@@ -8,7 +8,9 @@
     function HeaderController(AuthService, UsersService){
 
         var vm = this;
-        var user = getUser();
+        if (AuthService.isLoggedIn()){
+            var user = getUser();
+        }
 
         angular.extend(vm, {
             isAuthenticated: AuthService.isLoggedIn,

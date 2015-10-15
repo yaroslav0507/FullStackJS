@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, "./static")));
 app.use(passport.initialize());
 
 
-app.use(session({
+app.use('/', session({
     secret: process.env.JWT_CERT,
     resave: true,
     saveUninitialized: true,

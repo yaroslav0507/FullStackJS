@@ -16,7 +16,7 @@ CartSchema.methods.addItem = function(item, cb){
     * */
     this.items.forEach(function(obj){
         if(obj._id === item._id){
-            obj.qty += 1;
+            obj.qty += item.qty;
             itemExists = true;
         }
     });

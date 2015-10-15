@@ -2,6 +2,7 @@
 @import "mixins";
 
 @import "components/cart";
+@import "media";
 
 @font-face {
   font-family: "Glyphicons Halflings";
@@ -9,6 +10,11 @@
 }
 
 .main-wrapper{
+  color: #696969;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 a{
@@ -40,7 +46,6 @@ a{
 
 
 body {
-  padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 .hero-spacer {
@@ -100,4 +105,26 @@ footer {
 
 .navbar-brand.navbar-logo{
   color: #FFF;
+}
+
+#top {
+  min-height: 40px;
+}
+
+#top .btn-link strong {
+  font-size: 14px;
+  font-weight: normal;
+}
+#top-links {
+  padding-top: 10px;
+}
+#top-links .list-inline{margin:1px 0 0;}
+#top-links a + a {
+  margin-left: 15px;
+}
+#top .fa-caret-down{vertical-align:-2px;}
+
+#top .btn-link, #top-links li, #top-links a {
+  color: #696969;
+  text-decoration: none;
 }
