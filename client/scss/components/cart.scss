@@ -30,6 +30,7 @@
       padding: 15px;
       height: 190px;
       overflow: auto;
+
     }
 
     &__item{
@@ -42,7 +43,29 @@
     max-height: 100px;
   }
 
-  &-view{
 
+  //Shopping cart view
+  &-view{
+    &__items{
+      border: 10px solid $brandBlue;
+      border-radius: 15px;
+      padding: 0 15px;
+    }
+  }
+
+  &-header{
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    background-color: $brandBlue;
+  }
+
+  &-row{
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    &:last-child{
+      border: none;
+    }
   }
 }

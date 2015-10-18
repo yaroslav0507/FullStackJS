@@ -4,7 +4,8 @@ var CartItemSchema = require('./CartItem');
 var CartSchema = new mongoose.Schema({
     _id: String,
     total: Number,
-    items: [CartItemSchema]
+    items: [CartItemSchema],
+    itemsCount: {type: Number, default: 0}
 });
 
 CartSchema.methods.addItem = function(item, cb){
@@ -12,7 +13,7 @@ CartSchema.methods.addItem = function(item, cb){
     var itemExists = false;
 
     /*
-    * Increase item quantity if item exists
+    * Increase current item quantity if it exists
     * */
     this.items.forEach(function(obj){
         if(obj._id === item._id){
@@ -20,6 +21,11 @@ CartSchema.methods.addItem = function(item, cb){
             itemExists = true;
         }
     });
+
+    /*
+    * Increase total items count
+    * */
+    this.itemsCount += item.qty;
 
     /*
     * Add item if it doesn't exists
@@ -48,6 +54,14 @@ CartSchema.methods.removeItem = function(id, cb){
             var item = this.items[index];
 
             if(item._id === id){
+
+                if(this.itemsCount > 0){
+                    /*
+                     * Decrease total items count
+                     * */
+                    this.itemsCount -= 1;
+                }
+
                 if(item.qty > 1){
                     item.qty -= 1;
                     this.total -= item.price;
@@ -59,9 +73,11 @@ CartSchema.methods.removeItem = function(id, cb){
 
                     break;
                 }
+
             }
         }
     }
+
     this.save(cb);
 };
 

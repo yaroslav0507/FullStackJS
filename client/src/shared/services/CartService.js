@@ -25,7 +25,9 @@
 
             return $http.post('/add-to-cart/', item).then(function(response){
                 angular.copy(response.data, cart);
-                toastr["success"]( cart.items[cart.items.length-1].title + " was added to your cart", "Shopping Cart");
+
+                var toastMessage = cart.items[cart.items.length-1].title + " was added to your cart";
+                toastr["success"]( toastMessage , "Shopping Cart");
 
                 return cart;
             }, function(err){

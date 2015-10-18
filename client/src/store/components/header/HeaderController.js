@@ -5,7 +5,7 @@
         .module('app')
         .controller('HeaderController', HeaderController);
 
-    function HeaderController(AuthService, UsersService){
+    function HeaderController(AuthService, UsersService, CartService){
 
         var vm = this;
         if (AuthService.isLoggedIn()){
@@ -14,7 +14,8 @@
 
         angular.extend(vm, {
             isAuthenticated: AuthService.isLoggedIn,
-            logOut: AuthService.logOut
+            logOut: AuthService.logOut,
+            cart: CartService.getCurrentCart()
         });
 
         function getUser(){

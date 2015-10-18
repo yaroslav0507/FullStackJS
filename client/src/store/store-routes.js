@@ -25,7 +25,9 @@
                         controllerAs: 'headerCtrl'
                     },
                     'footer@store': {
-                        templateUrl: 'store/components/footer.html'
+                        templateUrl: 'store/components/footer/footer.html',
+                        controller: 'FooterController',
+                        controllerAs: 'footerCtrl'
                     }
                 }
             })

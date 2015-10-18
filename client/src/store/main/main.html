@@ -1,11 +1,12 @@
 <div class="container">
 
     <!-- Jumbotron Header -->
-    <header class="jumbotron hero-spacer">
-        <h1>A Warm Welcome!</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-        <p><a class="btn btn-primary btn-large">Call to action!</a>
-        </p>
+    <header class="promo-header">
+        <div class="promo-header__text">
+            <h1>Sale up to 30%</h1>
+            <p>For all Meizu smartphones</p>
+        </div>
+        <img class="promo-header__image" src="./img/meizu_promo.png" alt=""/>
     </header>
 
     <hr>
@@ -41,16 +42,21 @@
              ng-repeat="item in mainCtrl.items | orderBy: mainCtrl.predicate: mainCtrl.reverse">
             <div class="thumbnail store-item-thumbnail">
                 <a href="{{ '#/items/' + item._id }}">
+                    <span class="item-hover-mask item-hover-mask_more">
+                        <i class="glyphicon glyphicon-search">
+                            <span class="small">Show details</span>
+                        </i>
+                    </span>
                     <img ng-src="{{item.imageURL}}" alt="{{item.title}}" class="image"/>
                 </a>
                 <div class="caption">
                     <h4>{{ item.title }}</h4>
                     <p class="item-thumbnail__description">{{ item.shortDescription }}</p>
                     <p class="item-thumbnail__price">{{ item.price | currency: "$":0 }}</p>
-                    <p>
-                        <a href="#" class="btn btn-primary"
-                                ng-click="storeCtrl.addToCart(item)">Add to cart</a>
-                    </p>
+                    <div class="btn-group btn-group-justified">
+                        <a href="#" class="btn btn-default btn-group" ng-click="storeCtrl.addToCart(item)">Add to cart</a>
+                        <a href="#" class="btn btn-default btn-group" ng-click="storeCtrl.addToCart(item)">Buy now</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,6 +65,5 @@
     <!-- /.row -->
 
     <hr>
-
 
 </div>

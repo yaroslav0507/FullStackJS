@@ -11,41 +11,71 @@
             <div class="cart-view"
                  ng-if="cartCtrl.cart.items.length">
                 <div class="cart-view__total text-right">
-                    <h4>Merchandise Total: {{ cartCtrl.cart.total }}</h4>
+                    <h4>Merchandise Total: {{ cartCtrl.cart.total | currency}}</h4>
                 </div>
 
                 <div class="cart-view__items">
-                    <table class="table">
-                        <thead>
-                            <th>Items</th>
-                            <th></th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in cartCtrl.cart.items">
-                                <td>{{ item.title }}</td>
-                                <td>
-                                    <img class="cart-item-image" ng-src="{{item.image}}" alt=""/>
-                                </td>
-                                <td>{{ item.price }}</td>
-                                <td><input class="form-control"
-                                           type="number"
-                                           value="{{ item.qty }}"
-                                           min="1"/></td>
-                                <td>
-                                    <button class="btn btn-primary"
-                                            ng-click="cartCtrl.deleteFromCart(item)">Remove</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="row cart-header clearfix">
+                        <div class="col-xs-5 col-xs-offset-2">Items</div>
+                        <div class="col-xs-2">Price</div>
+                        <div class="col-xs-2">Quantity</div>
+                        <div class="col-xs-1"></div>
+                    </div>
+
+                    <div class="row cart-row" ng-repeat="item in cartCtrl.cart.items">
+                        <div class="col-xs-2 text-center">
+                            <img class="cart-item-image" ng-src="{{item.image}}" alt=""/>
+                        </div>
+                        <div class="col-xs-5">{{ item.title }}</div>
+                        <div class="col-xs-2">{{ item.price | currency }}</div>
+                        <div class="col-xs-2">
+                            <div class="input-group spinner">
+                                <input type="text" class="form-control" value="{{ item.qty }}">
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-1">
+                            <button class="btn btn-default"
+                                    ng-click="cartCtrl.deleteFromCart(item)">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!--<table class="table">-->
+
+                        <!--<tbody>-->
+                            <!--<tr ng-repeat="item in cartCtrl.cart.items">-->
+                                <!--<td>-->
+                                    <!--<img class="cart-item-image" ng-src="{{item.image}}" alt=""/>-->
+                                <!--</td>-->
+                                <!--<td>{{ item.title }}</td>-->
+                                <!--<td>{{ item.price }}</td>-->
+                                <!--<td>-->
+                                    <!--<div class="input-group spinner">-->
+                                        <!--<input type="text" class="form-control" value="{{ item.qty }}">-->
+                                        <!--<div class="input-group-btn-vertical">-->
+                                            <!--<button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>-->
+                                            <!--<button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--<td>-->
+                                    <!--<button class="btn btn-default"-->
+                                            <!--ng-click="cartCtrl.deleteFromCart(item)">-->
+                                        <!--<i class="fa fa-close"></i>-->
+                                    <!--</button>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
                 </div>
 
                 <hr/>
                 <div class="cart-view__total text-right">
-                    <h4>Merchandise Total: {{ cartCtrl.cart.total }}</h4>
+                    <h4>Merchandise Total: {{ cartCtrl.cart.total | currency}}</h4>
                 </div>
             </div>
             <div class="cart-view_empty"

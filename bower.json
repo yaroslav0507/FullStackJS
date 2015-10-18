@@ -18,8 +18,8 @@
     "angular-ui-router": "~0.2.15",
     "ng-file-upload": "~7.2.1",
     "bootstrap": "~3.3.5",
-    "toastr": "~2.1.2"
+    "toastr": "~2.1.2",
+    "components-font-awesome": "~4.4.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
