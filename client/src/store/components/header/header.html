@@ -13,11 +13,13 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a ui-sref="store.cart">Shopping cart <span class="label label-info">{{ headerCtrl.cart.itemsCount }}</span></a>
-                </li>
-            </ul>
+            <div class="header-cart">
+                <btn class="btn btn-default" ui-sref="store.cart">
+                    <span class="header-cart__title">Shopping cart</span>
+                    <span class="label label-info"> {{ headerCtrl.cart.itemsCount }} items</span>
+                    <span class="label label-success"> {{ headerCtrl.cart.total | currency}}</span>
+                </btn>
+            </div>
             <ul class="nav navbar-nav pull-right">
                 <li ng-hide="headerCtrl.isAuthenticated()">
                     <a ui-sref="auth.login">
@@ -32,7 +34,11 @@
                 </li>
                 <li ng-show="headerCtrl.isAuthenticated()">
                     <a ui-sref="admin.main">
-                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="header-user__avatar" ng-if="headerCtrl.user">
+                            <img ng-src="{{headerCtrl.user.image}}"/>
+                        </span>
+
+                        <span class="glyphicon glyphicon-user" ng-if="!headerCtrl.user"></span>
                         <span class="bordered-right">{{ headerCtrl.user.username }}</span>
                     </a>
                 </li>

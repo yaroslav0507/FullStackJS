@@ -1,5 +1,8 @@
 @import "variables";
 @import "mixins";
+
+@import "components/fonts";
+@import "components/header";
 @import "components/cart";
 @import "components/forms";
 
@@ -11,8 +14,8 @@
 }
 
 .main-wrapper {
-  //color: #696969;
-  font-family: sans-serif;
+  padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 400;
 }
@@ -23,6 +26,10 @@ a {
   }
 }
 
+.label{
+  padding-bottom: .2em;
+}
+
 .bordered-right {
   border-right: 1px solid rgba(255, 255, 255, 0.67);
   padding-right: 30px;
@@ -30,10 +37,8 @@ a {
   padding-left: 2px;
 }
 
-.navbar-nav {
-  .glyphicon {
-    font-size: 17px;
-  }
+.no-padding{
+  padding: 0;
 }
 
 .login-form {
@@ -42,10 +47,6 @@ a {
   border: 1px solid $borderPrimary;
   border-radius: $globalBorderRadius;
   box-shadow: 0 5px 0 #C5C5C5;
-}
-
-body {
-  padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 .hero-spacer {

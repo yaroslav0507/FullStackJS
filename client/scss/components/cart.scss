@@ -47,7 +47,7 @@
   //Shopping cart view
   &-view{
     &__items{
-      border: 10px solid $brandBlue;
+      border: 10px solid $brandPrimary;
       border-radius: 15px;
       padding: 0 15px;
     }
@@ -58,7 +58,7 @@
     color: #fff;
     text-transform: uppercase;
     padding-bottom: 10px;
-    background-color: $brandBlue;
+    background-color: $brandPrimary;
   }
 
   &-row{
@@ -66,6 +66,17 @@
     border-bottom: 1px solid #eee;
     &:last-child{
       border: none;
+    }
+  }
+
+  &-total{
+    float: right;
+    font-size: 24px;
+
+    .badge{
+      font-size: 25px;
+      background-color: $brandPrimary;
+      margin-top: -5px;
     }
   }
 }

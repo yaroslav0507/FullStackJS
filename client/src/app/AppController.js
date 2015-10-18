@@ -5,12 +5,13 @@
         .module('app')
         .controller('AppController', AppController);
 
-    function AppController($state){
+    function AppController($state, $window){
 
         var vm = this;
 
         angular.extend(vm, {
-           title: 'E-commerce'
+            title: 'E-commerce',
+            goBack: goBack
         });
 
         toastr.options = {
@@ -33,6 +34,10 @@
 
         function goToCart(){
             $state.go('store.cart');
+        }
+
+        function goBack(){
+            $window.history.back();
         }
     }
 
