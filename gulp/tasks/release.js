@@ -26,4 +26,9 @@ gulp.task('cloneFonts', function(){
         .pipe(gulp.dest('release/fonts/'));
 });
 
-gulp.task('release', ['buildJS', 'buildCSS', 'buildHTML', 'cloneFonts']);
+gulp.task('cloneImages', function(){
+    return gulp.src('dist/img/**.*')
+        .pipe(gulp.dest('release/img/'));
+});
+
+gulp.task('release', ['buildJS', 'buildCSS', 'buildHTML', 'cloneFonts', 'cloneImages']);
