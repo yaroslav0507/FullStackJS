@@ -16,8 +16,11 @@
             <div class="header-cart">
                 <btn class="btn btn-default" ui-sref="store.cart">
                     <span class="header-cart__title">Shopping cart</span>
-                    <span class="label label-info"> {{ headerCtrl.cart.itemsCount }} items</span>
-                    <span class="label label-success"> {{ headerCtrl.cart.total | currency}}</span>
+                    <span class="label label-info" ng-if="!headerCtrl.cart.items.length">is empty </span>
+                    <span ng-if="headerCtrl.cart.items.length">
+                        <span class="label label-info"> {{ headerCtrl.cart.itemsCount }} items</span>
+                        <span class="label label-success"> {{ headerCtrl.cart.total | currency}}</span>
+                    </span>
                 </btn>
             </div>
             <ul class="nav navbar-nav pull-right">
