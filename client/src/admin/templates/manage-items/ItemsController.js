@@ -35,10 +35,10 @@
             if (vm.validateInputs()) {
                 vm.uploadImage(vm.item.file).then(function(filename){
 
-                    ItemsService.generateURL(filename);
+                    vm.item.imageURL = ItemsService.generateURL(filename);
 
-                    ItemsService.addItem(vm.item).then(function () {
-                        vm.items.push(makeShortDescriptions(160, vm.item));
+                    ItemsService.addItem(vm.item).then(function (response) {
+                        vm.items.push(makeShortDescriptions(160, response));
                         vm.item = {};
                     });
 
@@ -52,6 +52,8 @@
 
         function deleteItem(item) {
             var id = item._id;
+            console.log(id);
+
             ItemsService.deleteItem(id).then(function () {
                 vm.items = vm.items.filter(function (vmItem) {
                     return vmItem._id !== id;

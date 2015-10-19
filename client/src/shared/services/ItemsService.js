@@ -49,9 +49,9 @@
 
         function generateURL(filename){
             if(filename){
-                vm.item.imageURL = '/images/items/' + filename;
+                return '/images/items/' + filename;
             } else {
-                vm.item.imageURL = '/images/service/no-image.png';
+                return '/images/service/no-image.png';
             }
         }
 
