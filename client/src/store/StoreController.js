@@ -11,13 +11,19 @@
 
         angular.extend(vm, {
             cart: cart,
-            addToCart: addToCart
+            addToCart: addToCart,
+            error: errorFunc
         });
 
         function addToCart(id){
             CartService.addToCart(id).then(function(cart){
                 vm.cart = cart;
             });
+        }
+
+        function errorFunc(evt){
+            toastr.warning('This action is under development!', 'Rejected');
+            evt.stopPropagation();
         }
     }
 })();

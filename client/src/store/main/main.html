@@ -55,7 +55,7 @@
                     <p class="item-thumbnail__price">{{ item.price | currency: "$":0 }}</p>
                     <div class="btn-group btn-group-justified">
                         <a href="#" class="btn btn-default btn-group" ng-click="storeCtrl.addToCart(item)">Add to cart</a>
-                        <a href="#" class="btn btn-default btn-group" ng-click="storeCtrl.addToCart(item)">Buy now</a>
+                        <a href="#" class="btn btn-default btn-group" ng-click="storeCtrl.error()">Buy now</a>
                     </div>
                 </div>
             </div>

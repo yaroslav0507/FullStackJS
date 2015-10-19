@@ -79,7 +79,11 @@
             </div>
             <div class="cart-view_empty"
                  ng-if="!cartCtrl.cart.items.length">
+                <img src="http://www.coursemate.ca/images/cart_empty.png" alt=""/>
                 <h2>There are no items in your shopping cart.</h2>
+                <button class="btn btn-primary btn-lg"
+                        ng-click="appCtrl.goBack()">
+                    <i class="fa fa-shopping-cart"></i> Continue shopping</button>
             </div>
         </div>
     </div>
