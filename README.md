@@ -33,7 +33,7 @@ All changes in the code will be immediately reflected in your browser by [browse
 
 ## Interface
 Store
-![Store](https://www.dropbox.com/s/rocg3kfljg92oxj/Screenshot_1_imac2013_front.png?dl=1)
+![Store](https://www.dropbox.com/s/90f1i5d0yrah4zq/Macbook-Flat-Mockup_store.png?dl=1)
 
 Dashboard
-![Dashboard](https://www.dropbox.com/s/6tangy2d6cg2klf/Screenshot_2_imac2013_front.png?dl=1)
+![Dashboard](https://www.dropbox.com/s/qppwxqfv7hh7iw5/Macbook-Flat-Mockup_dashboard.png?dl=1)
