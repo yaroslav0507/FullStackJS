@@ -1,23 +1,6 @@
-@import "variables";
-@import "mixins";
-
-@import "components/fonts";
-@import "components/header";
-@import "components/cart";
-@import "components/forms";
-
-@import "media";
-
-@font-face {
-  font-family: "Glyphicons Halflfings";
-  src: url('fonts/glyphicons-halflings-regular.ttf');
-}
-
 .main-wrapper {
   padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
   font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
 }
 
 a {

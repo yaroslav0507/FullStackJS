@@ -1,47 +1,45 @@
-<div class="main-wrapper">
-    <div class="container">
-        <hr/>
-        <div class="row">
-            <div class="col-xs-3">
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">
-                        Cras justo odio
-                    </a>
-                    <a href="#" class="list-group-item">item Details</a>
-                    <a href="#" class="list-group-item">Replies</a>
-                    <a href="#" class="list-group-item">Characteristics</a>
+<div class="container">
+    <hr/>
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">
+                    Overview
+                </a>
+                <a href="#" class="list-group-item">Item Details</a>
+                <a href="#" class="list-group-item">Replies</a>
+                <a href="#" class="list-group-item">Characteristics</a>
+            </div>
+            <button class="btn btn-primary btn-wide" ui-sref="store.main">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                <span>Back to main page</span>
+            </button>
+        </div>
+        <div class="col-xs-8">
+            <div class="col-xs-4">
+                <div class="thumbnail">
+                    <img ng-hide="singleItemCtrl.item.file" ng-src="{{singleItemCtrl.item.imageURL}}" alt=""/>
                 </div>
-                <button class="btn btn-primary btn-wide" ui-sref="store.main">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                    <span>Back to main page</span>
-                </button>
+                <div class="text-center save-changes">
+                    <button class="btn btn-primary"
+                            ng-click="singleItemCtrl.addToCart()">
+                        <i class="fa fa-cart-arrow-down"></i> Add to cart</button>
+                </div>
             </div>
             <div class="col-xs-8">
-                <div class="col-xs-4">
-                    <div class="thumbnail">
-                        <img ng-hide="singleItemCtrl.item.file" ng-src="{{singleItemCtrl.item.imageURL}}" alt=""/>
-                    </div>
-                    <div class="text-center save-changes">
-                        <button class="btn btn-primary"
-                                ng-click="singleItemCtrl.addToCart()">
-                            <i class="fa fa-cart-arrow-down"></i> Add to cart</button>
+                <div class="col-xs-9 form-group">
+                    <label>Title</label>
+                    <p>{{singleItemCtrl.item.title}}</p>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label>Price</label>
+                    <div class="input-group">
+                        <h3 class="label label-success label-md">{{singleItemCtrl.item.price | currency}}</h3>
                     </div>
                 </div>
-                <div class="col-xs-8">
-                    <div class="col-xs-9 form-group">
-                        <label>Title</label>
-                        <p>{{singleItemCtrl.item.title}}</p>
-                    </div>
-                    <div class="col-xs-3 form-group">
-                        <label>Price</label>
-                        <div class="input-group">
-                            <p>{{singleItemCtrl.item.price}}</p>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 form-group">
-                        <label>Description</label>
-                        <p>{{singleItemCtrl.item.description}}</p>
-                    </div>
+                <div class="col-xs-12 form-group">
+                    <label>Description</label>
+                    <p>{{singleItemCtrl.item.description}}</p>
                 </div>
             </div>
         </div>

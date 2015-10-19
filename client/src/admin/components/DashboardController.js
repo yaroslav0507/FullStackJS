@@ -11,6 +11,7 @@
 
         angular.extend(vm, {
             getUserAccessLevel: user.accessLevel,
+            profileOccupancy: '',
             userRole: UsersService.getUserRole(),
             onNameChange: onNameChange(),
             logOut: logOut
@@ -24,6 +25,7 @@
         function getUser(){
             return UsersService.getUserData().then(function(response){
                 vm.user = response.data;
+                return vm.user;
             })
         }
 
@@ -33,6 +35,28 @@
             });
         }
 
+        function getProfileOccupancy(){
+
+            var hasAvatar = false;
+            var profileOcupancy = 50;
+            var numberOfCriterias = 1;
+
+            return getUser().then(function(response){
+                if(response.image){
+                    hasAvatar = true;
+                }
+                return hasAvatar;
+            }).then(function (hasAvatar) {
+                if(hasAvatar){
+                    profileOcupancy += 100/2;
+                }
+                vm.profileOccupancy =  profileOcupancy;
+            })
+        }
+
+        getProfileOccupancy();
+
+        console.log(vm.profileOccupancy);
 
     }
 })();

@@ -34,6 +34,7 @@
     "express-session": "^1.11.3",
     "fs": "0.0.2",
     "gm": "^1.18.1",
+    "gulp-css-globbing": "^0.1.8",
     "jsonwebtoken": "^5.0.5",
     "method-override": "^2.3.5",
     "mongoose": "^4.1.5",
