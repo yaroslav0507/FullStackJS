@@ -11,17 +11,37 @@
 
         angular.extend(vm, {
             item: item,
+            imageIndex: 0,
+            currentImage: currentImage,
+            previousImage: previousImage,
+            nextImage: nextImage,
             message: '',
             saveChanges: saveChanges,
             uploadImage: ItemsService.uploadImage,
             deleteItem: deleteItem
         });
 
+        function currentImage(){
+            return vm.item.images[vm.imageIndex];
+        }
+
+        function previousImage(){
+            if(vm.imageIndex !== 0){
+                vm.imageIndex -= 1;
+            }
+        }
+
+        function nextImage(){
+            if(vm.imageIndex < vm.item.images.length-1){
+                vm.imageIndex += 1;
+            }
+        }
+
         function saveChanges(){
             var productImage = vm.item.file;
             if(productImage){
                 ItemsService.uploadImage(productImage).then(function(filename){
-                    vm.item.imageURL = '/images/items/' + filename;
+                    vm.item.images[0] = filename;
 
                     ItemsService.updateItem(vm.item).then(function () {
                         vm.message = vm.item.title + ' successfully updated.';

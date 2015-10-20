@@ -2,14 +2,28 @@
 
 var multer = require("multer");
 var fs = require("fs");
-require("imagemagick");
 var gm = require("gm").subClass({ imageMagick: true });
 var path = require("path");
 
 var imagePath = "./server/static/images/";
 
+/**
+ * Creating directory for specific image size if not exists
+ * requires npm "fs" module.
+ */
+function createDirIfNotExists(path){
+    if (!fs.existsSync(path)){
+        fs.mkdirSync(path);
+    }
+}
+
+
+/**
+ * Specifying storages for different image types
+ */
 var itemPicStorage = multer.diskStorage({
     destination: function (req, file, cb) {
+        createDirIfNotExists(imagePath + "items/origin");
         cb(null, path.join(imagePath, "items/origin"));
     },
     filename: function (req, file, cb) {
@@ -17,9 +31,9 @@ var itemPicStorage = multer.diskStorage({
     }
 });
 
-
 var userPicStorage = multer.diskStorage({
     destination: function (req, file, cb) {
+        createDirIfNotExists(imagePath + "users/origin");
         cb(null, path.join(imagePath, "users/origin"));
     },
     filename: function (req, file, cb) {
@@ -37,39 +51,49 @@ var uploadUserPic = multer({
 });
 
 function generateSizes(config, cb){
+    /**
+     * Writing original file to buffer.
+     * Now we have an ability to work with it
+     * and create multiple image instances with different sizes
+     */
     var buffer = fs.readFileSync(imagePath + config.directory + "/origin/" + config.filename);
 
-    var urls = {};
-
     config.sizes.forEach(function(size){
+
+        createDirIfNotExists(imagePath + config.directory + '/' + size);
+
         gm(buffer)
             .resize(null, size)
             .write(imagePath + config.directory + "/" + size + "/" + config.filename, function (err) {
                 if (err) console.log(err);
             });
-
-        urls[size] = '/images/'+ config.directory + '/' + size + '/' + config.filename;
     });
-
-    cb(urls);
 }
 
-router.post("/upload/", uploadItemPic.single("file"), function(req, res, next){
+router.post("/upload/", multer().array("files"), function(req, res, next){
+    console.log("Files array: ", req.files);
 
     var config = {
         sizes: [160, 256],
         directory: 'items',
-        filename: req.file.filename
+        filename: req.files
     };
 
-    generateSizes(config, function(urls){
-        res.status(200).json(urls);
-    });
+    generateSizes(config);
+
+    res.send(config.filename);
 
 });
 
 router.post("/upload/user-pic/", uploadUserPic.single("file"), function(req, res, next){
-    var sizes = [32, 48];
-    var urls = generateSizes(sizes, 'users', req.file.filename);
-    res.status(200).json(urls);
+
+    var config = {
+        sizes: [32, 48],
+        directory: 'users',
+        filename: req.file.filename
+    };
+
+    generateSizes(config);
+
+    res.send(config.filename);
 });

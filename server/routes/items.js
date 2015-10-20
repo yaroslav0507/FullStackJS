@@ -12,11 +12,11 @@ router.get('/items', function(req, res, next){
 /* Add item */
 router.post('/items', function(req, res, next){
     var item = new Item();
-    item.title = req.body.title;
 
+    item.title = req.body.title;
     item.description = req.body.description;
     item.price = req.body.price;
-    item.imageURL = [req.body.imageURL];
+    item.images.push(req.body.image);
 
 
     item.save(function(err, item){

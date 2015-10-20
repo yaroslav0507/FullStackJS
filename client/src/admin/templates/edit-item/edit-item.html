@@ -14,10 +14,26 @@
                  name="file"
                  accept="image/*"
                  ngf-max-size="2MB">
-                <img ng-hide="editCtrl.item.file" ng-src="{{editCtrl.item.imageURL}}" alt=""/>
+                <img ng-hide="editCtrl.item.file" ng-src="images/items/origin/{{editCtrl.currentImage()}}" alt=""/>
                 <img ng-show="editItem.file.$valid"
                      ngf-src="!editCtrl.item.file.$error && editCtrl.item.file">
             </div>
+            {{"Item index: " + editCtrl.imageIndex}}
+            <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-grey"
+                            ng-click="editCtrl.previousImage()">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-grey"
+                            ng-click="editCtrl.nextImage()">
+                        Next  <i class="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
             <div class="text-center save-changes">
                 <button class="btn btn-primary btn-lg"
                         ng-click="editCtrl.saveChanges()">Save changes</button>
