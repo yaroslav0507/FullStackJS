@@ -1,0 +1,33 @@
+.items-filter {
+    margin-top: 15px;
+}
+
+.item-thumbnail {
+  position: relative;
+  overflow: hidden;
+
+  .image {
+    height: 160px;
+    margin-top: 10px;
+  }
+
+  &__description {
+    height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__price {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 0 0 0 $globalBorderRadius;
+    color: #FFF;
+    display: inline-block;
+    background-color: $successColor;
+    padding: 5px 10px 4px 12px;
+
+  }
+}

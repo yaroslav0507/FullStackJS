@@ -6,11 +6,10 @@
                 <a href="#" class="list-group-item active">
                     Overview
                 </a>
-                <a href="#" class="list-group-item">Item Details</a>
-                <a href="#" class="list-group-item">Replies</a>
                 <a href="#" class="list-group-item">Characteristics</a>
+                <a href="#" class="list-group-item">Replies</a>
             </div>
-            <button class="btn btn-primary btn-wide" ui-sref="store.main">
+            <button class="btn btn_wide btn-primary " ui-sref="store.main">
                 <i class="glyphicon glyphicon-chevron-left"></i>
                 <span>Back to main page</span>
             </button>
@@ -20,10 +19,19 @@
                 <div class="thumbnail">
                     <img ng-hide="singleItemCtrl.item.file" ng-src="{{singleItemCtrl.item.imageURL}}" alt=""/>
                 </div>
-                <div class="text-center save-changes">
-                    <button class="btn btn-primary"
-                            ng-click="singleItemCtrl.addToCart()">
-                        <i class="fa fa-cart-arrow-down"></i> Add to cart</button>
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button class="btn btn-primary"
+                                ng-click="singleItemCtrl.addToCart()">
+                            <i class="fa fa-cart-arrow-down"></i> Add to cart
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-success"
+                                ng-click="singleItemCtrl.addToCart()">
+                            <i class="fa fa-dollar"></i> Buy now
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-8">

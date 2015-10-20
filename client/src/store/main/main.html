@@ -19,7 +19,7 @@
             </div>
             <div class="col-xs-3">
                 <!-- Split button -->
-                <div class="dropdown pull-right latest__items-sort-by">
+                <div class="dropdown pull-right items-filter">
                     <span>Sort by: </span>
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span ng-show="mainCtrl.reverse">Price Down <i class="glyphicon glyphicon-arrow-down"></i></span>
@@ -40,7 +40,7 @@
 
         <div class="col-md-3 col-sm-6 hero-feature"
              ng-repeat="item in mainCtrl.items | orderBy: mainCtrl.predicate: mainCtrl.reverse">
-            <div class="thumbnail store-item-thumbnail">
+            <div class="thumbnail item-thumbnail">
                 <a href="{{ '#/items/' + item._id }}">
                     <span class="item-hover-mask item-hover-mask_more">
                         <i class="glyphicon glyphicon-search">
@@ -53,9 +53,20 @@
                     <h4>{{ item.title }}</h4>
                     <p class="item-thumbnail__description">{{ item.shortDescription }}</p>
                     <p class="item-thumbnail__price">{{ item.price | currency: "$":0 }}</p>
+
                     <div class="btn-group btn-group-justified">
-                        <a href="#" class="btn btn-default btn-group" ng-click="storeCtrl.addToCart(item)">Add to cart</a>
-                        <a href="#" class="btn btn-default btn-group" ng-click="storeCtrl.error()">Buy now</a>
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-grey"
+                                    ng-click="storeCtrl.addToCart()">
+                                <i class="fa fa-cart-arrow-down"></i> Add to cart
+                            </button>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-grey"
+                                    ng-click="storeCtrl.error()">
+                                <i class="fa fa-dollar"></i> Buy now
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
