@@ -14,7 +14,6 @@
             getUserRole:            getUserRole,
             getUsers:               getUsers,
             uploadImage:            uploadImage,
-            generateURL:            generateURL,
             changeUserName:         changeUserName,
             changeUserPhoto:        changeUserPhoto,
             changeUserPassword:     changeUserPassword
@@ -36,8 +35,8 @@
 
         function getUserData(){
             var id = getUserId();
-            return $http.get('/users/' + id).then(function(res){
-                return res;
+            return $http.get('/users/' + id).then(function(response){
+                return response;
             }, function(err){
                 return err;
             });
@@ -56,8 +55,8 @@
 
 
         function getUsers(){
-            return $http.get('/users').then(function(res){
-                return res;
+            return $http.get('/users').then(function(response){
+                return response;
             }, function(err){
                 return err;
             });
@@ -69,40 +68,32 @@
                 url: '/upload/user-pic/',
                 method: 'POST',
                 file: file
-            }).then(function(res){
-                return res.data;
+            }).then(function(response){
+                return response.data;
             }, function(err){
                 return err.data;
             });
         }
 
-        function generateURL(filename){
-            if(filename){
-                return '/images/users/' + filename;
-            } else {
-                return '/images/service/no-image.png';
-            }
-        }
-
         function changeUserPhoto(user){
-            return $http.put('/users/change-image/' + user._id, user).then(function(res){
-                return res.data;
+            return $http.put('/users/change-image/' + user._id, user).then(function(response){
+                return response.data;
             }, function(err){
                 return err.data;
             });
         }
 
         function changeUserName(user){
-            return $http.put('/users/change-name/' + user._id, user).then(function(res){
-                return res.data;
+            return $http.put('/users/change-name/' + user._id, user).then(function(response){
+                return response.data;
             }, function(err){
                 return err.data;
             });
         }
 
         function changeUserPassword(user){
-            return $http.put('/users/change-pass/' + user._id, user).then(function(res){
-                return res.data;
+            return $http.put('/users/change-pass/' + user._id, user).then(function(response){
+                return response.data;
             }, function(err){
                 return err.data;
             });

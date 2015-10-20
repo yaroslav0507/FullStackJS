@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
 var ItemsSchema = new mongoose.Schema({
-    title: String,
-    description: String,
+    title: {type: String, default: ''},
+    description: {type: String, default: ''},
     price: {type: Number, default: 0},
-    imageURL: String
+    imageURL: {type: Array}
 });
 
 mongoose.model('Items', ItemsSchema);

@@ -8,15 +8,13 @@
     function ItemsController(items, ItemsService, $q) {
 
         var vm = this;
-        var tempImageName = 'uploaded_item_image_name';
 
         angular.extend(vm, {
-            items: items.map(makeShortDescriptions.bind(null, 1200)),
+            items: items.map(makeShortDescriptions.bind(null, 120)),
             item: {
             },
             message: '',
             addItem: addItem,
-            uploadImage: ItemsService.uploadImage,
             deleteItem: deleteItem,
             validateInputs: validateInputs
         });
@@ -27,22 +25,24 @@
                 return true;
             } else {
                 vm.message = 'Please fill out all fields';
-                return false;
+                return true;
             }
         }
 
         function addItem() {
             if (vm.validateInputs()) {
-                vm.uploadImage(vm.item.file).then(function(filename){
-
-                    vm.item.imageURL = ItemsService.generateURL(filename);
-
-                    ItemsService.addItem(vm.item).then(function (response) {
+                ItemsService.uploadImage(vm.item.file).then(function(url){
+                    vm.item.imageURL = url;
+                })
+                .then(function(){
+                        return ItemsService.addItem(vm.item)
+                    })
+                .then(function (response) {
+                        console.log(response);
                         vm.items.push(makeShortDescriptions(160, response));
-                        vm.item = {};
-                    });
-
-                }).catch(function(response){
+                        //vm.item = {};
+                })
+                .catch(function(response){
                     vm.message = response.status + ': ' + response.data;
                     return $q.reject();
                 });

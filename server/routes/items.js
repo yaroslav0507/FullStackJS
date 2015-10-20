@@ -11,17 +11,19 @@ router.get('/items', function(req, res, next){
 
 /* Add item */
 router.post('/items', function(req, res, next){
-    var item = new Item(req.body);
-
+    var item = new Item();
     item.title = req.body.title;
+
     item.description = req.body.description;
     item.price = req.body.price;
-    item.imageURL = req.body.imageURL;
+    item.imageURL = [req.body.imageURL];
+
 
     item.save(function(err, item){
         if(err){ return next(err) }
         res.json(item);
     });
+
 });
 
 /* Update item */

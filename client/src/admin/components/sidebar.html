@@ -1,7 +1,7 @@
 <div class="sidebar-user clearfix">
-
+    {{dashboardCtrl.user}}
     <a class="sidebar-user__avatar" ui-sref="admin.profile">
-        <img ng-src="{{dashboardCtrl.user.image}}" alt=""/>
+        <img ng-src="{{dashboardCtrl.user.imageURL[0]['48']}}" alt=""/>
     </a>
     <span class="sidebar-user__username">{{dashboardCtrl.user.username}}</span>
     <div class="sidebar-user__role">

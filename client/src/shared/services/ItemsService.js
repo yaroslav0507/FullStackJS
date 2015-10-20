@@ -12,7 +12,6 @@
             getItem: getItem,
             addItem: addItem,
             uploadImage: uploadImage,
-            generateURL: generateURL,
             updateItem: updateItem,
             deleteItem: deleteItem
         };
@@ -45,14 +44,6 @@
             }).then(function (response) {
                 return response.data;
             });
-        }
-
-        function generateURL(filename){
-            if(filename){
-                return '/images/items/' + filename;
-            } else {
-                return '/images/service/no-image.png';
-            }
         }
 
         function updateItem(item){
