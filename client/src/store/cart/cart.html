@@ -38,13 +38,7 @@
                         <div class="col-xs-5">{{ item.title }}</div>
                         <div class="col-xs-2">{{ item.price | currency }}</div>
                         <div class="col-xs-2">
-                            <div class="input-group spinner">
-                                <input type="text" class="form-control" value="{{ item.qty }}">
-                                <div class="input-group-btn-vertical">
-                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                </div>
-                            </div>
+                            <change-quantity value="item.qty"></change-quantity>
                         </div>
                         <div class="col-xs-1">
                             <button class="btn btn-default"

@@ -14,6 +14,8 @@
             addToCart: addToCart
         });
 
+        vm.item.qty = 1;
+
         function addToCart(){
             CartService.addToCart(item);
         }

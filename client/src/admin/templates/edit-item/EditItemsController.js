@@ -17,6 +17,7 @@
             uploadImage: ItemsService.uploadImage,
             currentImage: currentImage,
             selectImage: selectImage,
+            addImages: addImages,
             deleteImage: deleteImage,
             saveChanges: saveChanges,
             deleteItem: deleteItem
@@ -31,24 +32,26 @@
         }
 
         function saveChanges(){
+            ItemsService.updateItem(vm.item).then(function (item) {
+                vm.message = vm.item.title + ' successfully updated.';
+            });
+        }
+
+        function addImages(){
             var productImage = vm.item.files;
+            ItemsService.uploadImage(productImage).then(function(urls){
+                vm.item.images.push(urls[0]);
+                return vm.item;
+            }).then(function(item) {
+                console.log(item);
+                ItemsService.updateItem(item);
 
-            if(productImage){
-                ItemsService.uploadImage(productImage).then(function(urls){
-
-                    vm.item.images = urls;
-
-                    ItemsService.updateItem(vm.item).then(function (item) {
-                        vm.message = vm.item.title + ' successfully updated.';
-                        vm.item = {};
-                    });
-                    vm.item.files = undefined;
-                })
-            } else {
-                ItemsService.updateItem(vm.item).then(function (item) {
+            })
+              .then(function () {
+                    console.log(vm.item.images);
                     vm.message = vm.item.title + ' successfully updated.';
-                });
-            }
+            });
+            vm.item.files = undefined;
         }
 
         function deleteImage(){

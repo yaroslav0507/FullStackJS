@@ -47,15 +47,15 @@
         }
 
         function updateItem(item){
-            return $http.put('/items/' + item._id, item).then(function(response){
+            return $http.put('/items/', item).then(function(response){
                 return response.data;
-            })
+            });
         }
 
         function deleteItem(id){
             return $http.delete('/items/' + id).then(function(response){
                 return response.data;
-            })
+            });
         }
     }
 })();

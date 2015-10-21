@@ -27,7 +27,7 @@ router.post('/items', function(req, res, next){
 });
 
 /* Update item */
-router.put('/items/:item', function(req, res, next){
+router.put('/items/', function(req, res, next){
 
     var obj = req.body;
     var id = req.body._id;

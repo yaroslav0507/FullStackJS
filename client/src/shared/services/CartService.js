@@ -20,7 +20,7 @@
         function addToCart(obj){
             var item = {
                 id: obj._id,
-                qty: 1
+                qty: obj.qty
             };
 
             return $http.post('/add-to-cart/', item).then(function(response){

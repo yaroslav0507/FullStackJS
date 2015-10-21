@@ -29,7 +29,7 @@ var itemPicStorage = multer.diskStorage({
         cb(null, path.join(imagePath, "items/origin"));
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + "-" + (Date.now() * Math.random()).toFixed() + "." + file.mimetype.split("/").slice(1));
+        cb(null, Date.now() + "-" + file.originalname.split('.')[0] + "." + file.mimetype.split("/").slice(1));
     }
 });
 
@@ -40,7 +40,7 @@ var userPicStorage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         console.log(req.body);
-        cb(null, file.fieldname + "-" + (Date.now() * Math.random()).toFixed() + "." + file.mimetype.split("/").slice(1));
+        cb(null, Date.now() + "-" + file.originalname.split('.')[0] + "." + file.mimetype.split("/").slice(1));
     }
 });
 
@@ -87,7 +87,7 @@ function generateSizes(config, cb){
 }
 
 router.post("/upload/", uploadItemPic("file"), function(req, res, next){
-    //console.log("Files array: ", req.files);
+    console.log("Files array: ", req.files);
 
     var config = {
         sizes: [160, 256],
