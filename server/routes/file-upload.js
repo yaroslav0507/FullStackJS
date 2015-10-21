@@ -5,7 +5,9 @@ var fs = require("fs");
 var gm = require("gm").subClass({ imageMagick: true });
 var path = require("path");
 
+
 var imagePath = "./server/static/images/";
+var upload = multer({ dest: imagePath });
 
 /**
  * Creating directory for specific image size if not exists
@@ -42,46 +44,58 @@ var userPicStorage = multer.diskStorage({
     }
 });
 
-var uploadItemPic = multer({
-    storage: itemPicStorage
-});
+var uploadItemPic = function(filename){
+    return multer({
+        storage: itemPicStorage
+    }).array(filename);
+}
 
 var uploadUserPic = multer({
     storage: userPicStorage
 });
 
 function generateSizes(config, cb){
-    /**
-     * Writing original file to buffer.
-     * Now we have an ability to work with it
-     * and create multiple image instances with different sizes
-     */
-    var buffer = fs.readFileSync(imagePath + config.directory + "/origin/" + config.filename);
+    var filenames = [];
 
-    config.sizes.forEach(function(size){
+    config.files.forEach(function(file){
+        /**
+         * Writing original file to buffer.
+         * Now we have an ability to work with it
+         * and create multiple image instances with different sizes
+         */
+        var buffer = fs.readFileSync(imagePath + config.directory + "/origin/" + file.filename);
 
-        createDirIfNotExists(imagePath + config.directory + '/' + size);
+        config.sizes.forEach(function(size){
 
-        gm(buffer)
-            .resize(null, size)
-            .write(imagePath + config.directory + "/" + size + "/" + config.filename, function (err) {
-                if (err) console.log(err);
-            });
+            createDirIfNotExists(imagePath + config.directory + '/' + size);
+
+            gm(buffer)
+                .resize(null, size)
+                .write(imagePath + config.directory + "/" + size + "/" + file.filename, function (err) {
+                    if (err) console.log(err);
+                });
+        });
+
+        filenames.push(file.filename);
     });
+
+
+
+    cb(filenames);
 }
 
-router.post("/upload/", multer().array("files"), function(req, res, next){
-    console.log("Files array: ", req.files);
+router.post("/upload/", uploadItemPic("file"), function(req, res, next){
+    //console.log("Files array: ", req.files);
 
     var config = {
         sizes: [160, 256],
         directory: 'items',
-        filename: req.files
+        files: req.files
     };
 
-    generateSizes(config);
-
-    res.send(config.filename);
+    generateSizes(config, function(filenames){
+        res.json(filenames);
+    });
 
 });
 
@@ -90,7 +104,7 @@ router.post("/upload/user-pic/", uploadUserPic.single("file"), function(req, res
     var config = {
         sizes: [32, 48],
         directory: 'users',
-        filename: req.file.filename
+        files: req.file
     };
 
     generateSizes(config);

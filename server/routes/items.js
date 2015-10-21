@@ -16,7 +16,7 @@ router.post('/items', function(req, res, next){
     item.title = req.body.title;
     item.description = req.body.description;
     item.price = req.body.price;
-    item.images.push(req.body.image);
+    item.images = req.body.images;
 
 
     item.save(function(err, item){
