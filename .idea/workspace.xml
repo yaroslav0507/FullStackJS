@@ -1,52 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f5aeb54-dcce-4583-bdb6-a30e8f5d3e7e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/160/file-1101327995756.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/256/file-1101327995756.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/origin/file-1101327995756.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/160/file-1319414322674.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/256/file-1319414322674.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/origin/file-1319414322674.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/160/file-1358331854244.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/256/file-1358331854244.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/origin/file-1358331854244.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/users/32/file-1376956344413.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/users/48/file-1376956344413.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/160/file-1441182150769.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/256/file-1441182150769.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/origin/file-1441182150769.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/160/file-265007454552.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/256/file-265007454552.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/origin/file-265007454552.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/160/file-526005982171.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/256/file-526005982171.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/origin/file-526005982171.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/160/file-53630903502.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/256/file-53630903502.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/origin/file-53630903502.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/160/file-998971258124.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/256/file-998971258124.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/static/images/items/origin/file-998971258124.jpeg" />
-      <change type="DELETED" beforePath="D:\dev\pet\server\static\images\users\origin\file-1443773474618.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\dev\pet\server\static\images\users\origin\file-1445268562211.jpeg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/cart/CartItem.js" afterPath="$PROJECT_DIR$/server/models/cart/CartItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/admin/templates/edit-item/EditItemsController.js" afterPath="$PROJECT_DIR$/client/src/admin/templates/edit-item/EditItemsController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/admin/templates/user-management/edit-profile/ProfileController.js" afterPath="$PROJECT_DIR$/client/src/admin/templates/user-management/edit-profile/ProfileController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/Users.js" afterPath="$PROJECT_DIR$/server/models/Users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/cart/add-to-cart.js" afterPath="$PROJECT_DIR$/server/routes/cart/add-to-cart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/scss/admin.scss" afterPath="$PROJECT_DIR$/client/scss/admin.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/store/cart/cart.html" afterPath="$PROJECT_DIR$/client/src/store/cart/cart.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/file-upload.js" afterPath="$PROJECT_DIR$/server/routes/file-upload.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/store/components/header/header.html" afterPath="$PROJECT_DIR$/client/src/store/components/header/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/admin/templates/manage-items/items.html" afterPath="$PROJECT_DIR$/client/src/admin/templates/manage-items/items.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/store/main/main.html" afterPath="$PROJECT_DIR$/client/src/store/main/main.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/admin/templates/user-management/edit-profile/profile.html" afterPath="$PROJECT_DIR$/client/src/admin/templates/user-management/edit-profile/profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/admin/components/sidebar.html" afterPath="$PROJECT_DIR$/client/src/admin/components/sidebar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/store/single-item/single-item.html" afterPath="$PROJECT_DIR$/client/src/store/single-item/single-item.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/users.js" afterPath="$PROJECT_DIR$/server/routes/users.js" />
+    <list default="true" id="3f5aeb54-dcce-4583-bdb6-a30e8f5d3e7e" name="Default" comment="Ability to use sizes of user avatar&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\dev\pet\server\static\images\users\origin\file-1443107579497.png" afterPath="$PROJECT_DIR$/server/static/images/users/origin/file-1376956344413.png" />
     </list>
     <ignored path="kupon.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -137,11 +93,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="header.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/store/components/header/header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.82125604">
-              <caret line="50" column="44" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
+            <state vertical-scroll-proportion="-14.384615">
+              <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.90338165">
+              <caret line="46" column="3" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -302,221 +268,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="origin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="48" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="32" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="routes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="routes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="routes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cart" />
+              <option name="myItemId" value="release" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -788,7 +540,13 @@
       <option name="project" value="LOCAL" />
       <updated>1445435847031</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Ability to use sizes of user avatar&#10;">
+      <created>1445438507289</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1445438507289</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -864,7 +622,8 @@
     <MESSAGE value="SCSS structure refactoring, single item buttons." />
     <MESSAGE value="Ability to add multiple item images&#10;" />
     <MESSAGE value="Ability to edit multiple item images&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ability to edit multiple item images&#10;" />
+    <MESSAGE value="Ability to use sizes of user avatar&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ability to use sizes of user avatar&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1213,8 +972,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store/components/header/header.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82125604">
-          <caret line="50" column="44" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
+        <state vertical-scroll-proportion="-14.384615">
+          <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.90338165">
+          <caret line="46" column="3" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
           <folding />
         </state>
       </provider>
