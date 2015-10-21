@@ -5,18 +5,45 @@
         {{editCtrl.message}}
     </div>
     <form name="editItem">
-        <div class="col-xs-4">
-            <div class="thumbnail drag-drop-field"
-                 ngf-drop
-                 ngf-select
-                 ngf-drag-over-class="dragover"
-                 ng-model="editCtrl.item.file"
-                 name="file"
-                 accept="image/*"
-                 ngf-max-size="2MB">
-                <img ng-hide="editCtrl.item.file" ng-src="images/items/origin/{{editCtrl.currentImage()}}" alt=""/>
-                <img ng-show="editItem.file.$valid"
-                     ngf-src="!editCtrl.item.file.$error && editCtrl.item.file">
+        <div class="col-xs-4 edit-items">
+            <div class="thumbnail edit-item__preview">
+
+                <div class="images-preview">
+
+                    <!--Large preview image-->
+                    <img ng-show="!editCtrl.item.files && editCtrl.item.images.length"
+                         class="images-preview__image images-preview__image_main"
+                         ng-src="images/items/origin/{{editCtrl.currentImage()}}">
+
+                    <div class="images-preview__remote">
+                        <!--Image thumbnails from remote-->
+                        <img ng-repeat="image in editCtrl.item.images"
+                             class="images-preview__image"
+                             ng-src="images/items/160/{{image}}"
+                             alt=""
+                             ng-click="editCtrl.selectImage($index)"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-grey"
+                            ngf-select="editCtrl.saveChanges()"
+                            ng-model="editCtrl.item.files"
+                            ngf-multiple="true"
+                            name="file"
+                            accept="image/*"
+                            ngf-max-size="2MB">
+                        Add image
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-grey"
+                            ng-click="editCtrl.deleteImage()">
+                        Delete image
+                    </button>
+                </div>
             </div>
             {{"Item index: " + editCtrl.imageIndex}}
             <div class="btn-group btn-group-justified">

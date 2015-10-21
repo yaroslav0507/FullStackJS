@@ -32,6 +32,7 @@
         function addItem() {
             if (vm.validateInputs()) {
                 ItemsService.uploadImage(vm.item.files).then(function(imageNames){
+                    vm.item.images = [];
                     vm.item.images = imageNames;
                 })
                 .then(function(){

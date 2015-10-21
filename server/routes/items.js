@@ -31,6 +31,7 @@ router.put('/items/:item', function(req, res, next){
 
     var obj = req.body;
     var id = req.body._id;
+    console.log(obj);
 
     Item.update({_id: id}, obj, {upsert: true}, function(err, item){
         if(err){ return next(err); }
@@ -67,4 +68,5 @@ router.delete('/items/:item', function(req, res){
         res.json(items);
     });
 });
+
 

@@ -12,12 +12,13 @@
         angular.extend(vm, {
             item: item,
             imageIndex: 0,
-            currentImage: currentImage,
-            previousImage: previousImage,
-            nextImage: nextImage,
+            showMainThumbnail: true,
             message: '',
-            saveChanges: saveChanges,
             uploadImage: ItemsService.uploadImage,
+            currentImage: currentImage,
+            selectImage: selectImage,
+            deleteImage: deleteImage,
+            saveChanges: saveChanges,
             deleteItem: deleteItem
         });
 
@@ -25,33 +26,43 @@
             return vm.item.images[vm.imageIndex];
         }
 
-        function previousImage(){
-            if(vm.imageIndex !== 0){
-                vm.imageIndex -= 1;
-            }
-        }
-
-        function nextImage(){
-            if(vm.imageIndex < vm.item.images.length-1){
-                vm.imageIndex += 1;
-            }
+        function selectImage(index){
+            vm.imageIndex = index;
         }
 
         function saveChanges(){
-            var productImage = vm.item.file;
-            if(productImage){
-                ItemsService.uploadImage(productImage).then(function(filename){
-                    vm.item.images[0] = filename;
+            var productImage = vm.item.files;
 
-                    ItemsService.updateItem(vm.item).then(function () {
+            if(productImage){
+                ItemsService.uploadImage(productImage).then(function(urls){
+
+                    vm.item.images = urls;
+
+                    ItemsService.updateItem(vm.item).then(function (item) {
                         vm.message = vm.item.title + ' successfully updated.';
                     });
+                    vm.item.files = undefined;
                 })
             } else {
-                ItemsService.updateItem(vm.item).then(function () {
+                ItemsService.updateItem(vm.item).then(function (item) {
                     vm.message = vm.item.title + ' successfully updated.';
                 });
             }
+        }
+
+        function deleteImage(){
+            var index = vm.imageIndex;
+            vm.item.images.splice(index, 1);
+
+            console.log( vm.item.images);
+            if(vm.item.images.length == 1){
+                vm.showMainThumbnail = false;
+                console.log("last image");
+            }
+
+            saveChanges();
+
+            vm.imageIndex = 0;
         }
 
         function deleteItem() {
@@ -60,5 +71,6 @@
                 $state.go('admin.main');
             });
         }
+
     }
 })();
