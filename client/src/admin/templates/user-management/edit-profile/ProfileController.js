@@ -23,8 +23,8 @@
         function updateUser(){
             var userImage = vm.file;
             if(userImage){
-                UsersService.uploadImage(userImage).then(function(filename){
-                    vm.user.imageURL = '/images/users/' + filename;
+                UsersService.uploadImage(userImage).then(function(urls){
+                    vm.user.image = urls;
 
                     UsersService.updateUser(vm.user).then(function () {
                         vm.message = 'Your profile is successfully updated.';
@@ -40,9 +40,7 @@
         function uploadPhoto(){
             var userImage = vm.file;
             UsersService.uploadImage(userImage).then(function(response){
-                return UsersService.generateURL(response);
-            }).then(function(response){
-                vm.user.imageURL = response;
+                vm.user.image = response;
                 UsersService.changeUserPhoto(vm.user);
 
                 $state.reload();

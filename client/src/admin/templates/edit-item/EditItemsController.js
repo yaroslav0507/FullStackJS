@@ -40,6 +40,7 @@
 
                     ItemsService.updateItem(vm.item).then(function (item) {
                         vm.message = vm.item.title + ' successfully updated.';
+                        vm.item = {};
                     });
                     vm.item.files = undefined;
                 })

@@ -33,7 +33,7 @@
 
                     <div class="row cart-row" ng-repeat="item in cartCtrl.cart.items">
                         <div class="col-xs-2 text-center">
-                            <img class="cart-item-image" ng-src="{{item.image}}" alt=""/>
+                            <img class="cart-item-image" ng-src="images/items/160/{{item.images[0]}}" alt=""/>
                         </div>
                         <div class="col-xs-5">{{ item.title }}</div>
                         <div class="col-xs-2">{{ item.price | currency }}</div>

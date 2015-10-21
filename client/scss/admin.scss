@@ -120,6 +120,19 @@ textarea.form-control{
       }
     }
 
+    &_local{
+      text-align: center;
+      .images-preview__image {
+        &:first-child{
+          margin: auto;
+          display: block;
+          height: 190px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+
   }
 
   .item-edit-image{

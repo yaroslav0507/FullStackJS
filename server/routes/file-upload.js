@@ -48,11 +48,13 @@ var uploadItemPic = function(filename){
     return multer({
         storage: itemPicStorage
     }).array(filename);
-}
+};
 
-var uploadUserPic = multer({
-    storage: userPicStorage
-});
+var uploadUserPic = function(filename){
+    return multer({
+        storage: userPicStorage
+    }).array(filename);
+};
 
 function generateSizes(config, cb){
     var filenames = [];
@@ -99,15 +101,15 @@ router.post("/upload/", uploadItemPic("file"), function(req, res, next){
 
 });
 
-router.post("/upload/user-pic/", uploadUserPic.single("file"), function(req, res, next){
+router.post("/upload/user-pic/", uploadUserPic("file"), function(req, res, next){
 
     var config = {
         sizes: [32, 48],
         directory: 'users',
-        files: req.file
+        files: req.files
     };
 
-    generateSizes(config);
-
-    res.send(config.filename);
+    generateSizes(config, function(filenames){
+        res.json(filenames);
+    });
 });

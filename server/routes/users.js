@@ -59,7 +59,7 @@ router.get('/users/:user', function(req, res){
     var data = {
         _id: req.user._id,
         username: req.user.username,
-        imageURL: req.user.imageURL
+        image: req.user.image
     };
     res.send(data);
 });
