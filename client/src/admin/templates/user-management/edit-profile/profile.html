@@ -85,7 +85,7 @@
 
 
                     <img ng-show="profileCtrl.user.image && !profileCtrl.file"
-                         ngf-src="profileCtrl.user.image"
+                         ng-src="images/users/origin/{{profileCtrl.user.image[0]}}"
                          class="image-centered">
 
                     <img ng-show="userInfoForm.file.$valid"

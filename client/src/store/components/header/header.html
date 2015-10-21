@@ -38,7 +38,7 @@
                 <li ng-show="headerCtrl.isAuthenticated()">
                     <a ui-sref="admin.main">
                         <span class="header-user__avatar" ng-if="headerCtrl.user">
-                            <img ng-src="{{headerCtrl.user.image}}"/>
+                            <img ng-src="images/users/32/{{headerCtrl.user.image[0]}}"/>
                         </span>
 
                         <span class="glyphicon glyphicon-user" ng-if="!headerCtrl.user"></span>

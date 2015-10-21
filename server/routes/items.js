@@ -11,17 +11,19 @@ router.get('/items', function(req, res, next){
 
 /* Add item */
 router.post('/items', function(req, res, next){
-    var item = new Item(req.body);
+    var item = new Item();
 
     item.title = req.body.title;
     item.description = req.body.description;
     item.price = req.body.price;
-    item.imageURL = req.body.imageURL;
+    item.images = req.body.images;
+
 
     item.save(function(err, item){
         if(err){ return next(err) }
         res.json(item);
     });
+
 });
 
 /* Update item */
@@ -29,6 +31,7 @@ router.put('/items/:item', function(req, res, next){
 
     var obj = req.body;
     var id = req.body._id;
+    console.log(obj);
 
     Item.update({_id: id}, obj, {upsert: true}, function(err, item){
         if(err){ return next(err); }
@@ -65,4 +68,5 @@ router.delete('/items/:item', function(req, res){
         res.json(items);
     });
 });
+
 

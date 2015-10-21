@@ -1,57 +1,115 @@
-'use strict';
+"use strict";
 
-var multer = require('multer');
-var fs = require('fs');
-var gm = require('gm').subClass({imageMagic: true});
+var multer = require("multer");
+var fs = require("fs");
+var gm = require("gm").subClass({ imageMagick: true });
+var path = require("path");
 
+
+var imagePath = "./server/static/images/";
+var upload = multer({ dest: imagePath });
+
+/**
+ * Creating directory for specific image size if not exists
+ * requires npm "fs" module.
+ */
+function createDirIfNotExists(path){
+    if (!fs.existsSync(path)){
+        fs.mkdirSync(path);
+    }
+}
+
+
+/**
+ * Specifying storages for different image types
+ */
 var itemPicStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './server/static/images/items/')
+        createDirIfNotExists(imagePath + "items/origin");
+        cb(null, path.join(imagePath, "items/origin"));
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + '.' + file.mimetype.split('/').slice(1));
+        cb(null, file.fieldname + "-" + (Date.now() * Math.random()).toFixed() + "." + file.mimetype.split("/").slice(1));
     }
 });
-
 
 var userPicStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './server/static/images/users/')
+        createDirIfNotExists(imagePath + "users/origin");
+        cb(null, path.join(imagePath, "users/origin"));
     },
     filename: function (req, file, cb) {
         console.log(req.body);
-        cb(null, file.fieldname + '-' + Date.now() + '.' + file.mimetype.split('/').slice(1));
+        cb(null, file.fieldname + "-" + (Date.now() * Math.random()).toFixed() + "." + file.mimetype.split("/").slice(1));
     }
 });
 
-var uploadItemPic = multer({
-    storage: itemPicStorage
+var uploadItemPic = function(filename){
+    return multer({
+        storage: itemPicStorage
+    }).array(filename);
+};
+
+var uploadUserPic = function(filename){
+    return multer({
+        storage: userPicStorage
+    }).array(filename);
+};
+
+function generateSizes(config, cb){
+    var filenames = [];
+
+    config.files.forEach(function(file){
+        /**
+         * Writing original file to buffer.
+         * Now we have an ability to work with it
+         * and create multiple image instances with different sizes
+         */
+        var buffer = fs.readFileSync(imagePath + config.directory + "/origin/" + file.filename);
+
+        config.sizes.forEach(function(size){
+
+            createDirIfNotExists(imagePath + config.directory + '/' + size);
+
+            gm(buffer)
+                .resize(null, size)
+                .write(imagePath + config.directory + "/" + size + "/" + file.filename, function (err) {
+                    if (err) console.log(err);
+                });
+        });
+
+        filenames.push(file.filename);
+    });
+
+
+
+    cb(filenames);
+}
+
+router.post("/upload/", uploadItemPic("file"), function(req, res, next){
+    //console.log("Files array: ", req.files);
+
+    var config = {
+        sizes: [160, 256],
+        directory: 'items',
+        files: req.files
+    };
+
+    generateSizes(config, function(filenames){
+        res.json(filenames);
+    });
+
 });
 
-var uploadUserPic = multer({
-    storage: userPicStorage
-});
+router.post("/upload/user-pic/", uploadUserPic("file"), function(req, res, next){
 
-router.post('/upload', uploadItemPic.single('file'), function(req, res, next){
-    //gm('./server/static/images/' + req.file.filename)
-    //    .resize(265)
-    //    .noProfile()
-    //    .write('./server/static/images/265/' + req.file.filename, function(err){
-    //        if (err){
-    //            console.log(err);
-    //        }
-    //    });
-    //console.log('trace');
+    var config = {
+        sizes: [32, 48],
+        directory: 'users',
+        files: req.files
+    };
 
-    var filename;
-    filename = (req.file) ? req.file.filename : '';
-
-    res.status(200).send(filename);
-});
-
-router.post('/upload/user-pic/', uploadUserPic.single('file'), function(req, res, next){
-    var filename;
-    filename = (req.file) ? req.file.filename : '';
-
-    res.status(200).send(filename);
+    generateSizes(config, function(filenames){
+        res.json(filenames);
+    });
 });

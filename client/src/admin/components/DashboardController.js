@@ -56,7 +56,5 @@
 
         getProfileOccupancy();
 
-        console.log(vm.profileOccupancy);
-
     }
 })();

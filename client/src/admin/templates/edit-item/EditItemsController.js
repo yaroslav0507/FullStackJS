@@ -11,27 +11,59 @@
 
         angular.extend(vm, {
             item: item,
+            imageIndex: 0,
+            showMainThumbnail: true,
             message: '',
-            saveChanges: saveChanges,
             uploadImage: ItemsService.uploadImage,
+            currentImage: currentImage,
+            selectImage: selectImage,
+            deleteImage: deleteImage,
+            saveChanges: saveChanges,
             deleteItem: deleteItem
         });
 
-        function saveChanges(){
-            var productImage = vm.item.file;
-            if(productImage){
-                ItemsService.uploadImage(productImage).then(function(filename){
-                    vm.item.imageURL = '/images/items/' + filename;
+        function currentImage(){
+            return vm.item.images[vm.imageIndex];
+        }
 
-                    ItemsService.updateItem(vm.item).then(function () {
+        function selectImage(index){
+            vm.imageIndex = index;
+        }
+
+        function saveChanges(){
+            var productImage = vm.item.files;
+
+            if(productImage){
+                ItemsService.uploadImage(productImage).then(function(urls){
+
+                    vm.item.images = urls;
+
+                    ItemsService.updateItem(vm.item).then(function (item) {
                         vm.message = vm.item.title + ' successfully updated.';
+                        vm.item = {};
                     });
+                    vm.item.files = undefined;
                 })
             } else {
-                ItemsService.updateItem(vm.item).then(function () {
+                ItemsService.updateItem(vm.item).then(function (item) {
                     vm.message = vm.item.title + ' successfully updated.';
                 });
             }
+        }
+
+        function deleteImage(){
+            var index = vm.imageIndex;
+            vm.item.images.splice(index, 1);
+
+            console.log( vm.item.images);
+            if(vm.item.images.length == 1){
+                vm.showMainThumbnail = false;
+                console.log("last image");
+            }
+
+            saveChanges();
+
+            vm.imageIndex = 0;
         }
 
         function deleteItem() {
@@ -40,5 +72,6 @@
                 $state.go('admin.main');
             });
         }
+
     }
 })();

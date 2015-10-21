@@ -10,18 +10,25 @@
             <div class="thumbnail drag-drop-field"
                  ngf-drop
                  ngf-select
+                 ngf-multiple="true"
                  ngf-drag-over-class="dragover"
-                 ng-model="itemsCtrl.item.file"
-                 name="file"
+                 ng-model="itemsCtrl.item.files"
+                 name="files"
                  accept="image/*"
                  ngf-max-size="2MB">
-                <span ng-hide="itemsCtrl.item.file" class="drag-drop-field__message">
+                <span ng-hide="itemsCtrl.item.files" class="drag-drop-field__message">
                     <i class="glyphicon glyphicon-download-alt"></i>
                     <p>Drag & Drop, or click to download.</p>
                 </span>
-                <img ng-show="form.file.$valid"
-                     ngf-src="!itemsCtrl.item.file.$error && itemsCtrl.item.file">
+
+                <div class="images-preview images-preview_local">
+                    <img class="images-preview__image"
+                         ng-repeat="file in itemsCtrl.item.files"
+                         ng-show="form.files.$valid"
+                         ngf-src="!itemsCtrl.item.files.$error && file">
+                </div>
             </div>
+
         </div>
         <div class="col-xs-12 col-md-5">
             <div class="form-group">
@@ -100,7 +107,7 @@
                             <span class="small">Edit</span>
                         </i>
                     </span>
-                    <img ng-src="{{item.imageURL}}" class="item-edit-image">{{itemsCtrl.item.hasImage(item)}}
+                    <img ng-src="images/items/160/{{ item.images[0] }}" class="item-edit-image">{{itemsCtrl.item.hasImage(item)}}
                 </span>
             </a></td>
             <td>{{ item.title }}</td>
