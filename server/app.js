@@ -41,6 +41,7 @@ if(app.settings.env === 'development'){
 }
 
 app.use(express.static(path.join(__dirname, "./static")));
+app.use(express.static(path.join(__dirname, "./img")));
 app.use(passport.initialize());
 
 

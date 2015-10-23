@@ -31,3 +31,61 @@
 
   }
 }
+
+.carousel{
+  margin: 30px 0;
+
+  .item{
+    img{
+      border-radius: $globalBorderRadius;
+      overflow: hidden;
+    }
+  }
+}
+
+.carousel-control {
+  &.left, &.right {
+    background: none;
+  }
+}
+
+.item__prices{
+  position: absolute;
+  text-align: right;
+  right: 3%;
+  font-weight: 300;
+  bottom: 6%;
+  width: 48%;
+  height: 31%;
+}
+
+  .item-old-price{
+    //font-size: 39px;
+    font-size: 3.1vw;
+    color: #FF2020;
+    margin-right: 5%;
+    padding: 0px 5px;
+    padding-top: 3%;
+    display: inline-block;
+    position: relative;
+
+    &:before{
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 5%;
+      transform: rotateZ(-15deg);
+      left: 0;
+      bottom: 34%;
+      margin: auto;
+      background-color: #cc1e1e;
+    }
+  }
+
+  .item-new-price{
+    //font-size: 62px;
+    font-size: 4.9vw;
+    color: #00B955;
+    display: inline-block;
+  }

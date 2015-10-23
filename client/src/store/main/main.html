@@ -1,15 +1,61 @@
 <div class="container">
 
-    <!-- Jumbotron Header -->
-    <header class="promo-header">
-        <div class="promo-header__text">
-            <h1>Sale up to 30%</h1>
-            <p>For all Meizu smartphones</p>
-        </div>
-        <img class="promo-header__image" src="./img/meizu_promo.png" alt=""/>
-    </header>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
 
-    <hr>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div ui-sref="#" class="item active">
+                <img src="./img/slider/slide_2.png">
+                <div class="item__prices">
+                    <div class="item-old-price">{{ 868 | currency }}</div>
+                    <div class="item-new-price">{{ 689 | currency }}</div>
+                </div>
+            </div>
+
+            <div ui-sref="#" class="item">
+                <img src="./img/slider/slide_4.png">
+                <div class="item__prices">
+                    <div class="item-old-price">{{ 298 | currency }}</div>
+                    <div class="item-new-price">{{ 234 | currency }}</div>
+                </div>
+            </div>
+
+            <div ui-sref="#" class="item">
+                <img src="./img/slider/slide_3.png">
+                <div class="item__prices">
+                    <div class="item-old-price">{{ 326 | currency }}</div>
+                    <div class="item-new-price">{{ 279 | currency }}</div>
+                </div>
+            </div>
+
+            <div ui-sref="#" class="item">
+                <img src="./img/slider/slide_1.png">
+                <div class="item__prices">
+                    <div class="item-old-price">{{ 356 | currency }}</div>
+                    <div class="item-new-price">{{ 329 | currency }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <hr/>
 
     <!-- Title -->
     <div class="row">

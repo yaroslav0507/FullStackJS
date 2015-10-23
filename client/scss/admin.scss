@@ -91,8 +91,11 @@ textarea.form-control{
 
 
   .images-preview{
-    &__image{
+    img{
+      max-width: 100%;
+    }
 
+    &__image{
       height: 63px;
       padding: 5px;
       border-radius: $globalBorderRadius;

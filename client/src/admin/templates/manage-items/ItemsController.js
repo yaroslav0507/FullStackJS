@@ -41,7 +41,7 @@
                 .then(function (response) {
                         console.log(response);
                         vm.items.push(makeShortDescriptions(160, response));
-                        //vm.item = {};
+                        vm.item = {};
                 })
                 .catch(function(response){
                     vm.message = response.status + ': ' + response.data;
