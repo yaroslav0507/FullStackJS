@@ -107,7 +107,7 @@
                             <span class="small">Edit</span>
                         </i>
                     </span>
-                    <img ng-src="images/items/160/{{ item.images[0] }}" class="item-edit-image">{{itemsCtrl.item.hasImage(item)}}
+                    <img ng-src="images/items/160/{{ item.images[item.mainImageIndex] }}" class="item-edit-image">{{itemsCtrl.item.hasImage(item)}}
                 </span>
             </a></td>
             <td>{{ item.title }}</td>

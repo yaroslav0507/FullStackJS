@@ -4,6 +4,7 @@
     <div class="alert alert-success" role="alert" ng-show="editCtrl.message.length">
         {{editCtrl.message}}
     </div>
+
     <form name="editItem">
         <div class="col-xs-4 edit-items">
             <div class="thumbnail edit-item__preview">
@@ -38,12 +39,19 @@
                         <i class="fa fa-image"></i> Add image
                     </button>
                 </div>
+
                 <div class="btn-group">
                     <button class="btn btn-default btn-grey"
                             ng-click="editCtrl.deleteImage()">
                         <i class="fa fa-trash"></i> Delete image
                     </button>
                 </div>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="" ng-checked="editCtrl.checkMainImage()">
+                    This is the main image of the item
+                </label>
             </div>
 
             <div class="text-center save-changes">
@@ -62,6 +70,7 @@
                            value="{{editCtrl.item.title}}"
                            ng-model="editCtrl.item.title">
                 </div>
+
                 <div class="col-xs-3 form-group">
                     <label>Price</label>
                     <div class="input-group">
@@ -72,6 +81,7 @@
                                ng-model="editCtrl.item.price">
                     </div>
                 </div>
+
                 <div class="col-xs-12 form-group">
                     <label>Description</label>
                     <textarea class="form-control"

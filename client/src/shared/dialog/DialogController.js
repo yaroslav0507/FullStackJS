@@ -3,24 +3,31 @@
 
     angular
         .module('app')
-        .controller('DialogController', DialogController);
+        .controller('ModalDemoCtrl', DialogController);
 
-    function DialogController($modal, $scope, ItemsService){
+    function DialogController($uibModal, $log){
 
         var vm = this;
 
         angular.extend(vm, {
+            items: ['item1', 'item2', 'item3'],
             open: open,
             animationsEnabled: true
         });
 
+
         function open(size){
-            var modalInstance = $modal.open({
-                animation: true,
-                templateUrl: 'shared/dialog/base-dialog.html',
-                controller: 'DialogController',
-                controllerAs: 'dialogCtrl',
-                size: size
+
+            var modalInstance = $uibModal.open({
+                animation: vm.animationsEnabled,
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return vm.items;
+                    }
+                }
             });
 
             modalInstance.result.then(function (selectedItem) {
@@ -30,5 +37,9 @@
             });
         }
 
+        vm.toggleAnimation = function () {
+            vm.animationsEnabled = !vm.animationsEnabled;
+        };
     }
+
 })();

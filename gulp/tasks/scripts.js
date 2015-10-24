@@ -18,10 +18,11 @@ gulp.task('scripts', function(){
     var vendors = gulp.src([
         'client/vendors/angular/angular.js',
         'client/vendors/jquery/dist/jquery.js',
+        'client/vendors/elevatezoom/jquery.elevateZoom-2.2.3.min.js',
         'client/vendors/angular-ui-router/release/angular-ui-router.js',
         'client/vendors/ng-file-upload/ng-file-upload-all.js',
         'client/vendors/bootstrap/dist/js/bootstrap.js',
-        'client/vendors/angular-bootstrap/ui-bootstrap-tpls.js',
+        //'client/vendors/angular-bootstrap/ui-bootstrap-tpls.js',
         'client/vendors/toastr/toastr.js'
     ], {base: 'vendors'});
 

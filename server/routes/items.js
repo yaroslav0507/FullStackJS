@@ -1,6 +1,8 @@
 'use strict';
 
+var fs = require('fs');
 var Item = mongoose.model('Items');
+require('dotenv').load();
 
 router.get('/items', function(req, res, next){
     Item.find(function(err, items){
@@ -62,6 +64,26 @@ router.get('/items/:item', function(req, res){
 router.delete('/items/:item', function(req, res){
     Item.find(function(err, items, item){
         if(err){ return next(err); }
+
+        var dimentions = [160, 256].concat("origin");
+
+        var images = req.item.images;
+        console.log(dimentions);
+
+        dimentions.forEach(function(dimention){
+            images.forEach(function(filename){
+                var filePath = './server/static/images/items/' + dimention + '/' + filename ;
+
+                /*Check if path exists*/
+                var pathExists = fs.existsSync(filePath);
+                if(pathExists){
+                    /*Delete file fom the file system*/
+                    fs.unlinkSync(filePath);
+                }
+
+            });
+        });
+
         req.item.remove(function(err, next){
             if(err){ return next(err); }
         });

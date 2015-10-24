@@ -31,9 +31,9 @@ a {
 .promo-header{
   position: relative;
   overflow: hidden;
-  height: 165px;
-  padding: 30px 60px;
-  margin: 30px 0;
+  height: 135px;
+  padding: 15px 60px;
+  margin: 10px 0 25px;
   border-radius: $globalBorderRadius;
   background-color: #00BAF4;
   color: #FFF;
@@ -123,4 +123,26 @@ footer {
 
 .toast-top-right{
   top: 65px;
+}
+
+.thumbnail{
+  &_item{
+    position: relative;
+    
+    &:before{
+      content: '';
+      display: block;
+      padding-bottom: 100%;
+    }
+
+    img{
+      position: absolute;
+      top:0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+  }
+
 }

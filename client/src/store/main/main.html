@@ -11,7 +11,7 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-            <div ui-sref="#" class="item active">
+            <div class="item active">
                 <img src="./img/slider/slide_2.png">
                 <div class="item__prices">
                     <div class="item-old-price">{{ 868 | currency }}</div>
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div ui-sref="#" class="item">
+            <div class="item">
                 <img src="./img/slider/slide_4.png">
                 <div class="item__prices">
                     <div class="item-old-price">{{ 298 | currency }}</div>
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <div ui-sref="#" class="item">
+            <div class="item">
                 <img src="./img/slider/slide_3.png">
                 <div class="item__prices">
                     <div class="item-old-price">{{ 326 | currency }}</div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div ui-sref="#" class="item">
+            <div class="item">
                 <img src="./img/slider/slide_1.png">
                 <div class="item__prices">
                     <div class="item-old-price">{{ 356 | currency }}</div>
@@ -93,7 +93,7 @@
                             <span class="small">Show details</span>
                         </i>
                     </span>
-                    <img ng-src="images/items/160/{{item.images[0]}}" alt="{{item.title}}" class="image"/>
+                    <img ng-src="images/items/160/{{item.images[item.mainImageIndex]}}" alt="{{item.title}}" class="image"/>
                 </a>
                 <div class="caption">
                     <h4>{{ item.title }}</h4>

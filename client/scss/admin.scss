@@ -72,7 +72,7 @@ textarea.form-control{
 .edit-item {
   &__preview {
     min-height: 200px;
-    max-height: 300px;
+    max-height: 400px;
     text-align: center;
     vertical-align: middle;
   }
@@ -114,13 +114,17 @@ textarea.form-control{
         margin-right: 0;
       }
 
-      &:not(&:first-child):hover {
+      &:hover {
         cursor: pointer;
         color: #C7C7C7;
         border: 2px solid;
         padding: 3px;
         transition: color ease-in-out .2s;
       }
+    }
+    
+    &__remote{
+      margin-bottom: 5px;
     }
 
     &_local{
@@ -134,7 +138,6 @@ textarea.form-control{
         }
       }
     }
-
 
   }
 

@@ -12,6 +12,7 @@
         angular.extend(vm, {
             item: item,
             imageIndex: 0,
+            checkMainImage: checkMainImage,
             showMainThumbnail: true,
             message: '',
             uploadImage: ItemsService.uploadImage,
@@ -29,6 +30,11 @@
 
         function selectImage(index){
             vm.imageIndex = index;
+        }
+
+        function checkMainImage(){
+            vm.item.mainImageIndex = vm.imageIndex;
+            console.log("image index", vm.item.mainImageIndex);
         }
 
         function saveChanges(){
