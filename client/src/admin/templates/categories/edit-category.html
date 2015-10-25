@@ -1,0 +1,56 @@
+<h1 class="page-header"><i class="fa fa-bookmark"></i> Categories</h1>
+
+<div class="alert alert-success" role="alert" ng-show="categoriesCtrl.message.length">
+    {{categoriesCtrl.message}}
+</div>
+
+<div class="row">
+    <form>
+        <div class="input-group">
+            <div class="col-xs-10">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">@</span>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Category name"
+                           aria-describedby="basic-addon1"
+                           ng-model="categoriesCtrl.category.name">
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <button type="submit"
+                        class="btn btn-primary btn_wide"
+                        ng-click="categoriesCtrl.addNew()">Add new</button>
+            </div>
+            <div class="col-xs-12">
+                <hr/>
+            </div>
+    </form>
+
+    </div>
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Category name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="category in categoriesCtrl.categories">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ category.name }}</td>
+                    <td class="text-right">
+                        <button class="btn btn-default"
+                                ng-click="categoriesCtrl.deleteCategory(category)">
+                            <i class="fa fa-remove"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

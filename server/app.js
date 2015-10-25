@@ -12,6 +12,7 @@ var app             = express();
 require('dotenv').load();
 require('./models/Items');
 require('./models/Users');
+require('./models/Categories');
 require('./models/cart/Cart');
 require('./models/cart/CartItem');
 

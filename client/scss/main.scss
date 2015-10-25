@@ -132,7 +132,7 @@ footer {
     &:before{
       content: '';
       display: block;
-      padding-bottom: 100%;
+      padding-bottom: 260px;
     }
 
     img{
@@ -142,6 +142,8 @@ footer {
       left: 0;
       right: 0;
       margin: auto;
+      padding: 10px 0;
+      max-height: 100%;
     }
   }
 

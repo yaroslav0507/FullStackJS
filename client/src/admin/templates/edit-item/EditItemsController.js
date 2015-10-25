@@ -5,12 +5,13 @@
         .module('app')
         .controller('EditItemsController', EditItemsController);
 
-    function EditItemsController(item, ItemsService, $state) {
+    function EditItemsController(item, categories,  ItemsService, $state) {
 
         var vm = this;
 
         angular.extend(vm, {
             item: item,
+            categories: categories,
             imageIndex: 0,
             checkMainImage: checkMainImage,
             showMainThumbnail: true,
@@ -21,7 +22,8 @@
             addImages: addImages,
             deleteImage: deleteImage,
             saveChanges: saveChanges,
-            deleteItem: deleteItem
+            deleteItem: deleteItem,
+            selectCategory: selectCategory
         });
 
         function currentImage(){
@@ -81,6 +83,11 @@
                 $state.go('admin.main');
             });
         }
+
+        function selectCategory(category){
+            vm.item.category = category.name;
+        }
+
 
     }
 })();

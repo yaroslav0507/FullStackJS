@@ -37,7 +37,8 @@
                         controller: 'ItemsController',
                         controllerAs: 'itemsCtrl',
                         resolve: {
-                            items: resolveItems
+                            items: resolveItems,
+                            categories: resolveCategories
                         }
                     }
                 }
@@ -50,7 +51,8 @@
                         controller: 'EditItemsController',
                         controllerAs: 'editCtrl',
                         resolve: {
-                            item: resolveItem
+                            item: resolveItem,
+                            categories: resolveCategories
                         }
                     }
                 }
@@ -80,11 +82,28 @@
                         }
                     }
                 }
+            })
+            .state('admin.categories', {
+                url: '/categories',
+                views: {
+                    'content@admin': {
+                        templateUrl: 'admin/templates/categories/edit-category.html',
+                        controller: 'EditCategoriesController',
+                        controllerAs: 'categoriesCtrl',
+                        resolve: {
+                            categories: resolveCategories
+                        }
+                    }
+                }
             });
 
 
         function resolveItems(ItemsService){
             return ItemsService.getAll();
+        }
+
+        function resolveCategories(CategoriesService){
+            return CategoriesService.getAll();
         }
 
         function resolveItem($stateParams, ItemsService){

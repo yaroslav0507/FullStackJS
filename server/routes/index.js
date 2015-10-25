@@ -9,6 +9,7 @@ global.mongoose      = require('mongoose');
 
 require('./items');
 require('./users');
+require('./categories');
 require('./file-upload');
 require('./cart/add-to-cart');
 require('./cart/delete-from-cart');

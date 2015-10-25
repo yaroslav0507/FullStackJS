@@ -1,0 +1,35 @@
+.store-dropdown{
+  position: relative;
+
+  &.open{
+    .btn{
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  .dropdown-menu{
+    border-radius: 0 0 $globalBorderRadius $globalBorderRadius;
+    margin-top: 0;
+    min-width: 40px;
+    width: 100%;
+    border-top: 0;
+
+    li > a {
+      padding:  6px 12px;
+    }
+  }
+
+  .btn{
+    text-align: left;
+    width: 100%;
+  }
+
+  .caret {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+}

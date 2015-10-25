@@ -63,12 +63,29 @@
             </div>
         </div>
         <div class="col-xs-8">
-                <div class="col-xs-9 form-group">
+                <div class="col-xs-6 form-group">
                     <label>Title</label>
                     <input class="form-control"
                            type="text"
                            value="{{editCtrl.item.title}}"
                            ng-model="editCtrl.item.title">
+                </div>
+
+                <div class="col-xs-3 form-group">
+
+                    <label>Category</label>
+
+                    <div class="store-dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {{ editCtrl.item.category }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li ng-repeat="category in editCtrl.categories">
+                                <a ng-click="editCtrl.selectCategory(category)">{{category.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="col-xs-3 form-group">

@@ -5,7 +5,7 @@
         .module('app')
         .controller('ItemsController', ItemsController);
 
-    function ItemsController(items, ItemsService, $q) {
+    function ItemsController(items, ItemsService, categories, $q) {
 
         var vm = this;
 
@@ -13,10 +13,13 @@
             items: items.map(makeShortDescriptions.bind(null, 120)),
             item: {
             },
+            category: 'Select category',
+            categories: categories,
             message: '',
             addItem: addItem,
             deleteItem: deleteItem,
-            validateInputs: validateInputs
+            validateInputs: validateInputs,
+            selectCategory: selectCategory
         });
 
 
@@ -70,6 +73,10 @@
                 item.shortDescription = item.description
             }
             return item;
+        }
+
+        function selectCategory(){
+
         }
 
 
