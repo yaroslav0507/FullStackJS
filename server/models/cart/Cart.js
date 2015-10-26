@@ -4,7 +4,7 @@ var CartItemSchema = require('./CartItem');
 var CartSchema = new mongoose.Schema({
     _id: String,
     total: Number,
-    items: [CartItemSchema],
+    items: [{type: mongoose.Schema.Types.ObjectId, ref: 'Item'}],
     itemsCount: {type: Number, default: 0}
 });
 

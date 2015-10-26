@@ -44,7 +44,7 @@ router.post('/add-to-cart/', function (req, res, next) {
                 qty:    result.qty
             });
 
-            console.log(cartItem);
+            console.log('New cart item: ', cartItem);
 
             cart.addItem(cartItem, function(err, cart){
                 if (err) {
