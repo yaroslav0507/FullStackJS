@@ -27,7 +27,7 @@ gulp.task('cloneFonts', function(){
 });
 
 gulp.task('cloneImages', function(){
-    return gulp.src('dist/img/**.*')
+    return gulp.src('dist/img/**/*.*')
         .pipe(gulp.dest('release/img/'));
 });
 
