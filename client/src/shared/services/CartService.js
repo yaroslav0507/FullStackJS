@@ -12,7 +12,7 @@
             addToCart: addToCart,
             deleteFromCart: deleteFromCart,
             getCart: getCart,
-            saveCart: saveCart,
+            updateCart: updateCart,
             getCurrentCart: getCurrentCart
         };
 
@@ -61,11 +61,9 @@
             })
         }
 
-        function saveCart(cart){
-            return $http.put('/save-cart/', cart).then(function(response){
-                if(response.ok){
-                    angular.copy(response.data, cart);
-                }
+        function updateCart(cart){
+            return $http.put('/update-cart/', cart).then(function(response){
+                angular.copy(response.data, cart);
                 return cart;
             })
         }

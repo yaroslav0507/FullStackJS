@@ -2,7 +2,7 @@
 var Cart = mongoose.model('Cart');
 var CartItem = mongoose.model('CartItem');
 
-router.put('/save-cart/', function (req, res, next) {
+router.put('/update-cart/', function (req, res, next) {
 
     var cartID = req.cookies['connect.sid'];
     console.log("Body: ", req.body, '\n');
@@ -30,7 +30,8 @@ router.put('/save-cart/', function (req, res, next) {
             cart.total = 0;
             cart.itemsCount = 0;
             cart.items.forEach(function(item){
-                cart.total = item.price * item.qty;
+                item.total = item.price * item.qty;
+                cart.total += item.total;
                 cart.itemsCount += item.qty;
             });
 

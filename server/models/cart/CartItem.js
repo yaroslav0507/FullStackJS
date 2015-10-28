@@ -6,7 +6,8 @@ var CartItemSchema = new mongoose.Schema({
     title:              String,
     price:              Number,
     mainImageIndex:     {type: Number, default: 0},
-    qty:                {type: Number, default: 1}
+    qty:                {type: Number, default: 1},
+    total:              Number
 });
 
 mongoose.model('CartItem', CartItemSchema);

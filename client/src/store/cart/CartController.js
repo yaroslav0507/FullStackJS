@@ -5,24 +5,24 @@
         .module('app')
         .controller('CartController', CartController);
 
-    function CartController(CartService, $state){
+    function CartController(CartService, $scope){
 
         var vm = this;
 
         angular.extend(vm, {
             cart: CartService.getCurrentCart(),
             deleteFromCart: deleteFromCart,
-            checkout: checkout
+            updateCart: updateCart
         });
 
-        function deleteFromCart(item){
+        function deleteFromCart(item) {
             CartService.deleteFromCart(item);
         }
 
-        function checkout(){
-            CartService.saveCart(vm.cart).then(function(){
-                $state.go('store.checkout');
-            });
+        function updateCart(){
+            if(vm.cart){
+                CartService.updateCart(vm.cart);
+            }
         }
 
     }

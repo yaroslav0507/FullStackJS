@@ -6,6 +6,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="cart-view"
@@ -25,9 +26,10 @@
 
                 <div class="cart-view__items">
                     <div class="row cart-header clearfix">
-                        <div class="col-xs-5 col-xs-offset-2">Items</div>
+                        <div class="col-xs-3 col-xs-offset-2">Items</div>
                         <div class="col-xs-2">Price</div>
                         <div class="col-xs-2">Quantity</div>
+                        <div class="col-xs-2">Total</div>
                         <div class="col-xs-1"></div>
                     </div>
 
@@ -35,10 +37,14 @@
                         <div class="col-xs-2 text-center">
                             <img class="cart-item-image" ng-src="images/items/160/{{item.images[item.mainImageIndex]}}" alt=""/>
                         </div>
-                        <div class="col-xs-5">{{ item.title }}</div>
+                        <div class="col-xs-3">{{ item.title }}</div>
                         <div class="col-xs-2">{{ item.price | currency }}</div>
                         <div class="col-xs-2">
-                            <change-quantity value="item.qty"></change-quantity>
+                            <change-quantity value="item.qty"
+                                             change="cartCtrl.updateCart()"></change-quantity>
+                        </div>
+                        <div class="col-xs-2">
+                            {{ item.total | currency }}
                         </div>
                         <div class="col-xs-1">
                             <button class="btn btn-default"
@@ -65,7 +71,7 @@
                             </div>
                             <div class="btn-group">
                                 <button class="btn btn-success btn-lg"
-                                        ng-click="cartCtrl.checkout()"><i class="fa fa-dollar"></i> Checkout</button>
+                                        ui-sref="store.checkout"><i class="fa fa-dollar"></i> Checkout</button>
                             </div>
                         </div>
                     </div>

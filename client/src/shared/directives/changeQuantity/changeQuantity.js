@@ -1,5 +1,5 @@
 (function(){
-    'use strict';
+    //'use strict';
 
     angular
         .module('app')
@@ -9,16 +9,33 @@
         return {
             restrict: 'EA',
             scope: {
-                value: "="
+                value: "=",
+                change: "&"
             },
             controller: changeQuantityController,
             controllerAs: 'qtyCtrl',
             templateUrl: 'shared/directives/changeQuantity/quantity-directive.html',
-            link: function(scope, CartService){
+            link: function($scope){
+                $scope.$watch('value', function(newValue, oldValue){
+                    if(newValue !== oldValue){
+                        if(typeof($scope.value) !== "number"){
+                            $scope.value = 1;
+                        }
 
+                        debounce(function(){
+                            $scope.change()
+                        }, 500)
+
+                    }
+                });
             }
         }
+    }
 
+    function debounce(func, delay){
+        var timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(func(), delay);
     }
 
     function changeQuantityController($scope){

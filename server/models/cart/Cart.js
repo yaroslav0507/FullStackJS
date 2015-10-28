@@ -39,6 +39,7 @@ CartSchema.methods.addItem = function(item, cb){
     * */
     this.total = 0;
     this.items.forEach(function(item){
+        item.total = item.price * item.qty;
         that.total += item.price * item.qty;
     });
 
