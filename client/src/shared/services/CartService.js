@@ -12,6 +12,7 @@
             addToCart: addToCart,
             deleteFromCart: deleteFromCart,
             getCart: getCart,
+            saveCart: saveCart,
             getCurrentCart: getCurrentCart
         };
 
@@ -59,6 +60,16 @@
                 return cart;
             })
         }
+
+        function saveCart(cart){
+            return $http.put('/save-cart/', cart).then(function(response){
+                if(response.ok){
+                    angular.copy(response.data, cart);
+                }
+                return cart;
+            })
+        }
+
 
         function getCurrentCart() {
             return cart;

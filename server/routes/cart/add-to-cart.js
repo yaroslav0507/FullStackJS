@@ -41,7 +41,7 @@ router.post('/add-to-cart/', function (req, res, next) {
                 images: result.images,
                 title:  result.title,
                 price:  result.price,
-                qty:    result.qty
+                qty:    item.qty
             });
 
             console.log('New cart item: ', cartItem);

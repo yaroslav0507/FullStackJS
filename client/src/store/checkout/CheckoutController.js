@@ -3,15 +3,14 @@
 
     angular
         .module('app')
-        .controller('CartController', CartController);
+        .controller('CheckoutController', CheckoutController);
 
-    function CartController(CartService, $state){
+    function CheckoutController(CartService){
 
         var vm = this;
 
         angular.extend(vm, {
             cart: CartService.getCurrentCart(),
-            deleteFromCart: deleteFromCart,
             checkout: checkout
         });
 
@@ -20,9 +19,7 @@
         }
 
         function checkout(){
-            CartService.saveCart(vm.cart).then(function(){
-                $state.go('store.checkout');
-            });
+            CartService.saveCart(vm.cart);
         }
 
     }

@@ -66,6 +66,16 @@
                         controllerAs: 'cartCtrl'
                     }
                 }
+            })
+            .state('store.checkout', {
+                url: '/checkout/',
+                views: {
+                    'content@store': {
+                        templateUrl: 'store/checkout/checkout.html',
+                        controller: 'CheckoutController',
+                        controllerAs: 'checkoutCtrl'
+                    }
+                }
             });
 
         $urlRouterProvider.otherwise('/');

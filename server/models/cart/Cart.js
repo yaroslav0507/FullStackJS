@@ -4,7 +4,7 @@ var CartItemSchema = require('./CartItem');
 var CartSchema = new mongoose.Schema({
     _id: String,
     total: Number,
-    items: [{type: mongoose.Schema.Types.ObjectId, ref: 'Item'}],
+    items: [CartItemSchema],
     itemsCount: {type: Number, default: 0}
 });
 
@@ -67,11 +67,13 @@ CartSchema.methods.removeItem = function(id, cb){
                     this.total -= item.price;
 
                     break;
-                } else {
+                } else if (item.qty === 1) {
                     this.total -= this.items[index].price;
                     this.items.splice(index, 1);
 
                     break;
+                } else if (item.qty < 0){
+                    item.qty = 1;
                 }
 
             }
@@ -80,5 +82,6 @@ CartSchema.methods.removeItem = function(id, cb){
 
     this.save(cb);
 };
+
 
 mongoose.model('Cart', CartSchema);

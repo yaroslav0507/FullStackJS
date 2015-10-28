@@ -34,7 +34,9 @@
         }
 
         function decrease(){
-            $scope.value -= 1;
+            if($scope.value > 1){
+                $scope.value -= 1;
+            }
         }
     }
 
