@@ -16,5 +16,6 @@ require('./cart/delete-from-cart');
 require('./cart/delete-all-from-cart');
 require('./cart/get-cart');
 require('./cart/update-cart');
+require('./checkout/checkout');
 
 module.exports = router;

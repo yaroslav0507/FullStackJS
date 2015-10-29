@@ -29,6 +29,7 @@ router.put('/update-cart/', function (req, res, next) {
 
             cart.total = 0;
             cart.itemsCount = 0;
+            
             cart.items.forEach(function(item){
                 item.total = item.price * item.qty;
                 cart.total += item.total;

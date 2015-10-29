@@ -14,7 +14,8 @@
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <input type="text" class="form-control" placeholder="Name" id="name">
+                        <input type="text" class="form-control" placeholder="Name" id="name"
+                                ng-model="checkoutCtrl.customer.name">
                     </div>
                 </div>
 
@@ -23,7 +24,8 @@
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map"></i></span>
-                        <input type="text" class="form-control" placeholder="Address" id="address">
+                        <input type="text" class="form-control" placeholder="Address" id="address"
+                               ng-model="checkoutCtrl.customer.address">
                     </div>
                 </div>
 
@@ -32,7 +34,8 @@
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                        <input type="phone" class="form-control" placeholder="Phone" id="phone">
+                        <input type="phone" class="form-control" placeholder="Phone" id="phone"
+                               ng-model="checkoutCtrl.customer.phone">
                     </div>
                 </div>
 
@@ -41,11 +44,11 @@
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                        <input type="email" class="form-control" placeholder="E-mail" id="mail">
+                        <input type="email" class="form-control" placeholder="E-mail" id="mail"
+                               ng-model="checkoutCtrl.customer.email">
                     </div>
                 </div>
             </div>
-
 
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="order-view">

@@ -16,6 +16,8 @@ require('./models/Categories');
 require('./models/cart/Cart');
 require('./models/cart/CartItem');
 
+require('./models/orders/Order');
+
 require('./config/passport');
 
 var routes = require('./routes/index');

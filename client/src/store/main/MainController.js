@@ -5,7 +5,7 @@
         .module('app')
         .controller('MainController', MainController);
 
-    function MainController(items, CartService){
+    function MainController(items, CartService, $scope){
 
         var vm = this;
 
@@ -30,5 +30,11 @@
             vm.predicate = predicate;
         }
 
+        $scope.$on('$viewContentLoaded', function() {
+            $('#myCarousel').carousel({
+                interval: 4000
+            });
+        })
     }
+
 })();
