@@ -3,6 +3,7 @@
         <img ng-src="images/users/48/{{dashboardCtrl.user.image[0]}}" alt=""/>
     </a>
     <span class="sidebar-user__username">{{dashboardCtrl.user.username}}</span>
+
     <div class="sidebar-user__role">
         <i class="glyphicon glyphicon-king" ng-show="dashboardCtrl.getUserAccessLevel == 2"></i>
         <i class="glyphicon glyphicon-knight" ng-show="dashboardCtrl.getUserAccessLevel == 1"></i>
@@ -10,20 +11,24 @@
         {{ dashboardCtrl.userRole }}
     </div>
     <div class="dropdown sidebar-user__actions clearfix">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
             Actions
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a ui-sref="admin.profile"><i class="glyphicon glyphicon_bordered glyphicon-user"></i> Edit profile</a></li>
+            <li><a ui-sref="admin.profile"><i class="glyphicon glyphicon_bordered glyphicon-user"></i> Edit profile</a>
+            </li>
             <!--<li role="separator" class="divider"></li>-->
-            <li ng-click="dashboardCtrl.logOut()"><a href="#"><i class="glyphicon glyphicon_bordered glyphicon-off"></i> Log out</a></li>
+            <li ng-click="dashboardCtrl.logOut()"><a href="#"><i class="glyphicon glyphicon_bordered glyphicon-off"></i>
+                Log out</a></li>
 
         </ul>
     </div>
 </div>
 <div class="form-group user-profile-progress">
     <label>Profile completed {{ dashboardCtrl.profileOccupancy }}%</label>
+
     <div class="progress">
         <div class="progress-bar progress-bar-info active"
              role="progressbar"
@@ -36,8 +41,33 @@
     </div>
 </div>
 <ul class="nav nav-sidebar">
-    <li ui-sref-active="active"><a ui-sref="admin.main"><i class="fa glyphicon_bordered fa-filter"></i> Item management</a></li>
-    <li ui-sref-active="active"><a ui-sref="admin.users"><i class="fa glyphicon_bordered fa-users"></i> Users</a></li>
-    <li ui-sref-active="active"><a ui-sref="admin.profile"><i class="fa glyphicon_bordered fa-user-secret"></i> Edit profile</a></li>
-    <li ui-sref-active="active"><a ui-sref="admin.categories"><i class="fa glyphicon_bordered fa-bookmark"></i> Categories</a></li>
+    <li ui-sref-active="active">
+        <a ui-sref="admin.main">
+            <i class="fa glyphicon_bordered fa-filter"></i> Item management
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="admin.users">
+            <i class="fa glyphicon_bordered fa-users"></i> Users
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="admin.profile">
+            <i class="fa glyphicon_bordered fa-user-secret"></i> Edit
+        profile
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="admin.categories">
+            <i class="fa glyphicon_bordered fa-bookmark"></i>
+        Categories
+        </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="admin.orders">
+            <i class="fa glyphicon_bordered fa-fax"></i>
+            Orders
+        </a>
+    </li>
+
 </ul>

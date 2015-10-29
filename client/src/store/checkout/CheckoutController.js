@@ -5,7 +5,7 @@
         .module('app')
         .controller('CheckoutController', CheckoutController);
 
-    function CheckoutController(CartService, CheckoutService, $state){
+    function CheckoutController(CartService, OrdersService, $state){
 
         var vm = this;
 
@@ -22,7 +22,10 @@
 
         function checkout(){
 
-            CheckoutService.checkout(vm.cart, vm.customer).then(function(){
+            OrdersService.checkout(vm.cart, vm.customer).then(function(){
+                CartService.clearCart({
+                    silent: true
+                });
                 $state.go('store.checkout.success');
             }, function(){
                 $state.go('store.main');

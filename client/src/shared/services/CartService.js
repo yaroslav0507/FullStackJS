@@ -11,7 +11,7 @@
         var service = {
             addToCart: addToCart,
             deleteFromCart: deleteFromCart,
-            deleteAll: deleteAll,
+            clearCart: clearCart,
             getCart: getCart,
             updateCart: updateCart,
             getCurrentCart: getCurrentCart
@@ -55,10 +55,15 @@
             });
         }
 
-        function deleteAll(){
+        function clearCart(config){
             return $http.delete('/delete-all-from-cart/').then(function(response){
                 angular.copy(response.data, cart);
-                toastr["info"]("Cart is empty", "Shopping Cart");
+                console.log(config.silent);
+                if(arguments.length){
+                    if(config.silent == false){
+                        toastr["info"]("Cart is empty", "Shopping Cart");
+                    }
+                }
 
                 return cart;
             }, function(err){

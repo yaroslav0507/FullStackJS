@@ -9058,15 +9058,13 @@ button.toast-close-button {
 .btn_wide {
   width: 100%; }
 
+.btn_order-actions {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px; }
+
 .form-control_qty {
   width: 40px; }
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
-  -webkit-appearance: none;
-  margin: 0;
-  /* <-- Apparently some margin are still there even though it's hidden */ }
 
 .spinner {
   width: 80px; }
@@ -9130,6 +9128,9 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
   /* <-- Apparently some margin are still there even though it's hidden */ }
+
+.no-margin {
+  margin: 0; }
 
 .admin-theme {
   padding-top: 50px;
@@ -9476,13 +9477,6 @@ footer {
 .form-control_qty {
   width: 40px; }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
-  -webkit-appearance: none;
-  margin: 0;
-  /* <-- Apparently some margin are still there even though it's hidden */ }
-
 .spinner {
   width: 80px; }
   .spinner input {
@@ -9515,6 +9509,12 @@ input::-webkit-inner-spin-button {
     position: absolute;
     top: 0;
     left: 4px; }
+
+.table .table {
+  table-layout: fixed; }
+
+.narrow-list li {
+  margin: 0; }
 
 .login-form {
   padding: 15px;

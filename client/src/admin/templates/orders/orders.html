@@ -1,0 +1,79 @@
+<h1 class="page-header"><i class="fa fa-fax"></i> Orders</h1>
+
+<div class="alert alert-success" role="alert" ng-show="ordersCtrl.message.length">
+    {{ordersCtrl.message}}
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Customer</th>
+            <th>Order</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="order in ordersCtrl.orders">
+            <td>{{ $index + 1 }}</td>
+            <td>
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="td"><b>Name</b></td>
+                        <td class="td">{{ order.customer[0].name }}</td>
+                    </tr>
+                    <tr>
+                        <td class="td"><b>Phone</b></td>
+                        <td class="td">{{ order.customer[0].phone }}</td>
+                    </tr>
+                    <tr>
+                        <td class="td"><b>Address</b></td>
+                        <td class="td">{{ order.customer[0].address }}</td>
+                    </tr>
+                    <tr>
+                        <td class="td"><b>E-mail</b></td>
+                        <td class="td">{{ order.customer[0].email }}</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="td"><b>Items</b</td>
+                        <td class="td">
+                            <ul class="no-margin">
+                                <li ng-repeat="item in order.cart[0].items">
+                                    {{ item.qty }} x {{ item.title }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td"><b>Date</b></td>
+                        <td class="td text-center"><b>{{ order.date | date : 'medium'}}</b></td>
+                    </tr>
+                    <tr>
+                        <td class="td"><b>Total</b></td>
+                        <td class="td text-center"><b>{{ order.cart[0].total | currency}}</b></td>
+                    </tr>
+                </table>
+            </td>
+            <td class="text-right">
+                <button class="btn btn-default btn_order-actions"
+                        ng-click="ordersCtrl.deleteOrder(order)">
+                    <i class="fa fa-remove"></i>
+                </button>
+                <button class="btn btn-default btn_order-actions"
+                        ng-click="">
+                    <i class="fa fa-envelope"></i>
+                </button>
+                <button class="btn btn-default btn_order-actions"
+                        ng-click="">
+                    <i class="fa fa-pencil"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

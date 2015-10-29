@@ -12,12 +12,18 @@
         angular.extend(vm, {
             cart: CartService.getCurrentCart(),
             deleteFromCart: deleteFromCart,
-            deleteAll: CartService.deleteAll,
+            deleteAll: clearCart,
             updateCart: updateCart
         });
 
         function deleteFromCart(item) {
             CartService.deleteFromCart(item);
+        }
+
+        function clearCart(){
+            CartService.clearCart({
+               silent: false
+            });
         }
 
         function updateCart(){

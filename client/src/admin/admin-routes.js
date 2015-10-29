@@ -47,7 +47,7 @@
                 url: '/items/{id}',
                 views: {
                     'content@admin': {
-                        templateUrl: 'admin/templates/edit-item/edit-item.html',
+                        templateUrl: 'admin/templates/manage-items/edit-item/edit-item.html',
                         controller: 'EditItemsController',
                         controllerAs: 'editCtrl',
                         resolve: {
@@ -95,6 +95,19 @@
                         }
                     }
                 }
+            })
+            .state('admin.orders', {
+                url: '/orders',
+                views: {
+                    'content@admin': {
+                        templateUrl: 'admin/templates/orders/orders.html',
+                        controller: 'OrdersController',
+                        controllerAs: 'ordersCtrl',
+                        resolve: {
+                            orders: resolveOrders
+                        }
+                    }
+                }
             });
 
 
@@ -116,6 +129,10 @@
 
         function resolveUserPayload(UsersService){
             return UsersService.getUserPayload();
+        }
+
+        function resolveOrders(OrdersService){
+            return OrdersService.getAll();
         }
 
         function resolveUserData(UsersService){
