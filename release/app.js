@@ -47372,50 +47372,6 @@ if (typeof jQuery === 'undefined') {
 
     angular
         .module('app')
-        .controller('AppController', AppController);
-
-    function AppController($state, $window){
-
-        var vm = this;
-
-        angular.extend(vm, {
-            title: 'E-commerce',
-            goBack: goBack
-        });
-
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": true,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": true,
-            "onclick": goToCart,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
-
-        function goToCart(){
-            $state.go('store.cart');
-        }
-
-        function goBack(){
-            $window.history.back();
-        }
-    }
-
-})();
-(function(){
-    'use strict';
-
-    angular
-        .module('app')
         .config(routeConfig);
 
     function routeConfig($stateProvider){
@@ -47520,6 +47476,50 @@ if (typeof jQuery === 'undefined') {
 
     angular
         .module('app')
+        .controller('AppController', AppController);
+
+    function AppController($state, $window){
+
+        var vm = this;
+
+        angular.extend(vm, {
+            title: 'E-commerce',
+            goBack: goBack
+        });
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": goToCart,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        function goToCart(){
+            $state.go('store.cart');
+        }
+
+        function goBack(){
+            $window.history.back();
+        }
+    }
+
+})();
+(function(){
+    'use strict';
+
+    angular
+        .module('app')
         .config(routeConfig);
 
     function routeConfig($stateProvider, $urlRouterProvider){
@@ -47581,6 +47581,26 @@ if (typeof jQuery === 'undefined') {
                         templateUrl: 'store/cart/cart.html',
                         controller: 'CartController',
                         controllerAs: 'cartCtrl'
+                    }
+                }
+            })
+            .state('store.checkout', {
+                url: '/checkout',
+                views: {
+                    'content@store': {
+                        templateUrl: 'store/checkout/checkout.html',
+                        controller: 'CheckoutController',
+                        controllerAs: 'checkoutCtrl'
+                    }
+                }
+            })
+            .state('store.checkout.success', {
+                url: '/success',
+                views: {
+                    'content@store': {
+                        templateUrl: 'store/checkout/success/success-checkout.html',
+                        controller: 'CheckoutController',
+                        controllerAs: 'checkoutCtrl'
                     }
                 }
             });
@@ -47694,82 +47714,6 @@ if (typeof jQuery === 'undefined') {
 
     angular
         .module('app')
-        .controller('ModalDemoCtrl', DialogController);
-
-    function DialogController($uibModal, $log){
-
-        var vm = this;
-
-        angular.extend(vm, {
-            items: ['item1', 'item2', 'item3'],
-            open: open,
-            animationsEnabled: true
-        });
-
-
-        function open(size){
-
-            var modalInstance = $uibModal.open({
-                animation: vm.animationsEnabled,
-                templateUrl: 'myModalContent.html',
-                controller: 'ModalInstanceCtrl',
-                size: size,
-                resolve: {
-                    items: function () {
-                        return vm.items;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (selectedItem) {
-                vm.selected = selectedItem;
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        }
-
-        vm.toggleAnimation = function () {
-            vm.animationsEnabled = !vm.animationsEnabled;
-        };
-    }
-
-})();
-(function(){
-    'use strict';
-
-    angular
-        .module('app')
-        .controller('ModalInstanceCtrl', ModalInstanceCtrl);
-
-    function ModalInstanceCtrl($uibModalInstance, items){
-
-        var vm = this;
-
-        angular.extend(vm, {
-            items: items,
-            selected: {
-                item: this.items[0]
-            },
-            ok: ok,
-            cancel: cancel
-        });
-        console.log(vm.items);
-
-        function ok(size){
-            $uibModalInstance.close(vm.selected.item);
-        }
-
-        function cancel (size){
-            $uibModalInstance.dismiss('cancel');
-        }
-    }
-
-})();
-(function(){
-    'use strict';
-
-    angular
-        .module('app')
         .factory('AuthService', AuthService);
 
     function AuthService(HttpTokenAuthService, $http, $window){
@@ -47825,7 +47769,9 @@ if (typeof jQuery === 'undefined') {
         var service = {
             addToCart: addToCart,
             deleteFromCart: deleteFromCart,
+            deleteAll: deleteAll,
             getCart: getCart,
+            updateCart: updateCart,
             getCurrentCart: getCurrentCart
         };
 
@@ -47867,12 +47813,31 @@ if (typeof jQuery === 'undefined') {
             });
         }
 
+        function deleteAll(){
+            return $http.delete('/delete-all-from-cart/').then(function(response){
+                angular.copy(response.data, cart);
+                toastr["info"]( deletedItem + " All items are deleted", "Shopping Cart");
+
+                return cart;
+            }, function(err){
+                return err;
+            });
+        }
+
         function getCart(){
             return $http.get('/get-cart/').then(function(response){
                 angular.copy(response.data, cart);
                 return cart;
             })
         }
+
+        function updateCart(cart){
+            return $http.put('/update-cart/', cart).then(function(response){
+                angular.copy(response.data, cart);
+                return cart;
+            })
+        }
+
 
         function getCurrentCart() {
             return cart;
@@ -48087,6 +48052,82 @@ if (typeof jQuery === 'undefined') {
 
     angular
         .module('app')
+        .controller('ModalDemoCtrl', DialogController);
+
+    function DialogController($uibModal, $log){
+
+        var vm = this;
+
+        angular.extend(vm, {
+            items: ['item1', 'item2', 'item3'],
+            open: open,
+            animationsEnabled: true
+        });
+
+
+        function open(size){
+
+            var modalInstance = $uibModal.open({
+                animation: vm.animationsEnabled,
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return vm.items;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                vm.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        }
+
+        vm.toggleAnimation = function () {
+            vm.animationsEnabled = !vm.animationsEnabled;
+        };
+    }
+
+})();
+(function(){
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('ModalInstanceCtrl', ModalInstanceCtrl);
+
+    function ModalInstanceCtrl($uibModalInstance, items){
+
+        var vm = this;
+
+        angular.extend(vm, {
+            items: items,
+            selected: {
+                item: this.items[0]
+            },
+            ok: ok,
+            cancel: cancel
+        });
+        console.log(vm.items);
+
+        function ok(size){
+            $uibModalInstance.close(vm.selected.item);
+        }
+
+        function cancel (size){
+            $uibModalInstance.dismiss('cancel');
+        }
+    }
+
+})();
+(function(){
+    'use strict';
+
+    angular
+        .module('app')
         .controller('CartController', CartController);
 
     function CartController(CartService){
@@ -48095,11 +48136,41 @@ if (typeof jQuery === 'undefined') {
 
         angular.extend(vm, {
             cart: CartService.getCurrentCart(),
-            deleteFromCart: deleteFromCart
+            deleteFromCart: deleteFromCart,
+            deleteAll: CartService.deleteAll,
+            updateCart: updateCart
         });
 
-        function deleteFromCart(item){
+        function deleteFromCart(item) {
             CartService.deleteFromCart(item);
+        }
+
+        function updateCart(){
+            if(vm.cart){
+                CartService.updateCart(vm.cart);
+            }
+        }
+
+    }
+})();
+(function(){
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('CheckoutController', CheckoutController);
+
+    function CheckoutController(CartService, $state){
+
+        var vm = this;
+
+        angular.extend(vm, {
+            cart: CartService.getCurrentCart(),
+            checkout: checkout
+        });
+
+        function checkout(){
+            $state.go('store.checkout.success');
         }
 
     }
@@ -48152,9 +48223,7 @@ if (typeof jQuery === 'undefined') {
         angular.extend(vm, {
             item: item,
             addToCart: addToCart,
-            selectImage: selectImage,
-            nextImage: nextImage,
-            prevImage: prevImage
+            selectImage: selectImage
         });
 
         var img = $('.zoomable');
@@ -48162,13 +48231,13 @@ if (typeof jQuery === 'undefined') {
         var zoomConfig = {
             zoomType: "lens",
             lensShape: "round",
-            lensSize: 200,
+            lensSize: 300,
             zoomWindowFadeIn: 200,
             zoomWindowFadeOut: 200,
             lensFadeIn: 200,
             lensFadeOut: 200,
             scrollZoom : true
-        }
+        };
 
         vm.item.qty = 1;
 
@@ -48193,25 +48262,6 @@ if (typeof jQuery === 'undefined') {
             //Re-create
             img.elevateZoom(zoomConfig);
 
-        }
-
-        var index = vm.item.mainImageIndex;
-        function nextImage(){
-            if(index < vm.item.images.length-1){
-                index += 1;
-                selectImage(index);
-            } else {
-                return;
-            }
-        }
-
-        function prevImage(){
-            if(index > 0){
-                index -= 1;
-                selectImage(index);
-            } else {
-                return;
-            }
         }
 
     }
@@ -48388,7 +48438,6 @@ if (typeof jQuery === 'undefined') {
         function addItem() {
             if (vm.validateInputs()) {
                 ItemsService.uploadImage(vm.item.files).then(function(imageNames){
-                    vm.item.images = [];
                     vm.item.images = imageNames;
                 })
                 .then(function(){
@@ -48436,7 +48485,7 @@ if (typeof jQuery === 'undefined') {
     }
 })();
 (function(){
-    'use strict';
+    //'use strict';
 
     angular
         .module('app')
@@ -48446,16 +48495,33 @@ if (typeof jQuery === 'undefined') {
         return {
             restrict: 'EA',
             scope: {
-                value: "="
+                value: "=",
+                change: "&"
             },
             controller: changeQuantityController,
             controllerAs: 'qtyCtrl',
             templateUrl: 'shared/directives/changeQuantity/quantity-directive.html',
-            link: function(scope, CartService){
+            link: function($scope){
+                $scope.$watch('value', function(newValue, oldValue){
+                    if(newValue !== oldValue){
+                        if(typeof($scope.value) !== "number"){
+                            $scope.value = 1;
+                        }
 
+                        debounce(function(){
+                            $scope.change()
+                        }, 500)
+
+                    }
+                });
             }
         }
+    }
 
+    function debounce(func, delay){
+        var timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(func(), delay);
     }
 
     function changeQuantityController($scope){
@@ -48471,7 +48537,9 @@ if (typeof jQuery === 'undefined') {
         }
 
         function decrease(){
-            $scope.value -= 1;
+            if($scope.value > 1){
+                $scope.value -= 1;
+            }
         }
     }
 
@@ -48674,14 +48742,16 @@ $templateCache.put("admin/components/sidebar.html","<div class=\"sidebar-user cl
 $templateCache.put("auth/templates/login.html","<form class=\"login-form\">\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputEmail1\">Login</label>\r\n        <input type=\"text\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputEmail1\"\r\n               placeholder=\"Enter Your Login\"\r\n               ng-model=\"authCtrl.user.username\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputPassword1\">Password</label>\r\n        <input type=\"password\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputPassword1\"\r\n               placeholder=\"Enter Your Password\"\r\n               ng-model=\"authCtrl.user.password\">\r\n    </div>\r\n    <button type=\"submit\"\r\n            class=\"btn btn-primary\"\r\n            ng-click=\"authCtrl.logIn()\">Log In</button>\r\n\r\n    <button ui-sref=\"auth.register\" class=\"btn btn-default pull-right\">Register</button>\r\n</form>\r\n\r\n\r\n");
 $templateCache.put("auth/templates/register.html","<form class=\"login-form\">\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputEmail1\">Login</label>\r\n        <input type=\"text\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputEmail1\"\r\n               placeholder=\"Enter Your Login\"\r\n               ng-model=\"authCtrl.user.username\">\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label for=\"exampleInputPassword1\">Password</label>\r\n        <input type=\"password\"\r\n               class=\"form-control\"\r\n               id=\"exampleInputPassword1\"\r\n               placeholder=\"Enter Your Password\"\r\n               ng-model=\"authCtrl.user.password\">\r\n    </div>\r\n    <button type=\"submit\"\r\n            class=\"btn btn-primary\"\r\n            ng-click=\"authCtrl.register()\">Register</button>\r\n\r\n    <button ui-sref=\"auth.login\" class=\"btn btn-default pull-right\">Log In</button>\r\n</form>\r\n\r\n\r\n");
 $templateCache.put("shared/dialog/base-dialog.html","<div class=\"modal-header\">\r\n    <h3 class=\"modal-title\">I\'m a modal!</h3>\r\n</div>\r\n<div class=\"modal-body\">\r\n    Selected: <b>{{ }}</b>\r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">Cancel</button>\r\n</div>");
-$templateCache.put("store/cart/cart.html","<div class=\"container\">\r\n    <div class=\"row\">\r\n        <div class=\"form-group clearfix\">\r\n            <div class=\"col-xs-12\">\r\n                <h3>Shopping Cart</h3>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-12\">\r\n            <div class=\"cart-view\"\r\n                 ng-if=\"cartCtrl.cart.items.length\">\r\n\r\n                <div class=\"cart-view__total clearfix\">\r\n                    <button class=\"btn btn-primary pull-left\" ui-sref=\"store.main\">\r\n                        <i class=\"glyphicon glyphicon-chevron-left\"></i>\r\n                        <span>Back to main page</span>\r\n                    </button>\r\n                    <div class=\"cart-total\">\r\n                        Merchandise Total: <span class=\"badge\">{{ cartCtrl.cart.total | currency}}</span>\r\n                    </div>\r\n                </div>\r\n\r\n                <hr/>\r\n\r\n                <div class=\"cart-view__items\">\r\n                    <div class=\"row cart-header clearfix\">\r\n                        <div class=\"col-xs-5 col-xs-offset-2\">Items</div>\r\n                        <div class=\"col-xs-2\">Price</div>\r\n                        <div class=\"col-xs-2\">Quantity</div>\r\n                        <div class=\"col-xs-1\"></div>\r\n                    </div>\r\n\r\n                    <div class=\"row cart-row\" ng-repeat=\"item in cartCtrl.cart.items\">\r\n                        <div class=\"col-xs-2 text-center\">\r\n                            <img class=\"cart-item-image\" ng-src=\"images/items/160/{{item.images[0]}}\" alt=\"\"/>\r\n                        </div>\r\n                        <div class=\"col-xs-5\">{{ item.title }}</div>\r\n                        <div class=\"col-xs-2\">{{ item.price | currency }}</div>\r\n                        <div class=\"col-xs-2\">\r\n                            <change-quantity value=\"item.qty\"></change-quantity>\r\n                        </div>\r\n                        <div class=\"col-xs-1\">\r\n                            <button class=\"btn btn-default\"\r\n                                    ng-click=\"cartCtrl.deleteFromCart(item)\">\r\n                                <i class=\"fa fa-close\"></i>\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n\r\n                </div>\r\n\r\n                <hr/>\r\n\r\n                <div class=\"cart-view__total clearfix\">\r\n                    <div class=\"cart-total pull-left\">\r\n                        Merchandise Total: <span class=\"badge\">{{ cartCtrl.cart.total | currency}}</span>\r\n                    </div>\r\n                    <div class=\"col-xs-6 no-padding pull-right\">\r\n                        <div class=\"btn-group btn-group-justified\">\r\n                            <div class=\"btn-group\">\r\n                                <button class=\"btn btn-default btn-lg\"\r\n                                        ng-click=\"appCtrl.goBack()\">\r\n                                    <i class=\"fa fa-shopping-cart\"></i> Continue shopping</button>\r\n                            </div>\r\n                            <div class=\"btn-group\">\r\n                                <button class=\"btn btn-success btn-lg\"><i class=\"fa fa-dollar\"></i> Checkout</button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n            <div class=\"cart-view_empty\"\r\n                 ng-if=\"!cartCtrl.cart.items.length\">\r\n                <img src=\"http://www.coursemate.ca/images/cart_empty.png\" alt=\"\"/>\r\n                <h2>There are no items in your shopping cart.</h2>\r\n                <button class=\"btn btn-primary btn-lg\"\r\n                        ng-click=\"appCtrl.goBack()\">\r\n                    <i class=\"fa fa-shopping-cart\"></i> Continue shopping</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>");
-$templateCache.put("store/main/main.html","<div class=\"container\">\r\n\r\n    <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\r\n        <!-- Indicators -->\r\n        <ol class=\"carousel-indicators\">\r\n            <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\r\n            <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\r\n            <li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\r\n            <li data-target=\"#myCarousel\" data-slide-to=\"3\"></li>\r\n        </ol>\r\n\r\n        <!-- Wrapper for slides -->\r\n        <div class=\"carousel-inner\" role=\"listbox\">\r\n            <div class=\"item active\">\r\n                <img src=\"./img/slider/slide_2.png\">\r\n                <div class=\"item__prices\">\r\n                    <div class=\"item-old-price\">{{ 868 | currency }}</div>\r\n                    <div class=\"item-new-price\">{{ 689 | currency }}</div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"item\">\r\n                <img src=\"./img/slider/slide_4.png\">\r\n                <div class=\"item__prices\">\r\n                    <div class=\"item-old-price\">{{ 298 | currency }}</div>\r\n                    <div class=\"item-new-price\">{{ 234 | currency }}</div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"item\">\r\n                <img src=\"./img/slider/slide_3.png\">\r\n                <div class=\"item__prices\">\r\n                    <div class=\"item-old-price\">{{ 326 | currency }}</div>\r\n                    <div class=\"item-new-price\">{{ 279 | currency }}</div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"item\">\r\n                <img src=\"./img/slider/slide_1.png\">\r\n                <div class=\"item__prices\">\r\n                    <div class=\"item-old-price\">{{ 356 | currency }}</div>\r\n                    <div class=\"item-new-price\">{{ 329 | currency }}</div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- Left and right controls -->\r\n        <a class=\"left carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"prev\">\r\n            <span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\r\n            <span class=\"sr-only\">Previous</span>\r\n        </a>\r\n        <a class=\"right carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"next\">\r\n            <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\r\n            <span class=\"sr-only\">Next</span>\r\n        </a>\r\n    </div>\r\n\r\n    <hr/>\r\n\r\n    <!-- Title -->\r\n    <div class=\"row\">\r\n        <div class=\"form-group clearfix\">\r\n            <div class=\"col-xs-9\">\r\n                <h2>Latest Goods</h2>\r\n            </div>\r\n            <div class=\"col-xs-3\">\r\n                <!-- Split button -->\r\n                <div class=\"dropdown pull-right items-filter\">\r\n                    <span>Sort by: </span>\r\n                    <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        <span ng-show=\"mainCtrl.reverse\">Price Down <i class=\"glyphicon glyphicon-arrow-down\"></i></span>\r\n                        <span ng-show=\"!mainCtrl.reverse\">Price Up <i class=\"glyphicon glyphicon-arrow-up\"></i></span>\r\n                    </button>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li ng-click=\"mainCtrl.reverse = true\"><a href=\"#\">Price Down</a></li>\r\n                        <li ng-click=\"mainCtrl.reverse = false\"><a href=\"#\">Price Up</a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <!-- Page Features -->\r\n    <div class=\"row text-center\">\r\n\r\n        <div class=\"col-xs-12 col-sm-6 col-md-4 col-lg-3 hero-feature\"\r\n             ng-repeat=\"item in mainCtrl.items | orderBy: mainCtrl.predicate: mainCtrl.reverse\">\r\n            <div class=\"thumbnail item-thumbnail\">\r\n                <a href=\"{{ \'#/items/\' + item._id }}\">\r\n                    <span class=\"item-hover-mask item-hover-mask_more\">\r\n                        <i class=\"glyphicon glyphicon-search\">\r\n                            <span class=\"small\">Show details</span>\r\n                        </i>\r\n                    </span>\r\n                    <img ng-src=\"images/items/160/{{item.images[item.mainImageIndex]}}\" alt=\"{{item.title}}\" class=\"image\"/>\r\n                </a>\r\n                <div class=\"caption\">\r\n                    <h4>{{ item.title }}</h4>\r\n                    <p class=\"item-thumbnail__description\">{{ item.shortDescription }}</p>\r\n                    <p class=\"item-thumbnail__price\">{{ item.price | currency: \"$\":0 }}</p>\r\n\r\n                    <div class=\"btn-group btn-group-justified\">\r\n                        <div class=\"btn-group\">\r\n                            <button class=\"btn btn-default btn-grey\"\r\n                                    ng-click=\"storeCtrl.addToCart(item)\">\r\n                                <i class=\"fa fa-cart-arrow-down\"></i> Add to cart\r\n                            </button>\r\n                        </div>\r\n                        <div class=\"btn-group\">\r\n                            <button class=\"btn btn-default btn-grey\"\r\n                                    ng-click=\"storeCtrl.error()\">\r\n                                <i class=\"fa fa-dollar\"></i> Buy now\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <hr>\r\n\r\n</div>");
-$templateCache.put("store/single-item/single-item.html","<div class=\"container\">\r\n    <!-- Jumbotron Header -->\r\n    <header class=\"promo-header\">\r\n        <div class=\"promo-header__text\">\r\n            <h1>Sale up to 30%</h1>\r\n            <p>For all Meizu smartphones</p>\r\n        </div>\r\n        <img class=\"promo-header__image\" src=\"./img/meizu_promo.png\" alt=\"\"/>\r\n    </header>\r\n    <hr/>\r\n    <div class=\"row\">\r\n\r\n        <div class=\"col-xs-12 col-sm-4\">\r\n            <div class=\"list-group\">\r\n                <a href=\"#\" class=\"list-group-item active\">\r\n                    Overview\r\n                </a>\r\n                <a href=\"#\" class=\"list-group-item\">Characteristics</a>\r\n                <a href=\"#\" class=\"list-group-item\">Replies</a>\r\n            </div>\r\n            <button class=\"btn btn_wide btn-primary \" ui-sref=\"store.main\">\r\n                <i class=\"glyphicon glyphicon-chevron-left\"></i>\r\n                <span>Back to main page</span>\r\n            </button>\r\n        </div>\r\n\r\n        <div class=\"col-xs-12\r\n                    col-sm-8\r\n                    col-md-8\r\n                    col-lg-4 text-center\">\r\n\r\n            <div class=\"thumbnail thumbnail_item\">\r\n\r\n                <img class=\"zoomable\" ng-src=\"images/items/256/{{singleItemCtrl.item.images[singleItemCtrl.item.mainImageIndex]}}\"\r\n                     data-zoom-image=\"images/items/origin/{{singleItemCtrl.item.images[singleItemCtrl.item.mainImageIndex]}}\"\r\n                     alt=\"\"/>\r\n\r\n                <a class=\"left carousel-control\"\r\n                   ng-click=\"singleItemCtrl.prevImage()\">\r\n                    <span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                </a>\r\n                <a class=\"right carousel-control\"\r\n                   ng-click=\"singleItemCtrl.nextImage()\">\r\n                    <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                </a>\r\n            </div>\r\n\r\n            <div class=\"images-preview__remote\" ng-show=\"singleItemCtrl.item.images.length > 1\">\r\n                <!--Image thumbnails from remote-->\r\n                <img class=\"images-preview__image\"\r\n                     ng-repeat=\"image in singleItemCtrl.item.images\"\r\n                     ng-src=\"images/items/160/{{image}}\"\r\n                     alt=\"image.title\"\r\n                     ng-click=\"singleItemCtrl.selectImage($index)\"/>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-12\r\n                    col-sm-8 col-sm-offset-4\r\n                    col-md-8\r\n                    col-lg-4 col-lg-offset-0\">\r\n            <div class=\"col-xs-9 form-group\">\r\n                <label>Title</label>\r\n                <p>{{singleItemCtrl.item.title}}</p>\r\n            </div>\r\n            <div class=\"col-xs-3 form-group\">\r\n                <label>Price</label>\r\n                <div class=\"input-group\">\r\n                    <h3 class=\"label label-success label-md\">{{singleItemCtrl.item.price | currency}}</h3>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-xs-12 form-group\">\r\n                <label>Description</label>\r\n                <p>{{singleItemCtrl.item.description}}</p>\r\n\r\n                <!--<uib-tabset>-->\r\n                <!--<uib-tab heading=\"Static title\">Static content</uib-tab>-->\r\n                <!--<uib-tab ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\" active=\"tab.active\" disable=\"tab.disabled\">-->\r\n                <!--{{tab.content}}-->\r\n                <!--</uib-tab>-->\r\n                <!--<uib-tab select=\"alertMe()\">-->\r\n                <!--<uib-tab-heading>-->\r\n                <!--<i class=\"glyphicon glyphicon-bell\"></i> Alert!-->\r\n                <!--</uib-tab-heading>-->\r\n                <!--I\'ve got an HTML heading, and a select callback. Pretty cool!-->\r\n                <!--</uib-tab>-->\r\n                <!--</uib-tabset>-->\r\n\r\n                <hr/>\r\n\r\n                <div class=\"col-xs-3\">\r\n                    <div class=\"form-group\">\r\n                        <label>Quantity</label>\r\n                        <change-quantity value=\"singleItemCtrl.item.qty\" class=\"qty-wide\"></change-quantity>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"col-xs-9\">\r\n                    <label>Purchase</label>\r\n                    <div class=\"btn-group btn-group-justified\">\r\n                        <div class=\"btn-group\">\r\n                            <button class=\"btn btn-primary\"\r\n                                    ng-click=\"singleItemCtrl.addToCart()\">\r\n                                <i class=\"fa fa-cart-arrow-down\"></i> Add to cart\r\n                            </button>\r\n                        </div>\r\n                        <div class=\"btn-group\">\r\n                            <button class=\"btn btn-success\"\r\n                                    ng-click=\"singleItemCtrl.addToCart()\">\r\n                                <i class=\"fa fa-dollar\"></i> Buy now\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n");
+$templateCache.put("store/cart/cart.html","<div class=\"container\">\r\n    <div class=\"row\">\r\n        <div class=\"form-group clearfix\">\r\n            <div class=\"col-xs-12\">\r\n                <h3>Shopping Cart</h3>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-12\">\r\n            <div class=\"cart-view\"\r\n                 ng-if=\"cartCtrl.cart.items.length\">\r\n\r\n                <div class=\"cart-view__total clearfix\">\r\n                    <button class=\"btn btn-primary pull-left\" ui-sref=\"store.main\">\r\n                        <i class=\"glyphicon glyphicon-chevron-left\"></i>\r\n                        <span>Back to main page</span>\r\n                    </button>\r\n                    <div class=\"cart-total\">\r\n                        Merchandise Total: <span class=\"badge\">{{ cartCtrl.cart.total | currency}}</span>\r\n                    </div>\r\n                </div>\r\n\r\n                <hr/>\r\n\r\n                <div class=\"cart-view__items\">\r\n                    <div class=\"row cart-header clearfix\">\r\n                        <div class=\"col-xs-3 col-xs-offset-2\">Items</div>\r\n                        <div class=\"col-xs-2\">Price</div>\r\n                        <div class=\"col-xs-2\">Quantity</div>\r\n                        <div class=\"col-xs-2\">Total</div>\r\n                        <div class=\"col-xs-1 text-center\">\r\n                            <button class=\"btn btn-default\"\r\n                                    ng-click=\"cartCtrl.deleteAll()\">\r\n                                <i class=\"fa fa-trash\"></i> All</button>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"row cart-row\" ng-repeat=\"item in cartCtrl.cart.items\">\r\n                        <div class=\"col-xs-2 text-center\">\r\n                            <img class=\"cart-item-image\" ng-src=\"images/items/160/{{item.images[item.mainImageIndex]}}\" alt=\"\"/>\r\n                        </div>\r\n                        <div class=\"col-xs-3\">{{ item.title }}</div>\r\n                        <div class=\"col-xs-2\">{{ item.price | currency }}</div>\r\n                        <div class=\"col-xs-2\">\r\n                            <change-quantity value=\"item.qty\"\r\n                                             change=\"cartCtrl.updateCart()\"></change-quantity>\r\n                        </div>\r\n                        <div class=\"col-xs-2\">\r\n                            {{ item.total | currency }}\r\n                        </div>\r\n                        <div class=\"col-xs-1 text-center\">\r\n                            <button class=\"btn btn-default\"\r\n                                    ng-click=\"cartCtrl.deleteFromCart(item)\">\r\n                                <i class=\"fa fa-close\"></i>\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n\r\n                </div>\r\n\r\n                <hr/>\r\n\r\n                <div class=\"cart-view__total clearfix\">\r\n                    <div class=\"cart-total pull-left\">\r\n                        Merchandise Total: <span class=\"badge\">{{ cartCtrl.cart.total | currency}}</span>\r\n                    </div>\r\n                    <div class=\"col-xs-6 no-padding pull-right\">\r\n                        <div class=\"btn-group btn-group-justified\">\r\n                            <div class=\"btn-group\">\r\n                                <button class=\"btn btn-default btn-lg\"\r\n                                        ng-click=\"appCtrl.goBack()\">\r\n                                    <i class=\"fa fa-shopping-cart\"></i> Continue shopping</button>\r\n                            </div>\r\n                            <div class=\"btn-group\">\r\n                                <button class=\"btn btn-success btn-lg\"\r\n                                        ng-click=\"storeCtrl.updateCart()\"\r\n                                        ui-sref=\"store.checkout\"><i class=\"fa fa-dollar\"></i> Checkout</button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n            <div class=\"cart-view_empty\"\r\n                 ng-if=\"!cartCtrl.cart.items.length\">\r\n                <img src=\"http://www.coursemate.ca/images/cart_empty.png\" alt=\"\"/>\r\n                <h2>There are no items in your shopping cart.</h2>\r\n                <button class=\"btn btn-primary btn-lg\"\r\n                        ng-click=\"appCtrl.goBack()\">\r\n                    <i class=\"fa fa-shopping-cart\"></i> Continue shopping</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>");
+$templateCache.put("store/checkout/checkout.html","<div class=\"container\">\r\n    <div class=\"row\">\r\n        <div class=\"form-group clearfix\">\r\n            <div class=\"col-xs-12\">\r\n                <h3>Checkout</h3>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <form>\r\n            <div class=\"col-xs-12 col-sm-6 col-md-6\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"name\">Your name</label>\r\n\r\n                    <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\"><i class=\"fa fa-user\"></i></span>\r\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Name\" id=\"name\">\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"address\">Delivery address</label>\r\n\r\n                    <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\"><i class=\"fa fa-map\"></i></span>\r\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Address\" id=\"address\">\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"phone\">Contact phone</label>\r\n\r\n                    <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\"><i class=\"fa fa-phone\"></i></span>\r\n                        <input type=\"phone\" class=\"form-control\" placeholder=\"Phone\" id=\"phone\">\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"mail\">Your e-mail</label>\r\n\r\n                    <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\"><i class=\"fa fa-envelope\"></i></span>\r\n                        <input type=\"email\" class=\"form-control\" placeholder=\"E-mail\" id=\"mail\">\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n\r\n            <div class=\"col-xs-12 col-sm-6 col-md-4\">\r\n                <div class=\"order-view\">\r\n                    <div class=\"row cart-row\" ng-repeat=\"item in checkoutCtrl.cart.items\">\r\n                        <div class=\"col-xs-2 col-sm-4 text-center\">\r\n                            <img class=\"checkout-item__image\" ng-src=\"images/items/160/{{item.images[item.mainImageIndex]}}\"\r\n                                 alt=\"\"/>\r\n                        </div>\r\n                        <div class=\"col-xs-10 col-sm-8\">\r\n                            <div class=\"col-xs-12 no-padding checkout-item__title\">{{ item.title }}</div>\r\n                            <div class=\"col-xs-12 no-padding checkout-item__price\">\r\n                            <span class=\"pull-left\">{{ item.qty }} <span ng-if=\"item.qty == 1\">item</span> <span\r\n                                    ng-if=\"item.qty > 1\">items</span></span>\r\n                                <span class=\"pull-right\">{{ item.total | currency }}</span>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"checkout__total\">Total: <div class=\"badge pull-right\">{{checkoutCtrl.cart.total | currency}}</div></div>\r\n\r\n            </div>\r\n\r\n            <div class=\"col-xs-12\">\r\n                <div class=\"checkout__order-actions\">\r\n                    <button type=\"submit\" class=\"btn btn-success\" ng-click=\"checkoutCtrl.checkout()\">Validate order</button>\r\n                    <a ui-sref=\"store.cart\" class=\"btn btn-default\">Edit order</a>\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>");
+$templateCache.put("store/main/main.html","<div class=\"container\">\r\n\r\n    <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\r\n        <!-- Indicators -->\r\n        <ol class=\"carousel-indicators\">\r\n            <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\r\n            <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\r\n            <li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\r\n            <li data-target=\"#myCarousel\" data-slide-to=\"3\"></li>\r\n        </ol>\r\n\r\n        <!-- Wrapper for slides -->\r\n        <div class=\"carousel-inner\" role=\"listbox\">\r\n            <div class=\"item active\">\r\n                <a href=\"#/items/5631ec393233874c2c2799b4\">\r\n                    <img src=\"./img/slider/slide_2.png\">\r\n                    <div class=\"item__prices\">\r\n                        <div class=\"item-old-price\">{{ 868 | currency }}</div>\r\n                        <div class=\"item-new-price\">{{ 689 | currency }}</div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n\r\n            <div class=\"item\">\r\n                <a href=\"#/items/562a81bd4ff4cab40bc7de42\">\r\n                    <img src=\"./img/slider/slide_4.png\">\r\n                    <div class=\"item__prices\">\r\n                        <div class=\"item-old-price\">{{ 298 | currency }}</div>\r\n                        <div class=\"item-new-price\">{{ 234 | currency }}</div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n\r\n            <div class=\"item\">\r\n                <a href=\"#/items/5631f22e3233874c2c2799c1\">\r\n                    <img src=\"./img/slider/slide_3.png\">\r\n                    <div class=\"item__prices\">\r\n                        <div class=\"item-old-price\">{{ 530 | currency }}</div>\r\n                        <div class=\"item-new-price\">{{ 459 | currency }}</div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n\r\n            <div class=\"item\">\r\n                <a href=\"#/items/5631f0d43233874c2c2799bf\">\r\n                    <img src=\"./img/slider/slide_1.png\">\r\n                    <div class=\"item__prices\">\r\n                        <div class=\"item-old-price\">{{ 1025 | currency }}</div>\r\n                        <div class=\"item-new-price\">{{ 975 | currency }}</div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- Left and right controls -->\r\n        <a class=\"left carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"prev\">\r\n            <span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\r\n            <span class=\"sr-only\">Previous</span>\r\n        </a>\r\n        <a class=\"right carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"next\">\r\n            <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\r\n            <span class=\"sr-only\">Next</span>\r\n        </a>\r\n    </div>\r\n\r\n    <hr/>\r\n\r\n    <!-- Title -->\r\n    <div class=\"row\">\r\n        <div class=\"form-group clearfix\">\r\n            <div class=\"col-xs-9\">\r\n                <h2>Latest Goods</h2>\r\n            </div>\r\n            <div class=\"col-xs-3\">\r\n                <!-- Split button -->\r\n                <div class=\"dropdown pull-right items-filter\">\r\n                    <span>Sort by: </span>\r\n                    <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                        <span ng-show=\"mainCtrl.reverse\">Price Down <i class=\"glyphicon glyphicon-arrow-down\"></i></span>\r\n                        <span ng-show=\"!mainCtrl.reverse\">Price Up <i class=\"glyphicon glyphicon-arrow-up\"></i></span>\r\n                    </button>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li ng-click=\"mainCtrl.reverse = true\"><a href=\"#\">Price Down</a></li>\r\n                        <li ng-click=\"mainCtrl.reverse = false\"><a href=\"#\">Price Up</a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <!-- Page Features -->\r\n    <div class=\"row text-center\">\r\n\r\n        <div class=\"col-xs-12 col-sm-6 col-md-4 col-lg-3 hero-feature\"\r\n             ng-repeat=\"item in mainCtrl.items | orderBy: mainCtrl.predicate: mainCtrl.reverse\">\r\n            <div class=\"thumbnail item-thumbnail\">\r\n                <a href=\"{{ \'#/items/\' + item._id }}\">\r\n                    <span class=\"item-hover-mask item-hover-mask_more\">\r\n                        <i class=\"glyphicon glyphicon-search\">\r\n                            <span class=\"small\">Show details</span>\r\n                        </i>\r\n                    </span>\r\n                    <img ng-src=\"images/items/160/{{item.images[item.mainImageIndex]}}\" alt=\"{{item.title}}\" class=\"image\"/>\r\n                </a>\r\n                <div class=\"caption\">\r\n                    <h4>{{ item.title }}</h4>\r\n                    <p class=\"item-thumbnail__description\">{{ item.shortDescription }}</p>\r\n                    <p class=\"item-thumbnail__price\">{{ item.price | currency: \"$\":0 }}</p>\r\n\r\n                    <div class=\"btn-group btn-group-justified\">\r\n                        <div class=\"btn-group\">\r\n                            <button class=\"btn btn-default btn-grey\"\r\n                                    ng-click=\"storeCtrl.addToCart(item)\">\r\n                                <i class=\"fa fa-cart-arrow-down\"></i> Add to cart\r\n                            </button>\r\n                        </div>\r\n                        <div class=\"btn-group\">\r\n                            <button class=\"btn btn-default btn-grey\"\r\n                                    ng-click=\"storeCtrl.error()\">\r\n                                <i class=\"fa fa-dollar\"></i> Buy now\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n    <!-- /.row -->\r\n\r\n    <hr>\r\n\r\n</div>");
+$templateCache.put("store/single-item/single-item.html","<div class=\"container\">\r\n    <!-- Jumbotron Header -->\r\n    <header class=\"promo-header\">\r\n        <div class=\"promo-header__text\">\r\n            <h1>Sale up to 30%</h1>\r\n            <p>For all Meizu smartphones</p>\r\n        </div>\r\n        <img class=\"promo-header__image\" src=\"./img/meizu_promo.png\" alt=\"\"/>\r\n    </header>\r\n    <hr/>\r\n    <div class=\"row\">\r\n\r\n        <div class=\"col-xs-12 col-sm-3\">\r\n            <div class=\"list-group\">\r\n                <a href=\"#\" class=\"list-group-item active\">\r\n                    Overview\r\n                </a>\r\n                <a href=\"#\" class=\"list-group-item\">Characteristics</a>\r\n                <a href=\"#\" class=\"list-group-item\">Replies</a>\r\n            </div>\r\n            <button class=\"btn btn_wide btn-primary \" ui-sref=\"store.main\">\r\n                <i class=\"glyphicon glyphicon-chevron-left\"></i>\r\n                <span>Back to main page</span>\r\n            </button>\r\n        </div>\r\n\r\n        <div class=\"col-xs-12\r\n                    col-sm-9\r\n                    col-md-9\r\n                    col-lg-4 text-center\">\r\n\r\n            <div class=\"thumbnail thumbnail_item\">\r\n\r\n                <img class=\"zoomable\" ng-src=\"images/items/256/{{singleItemCtrl.item.images[singleItemCtrl.item.mainImageIndex]}}\"\r\n                     data-zoom-image=\"images/items/origin/{{singleItemCtrl.item.images[singleItemCtrl.item.mainImageIndex]}}\"\r\n                     alt=\"\"/>\r\n\r\n            </div>\r\n\r\n            <div class=\"images-preview__remote\" ng-show=\"singleItemCtrl.item.images.length > 1\">\r\n                <!--Image thumbnails from remote-->\r\n                <img class=\"images-preview__image\"\r\n                     ng-repeat=\"image in singleItemCtrl.item.images\"\r\n                     ng-src=\"images/items/160/{{image}}\"\r\n                     alt=\"image.title\"\r\n                     ng-click=\"singleItemCtrl.selectImage($index)\"/>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-12\r\n                    col-sm-8 col-sm-offset-4\r\n                    col-md-8\r\n                    col-lg-5 col-lg-offset-0\">\r\n            <div class=\"col-xs-9 form-group\">\r\n                <label>Title</label>\r\n                <p>{{singleItemCtrl.item.title}}</p>\r\n            </div>\r\n            <div class=\"col-xs-3 form-group\">\r\n                <label>Price</label>\r\n                <div class=\"input-group\">\r\n                    <h3 class=\"label label-success label-md\">{{singleItemCtrl.item.price | currency}}</h3>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-xs-12 form-group\">\r\n                <label>Description</label>\r\n                <p>{{singleItemCtrl.item.description}}</p>\r\n\r\n                <!--<uib-tabset>-->\r\n                <!--<uib-tab heading=\"Static title\">Static content</uib-tab>-->\r\n                <!--<uib-tab ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\" active=\"tab.active\" disable=\"tab.disabled\">-->\r\n                <!--{{tab.content}}-->\r\n                <!--</uib-tab>-->\r\n                <!--<uib-tab select=\"alertMe()\">-->\r\n                <!--<uib-tab-heading>-->\r\n                <!--<i class=\"glyphicon glyphicon-bell\"></i> Alert!-->\r\n                <!--</uib-tab-heading>-->\r\n                <!--I\'ve got an HTML heading, and a select callback. Pretty cool!-->\r\n                <!--</uib-tab>-->\r\n                <!--</uib-tabset>-->\r\n\r\n                <hr/>\r\n                <div class=\"col-xs-3\">\r\n                    <div class=\"form-group\">\r\n                        <label>Quantity</label>\r\n                        <change-quantity value=\"singleItemCtrl.item.qty\" class=\"qty-wide\"></change-quantity>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"col-xs-9\">\r\n                    <label>Purchase</label>\r\n                    <div class=\"btn-group btn-group-justified\">\r\n                        <div class=\"btn-group\">\r\n                            <button class=\"btn btn-primary\"\r\n                                    ng-click=\"singleItemCtrl.addToCart()\">\r\n                                <i class=\"fa fa-cart-arrow-down\"></i> Add to cart\r\n                            </button>\r\n                        </div>\r\n                        <div class=\"btn-group\">\r\n                            <button class=\"btn btn-success\"\r\n                                    ng-click=\"singleItemCtrl.addToCart()\">\r\n                                <i class=\"fa fa-dollar\"></i> Buy now\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n");
 $templateCache.put("admin/templates/categories/edit-category.html","<h1 class=\"page-header\"><i class=\"fa fa-bookmark\"></i> Categories</h1>\r\n\r\n<div class=\"alert alert-success\" role=\"alert\" ng-show=\"categoriesCtrl.message.length\">\r\n    {{categoriesCtrl.message}}\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <form>\r\n        <div class=\"input-group\">\r\n            <div class=\"col-xs-10\">\r\n                <div class=\"input-group\">\r\n                    <span class=\"input-group-addon\" id=\"basic-addon1\">@</span>\r\n                    <input type=\"text\"\r\n                           class=\"form-control\"\r\n                           placeholder=\"Category name\"\r\n                           aria-describedby=\"basic-addon1\"\r\n                           ng-model=\"categoriesCtrl.category.name\">\r\n                </div>\r\n            </div>\r\n            <div class=\"col-xs-2\">\r\n                <button type=\"submit\"\r\n                        class=\"btn btn-primary btn_wide\"\r\n                        ng-click=\"categoriesCtrl.addNew()\">Add new</button>\r\n            </div>\r\n            <div class=\"col-xs-12\">\r\n                <hr/>\r\n            </div>\r\n    </form>\r\n\r\n    </div>\r\n    <div class=\"col-xs-12\">\r\n        <div class=\"table-responsive\">\r\n            <table class=\"table table-striped\">\r\n                <thead>\r\n                <tr>\r\n                    <th>#</th>\r\n                    <th>Category name</th>\r\n                    <th></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n                <tr ng-repeat=\"category in categoriesCtrl.categories\">\r\n                    <td>{{ $index + 1 }}</td>\r\n                    <td>{{ category.name }}</td>\r\n                    <td class=\"text-right\">\r\n                        <button class=\"btn btn-default\"\r\n                                ng-click=\"categoriesCtrl.deleteCategory(category)\">\r\n                            <i class=\"fa fa-remove\"></i>\r\n                        </button>\r\n                    </td>\r\n                </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n    </div>\r\n</div>");
 $templateCache.put("admin/templates/edit-item/edit-item.html","<h1 class=\"page-header\"><i class=\"glyphicon glyphicon-pencil\"></i> Edit item </h1>\r\n\r\n<div class=\"row\">\r\n    <div class=\"alert alert-success\" role=\"alert\" ng-show=\"editCtrl.message.length\">\r\n        {{editCtrl.message}}\r\n    </div>\r\n\r\n    <form name=\"editItem\">\r\n        <div class=\"col-xs-4 edit-items\">\r\n            <div class=\"thumbnail edit-item__preview\">\r\n\r\n                <div class=\"images-preview\">\r\n\r\n                    <!--Large preview image-->\r\n                    <img ng-show=\"editCtrl.item.images.length\"\r\n                         class=\"images-preview__image images-preview__image_main\"\r\n                         ng-src=\"images/items/origin/{{editCtrl.currentImage()}}\">\r\n\r\n                    <div class=\"images-preview__remote\" ng-show=\"editCtrl.item.images.length > 1\">\r\n                        <!--Image thumbnails from remote-->\r\n                        <img ng-repeat=\"image in editCtrl.item.images\"\r\n                             class=\"images-preview__image\"\r\n                             ng-src=\"images/items/160/{{image}}\"\r\n                             alt=\"\"\r\n                             ng-click=\"editCtrl.selectImage($index)\"/>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"btn-group btn-group-justified\">\r\n                <div class=\"btn-group\">\r\n                    <button class=\"btn btn-default btn-grey\"\r\n                            ngf-select=\"editCtrl.addImages()\"\r\n                            ng-model=\"editCtrl.item.files\"\r\n                            ngf-multiple=\"true\"\r\n                            name=\"file\"\r\n                            accept=\"image/*\"\r\n                            ngf-max-size=\"2MB\">\r\n                        <i class=\"fa fa-image\"></i> Add image\r\n                    </button>\r\n                </div>\r\n\r\n                <div class=\"btn-group\">\r\n                    <button class=\"btn btn-default btn-grey\"\r\n                            ng-click=\"editCtrl.deleteImage()\">\r\n                        <i class=\"fa fa-trash\"></i> Delete image\r\n                    </button>\r\n                </div>\r\n            </div>\r\n            <div class=\"checkbox\">\r\n                <label>\r\n                    <input type=\"checkbox\" value=\"\" ng-checked=\"editCtrl.checkMainImage()\">\r\n                    This is the main image of the item\r\n                </label>\r\n            </div>\r\n\r\n            <div class=\"text-center save-changes\">\r\n                <button class=\"btn btn-primary btn-lg\"\r\n                        ng-click=\"editCtrl.saveChanges()\">Save changes</button>\r\n\r\n                <button class=\"btn btn-danger btn-lg\"\r\n                        ng-click=\"editCtrl.deleteItem()\">Delete item</button>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-8\">\r\n                <div class=\"col-xs-6 form-group\">\r\n                    <label>Title</label>\r\n                    <input class=\"form-control\"\r\n                           type=\"text\"\r\n                           value=\"{{editCtrl.item.title}}\"\r\n                           ng-model=\"editCtrl.item.title\">\r\n                </div>\r\n\r\n                <div class=\"col-xs-3 form-group\">\r\n\r\n                    <label>Category</label>\r\n\r\n                    <div class=\"store-dropdown\">\r\n                        <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\r\n                            {{ editCtrl.item.category }}\r\n                            <span class=\"caret\"></span>\r\n                        </button>\r\n                        <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\r\n                            <li ng-repeat=\"category in editCtrl.categories\">\r\n                                <a ng-click=\"editCtrl.selectCategory(category)\">{{category.name}}</a>\r\n                            </li>\r\n                        </ul>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"col-xs-3 form-group\">\r\n                    <label>Price</label>\r\n                    <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">$</span>\r\n                        <input class=\"form-control\"\r\n                               type=\"text\"\r\n                               value=\"{{editCtrl.item.price}}\"\r\n                               ng-model=\"editCtrl.item.price\">\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"col-xs-12 form-group\">\r\n                    <label>Description</label>\r\n                    <textarea class=\"form-control\"\r\n                              rows=\"10\"\r\n                            ng-model=\"editCtrl.item.description\">\r\n                            {{editCtrl.item.description}}\r\n                    </textarea>\r\n                </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n");
 $templateCache.put("admin/templates/manage-items/items.html","<h1 class=\"page-header\"><i class=\"fa fa-filter\"></i> Item management</h1>\r\n\r\n{{ itemsCtrl.category }}\r\n\r\n<div class=\"row\">\r\n    <form enctype=\"multipart/form-data\" name=\"form\" novalidate>\r\n        <div class=\"col-xs-12\">\r\n            <h2>Add a new item</h2>\r\n        </div>\r\n        <div class=\"col-xs-12 col-md-3\">\r\n            <label>Image</label>\r\n            <div class=\"thumbnail drag-drop-field\"\r\n                 ngf-drop\r\n                 ngf-select\r\n                 ngf-multiple=\"true\"\r\n                 ngf-drag-over-class=\"dragover\"\r\n                 ng-model=\"itemsCtrl.item.files\"\r\n                 name=\"files\"\r\n                 accept=\"image/*\"\r\n                 ngf-max-size=\"2MB\">\r\n                <span ng-hide=\"itemsCtrl.item.files\" class=\"drag-drop-field__message\">\r\n                    <i class=\"glyphicon glyphicon-download-alt\"></i>\r\n                    <p>Drag & Drop, or click to download.</p>\r\n                </span>\r\n\r\n                <div class=\"images-preview images-preview_local\">\r\n                    <img class=\"images-preview__image\"\r\n                         ng-repeat=\"file in itemsCtrl.item.files\"\r\n                         ng-show=\"form.files.$valid\"\r\n                         ngf-src=\"!itemsCtrl.item.files.$error && file\">\r\n                </div>\r\n            </div>\r\n\r\n        </div>\r\n        <div class=\"col-xs-12 col-md-5\">\r\n            <div class=\"form-group\">\r\n                <label for=\"ItemTitle\">Title</label>\r\n                <input type=\"text\"\r\n                       class=\"form-control\"\r\n                       id=\"ItemTitle\"\r\n                       placeholder=\"Title\"\r\n                       ng-model=\"itemsCtrl.item.title\"\r\n                       required>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label for=\"ItemPrice\">Price</label>\r\n                <div class=\"input-group\">\r\n                    <span class=\"input-group-addon\">$</span>\r\n                    <input type=\"number\"\r\n                           class=\"form-control\"\r\n                           id=\"ItemPrice\"\r\n                           placeholder=\"Price\"\r\n                           ng-model=\"itemsCtrl.item.price\"\r\n                           required>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-12 col-md-4\">\r\n            <div class=\"form-group\">\r\n                <label for=\"ItemDescription\">Description</label>\r\n                <textarea class=\"form-control\"\r\n                          id=\"ItemDescription\"\r\n                          rows=\"5\"\r\n                          placeholder=\"Description\"\r\n                          ng-model=\"itemsCtrl.item.description\"\r\n                          required></textarea>\r\n            </div>\r\n            <button type=\"submit\"\r\n                    ng-disabled=\"!form.$valid\"\r\n                    class=\"btn btn-primary\"\r\n                    ng-click=\"itemsCtrl.addItem()\">Add item</button>\r\n        </div>\r\n        <div class=\"col-xs-12\"\r\n             ng-show=\"itemsCtrl.message.length\">\r\n            <div class=\"panel panel-warning\">\r\n                <div class=\"panel-heading\">\r\n                    <h3 class=\"panel-title\">Error occured</h3>\r\n                </div>\r\n                <div class=\"panel-body\">\r\n                    {{itemsCtrl.message}}\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n<hr/>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-xs-12 col-sm-4\">\r\n        <h2 class=\"sub-header\">All items</h2>\r\n    </div>\r\n\r\n    <div class=\"col-xs-6 col-sm-4\">\r\n        <div class=\"input-group items-filter\">\r\n            <span class=\"input-group-addon\"><i class=\"fa fa-search\"></i></span>\r\n            <input type=\"text\" class=\"form-control\" placeholder=\"Quick filter\"\r\n                   ng-model=\"itemsCtrl.searchFilter\">\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-6 col-sm-4\">\r\n        <!-- Split button -->\r\n        <div class=\"dropdown pull-right items-filter\">\r\n            <span>Category: </span>\r\n            <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\r\n                {{ itemsCtrl.category }}\r\n                <span class=\"caret\"></span>\r\n            </button>\r\n            <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\r\n                <li ng-repeat=\"category in itemsCtrl.categories\">\r\n                    <a ng-click=\"itemsCtrl.selectCategory(category)\">{{category.name}}</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n<div class=\"table-responsive\">\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n        <tr>\r\n            <th>#</th>\r\n            <th>Image</th>\r\n            <th>Title</th>\r\n            <th>Description</th>\r\n            <th>Price</th>\r\n            <th></th>\r\n        </tr>\r\n        </thead>\r\n        <tbody>\r\n        <tr ng-repeat=\"item in itemsCtrl.items | filter:itemsCtrl.searchFilter | orderBy:true:true\">\r\n            <td>{{ $index + 1 }}</td>\r\n            <td><a href=\"#/admin/items/{{item._id}}\">\r\n                <span class=\"item-edit-thumbnail\">\r\n                    <span class=\"item-hover-mask\">\r\n                        <i class=\"glyphicon glyphicon-edit\">\r\n                            <span class=\"small\">Edit</span>\r\n                        </i>\r\n                    </span>\r\n                    <img ng-src=\"images/items/160/{{ item.images[item.mainImageIndex] }}\" class=\"item-edit-image\">{{itemsCtrl.item.hasImage(item)}}\r\n                </span>\r\n            </a></td>\r\n            <td>\r\n                {{ item.title }} <br/><br/>\r\n                <b>Category:</b>\r\n                {{ item.category }}\r\n            </td>\r\n            <td>{{ item.shortDescription }}</td>\r\n            <td>{{ item.price }}</td>\r\n            <td ng-click=\"itemsCtrl.deleteItem(item)\">\r\n                <button class=\"btn btn-default\">X</button>\r\n            </td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n\r\n");
-$templateCache.put("shared/directives/changeQuantity/quantity-directive.html","<div class=\"input-group spinner\">\r\n    <input type=\"text\" class=\"form-control\" value=\"{{ value }}\">\r\n    <div class=\"input-group-btn-vertical\">\r\n        <button class=\"btn btn-default\" type=\"button\"\r\n                ng-click=\"qtyCtrl.increase()\">\r\n            <i class=\"fa fa-caret-up\"></i>\r\n        </button>\r\n        <button class=\"btn btn-default\" type=\"button\"\r\n                ng-click=\"qtyCtrl.decrease()\">\r\n            <i class=\"fa fa-caret-down\"></i>\r\n        </button>\r\n    </div>\r\n</div>");
+$templateCache.put("shared/directives/changeQuantity/quantity-directive.html","<div class=\"input-group spinner\">\r\n\r\n    <input type=\"number\"\r\n           class=\"form-control\"\r\n           value=\"{{ value }}\"\r\n           ng-model=\"value\"\r\n           ng-model-options=\"{debounce: { \'default\': 200, \'blur\': 0 }}\"\r\n           min=\"1\">\r\n    <div class=\"input-group-btn-vertical\">\r\n        <button class=\"btn btn-default\" type=\"button\"\r\n                ng-click=\"qtyCtrl.increase()\">\r\n            <i class=\"fa fa-caret-up\"></i>\r\n        </button>\r\n        <button class=\"btn btn-default\" type=\"button\"\r\n                ng-click=\"qtyCtrl.decrease()\">\r\n            <i class=\"fa fa-caret-down\"></i>\r\n        </button>\r\n    </div>\r\n</div>");
 $templateCache.put("shared/directives/shoppingCart/cart-directive.html","<div class=\"cart-thumbnail\"\r\n     ng-class=\"{\'cart-thumbnail_visible\': cart.items.length,\r\n                \'cart-thumbnail_hidden\': !cart.items.length}\">\r\n    <p>Cart total: {{ cart.total }}</p>\r\n    <p>Items count: {{cart.itemsCount}}</p>\r\n\r\n    <div class=\"shopping-cart__items\">\r\n        <div class=\"shopping-cart__item\"\r\n             ng-repeat=\"item in cart.items\">\r\n\r\n            Title: {{item.title}} <br/>\r\n            Quantity: {{ item.qty }}\r\n            Price: {{ item.price }}\r\n\r\n            <button ng-click=\"cartCtrl.deleteFromCart(item)\">X</button>\r\n        </div>\r\n    </div>\r\n</div>");
+$templateCache.put("store/checkout/success/success-checkout.html","<div class=\"checkout-success\">\r\n    <div class=\"checkout-success__body\">\r\n        <h1><i class=\"fa fa-check success-icon\"></i></h1>\r\n        <h2>Thanks for your order</h2>\r\n        <h3>Our manager will contact you to clarify details</h3>\r\n    </div>\r\n\r\n    <button class=\"btn btn-primary btn-lg\"\r\n            ui-sref=\"store.main\">\r\n        <i class=\"fa fa-shopping-cart\"></i> Continue shopping</button>\r\n</div>");
 $templateCache.put("store/components/footer/footer.html","<footer>\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-12\">\r\n                <p>Copyright &copy; Full Stack JS {{ footerCtrl.getYear() }}</p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</footer>");
 $templateCache.put("store/components/header/header.html","<!-- Navigation -->\r\n<nav class=\"navbar-inverse navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"container\">\r\n        <!-- Brand and toggle get grouped for better mobile display -->\r\n        <div class=\"navbar-header\">\r\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\r\n                <span class=\"sr-only\">Toggle navigation</span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n                <span class=\"icon-bar\"></span>\r\n            </button>\r\n            <a class=\"navbar-brand navbar-logo\" ui-sref=\"store.main\"><i class=\"glyphicon glyphicon-shopping-cart\"></i> {{ appCtrl.title }}</a>\r\n        </div>\r\n        <!-- Collect the nav links, forms, and other content for toggling -->\r\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n            <div class=\"header-cart\">\r\n                <btn class=\"btn btn-default\" ui-sref=\"store.cart\">\r\n                    <span class=\"header-cart__title\">Shopping cart</span>\r\n                    <span class=\"label label-info\" ng-if=\"!headerCtrl.cart.items.length\">is empty </span>\r\n                    <span ng-if=\"headerCtrl.cart.items.length\">\r\n                        <span class=\"label label-info\"> {{ headerCtrl.cart.itemsCount }} items</span>\r\n                        <span class=\"label label-success\"> {{ headerCtrl.cart.total | currency}}</span>\r\n                    </span>\r\n                </btn>\r\n            </div>\r\n            <ul class=\"nav navbar-nav pull-right\">\r\n                <li ng-hide=\"headerCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"auth.login\">\r\n                        <span class=\"glyphicon glyphicon-log-in\"></span>\r\n                        <span class=\"bordered-right\">Login</span>\r\n                    </a>\r\n                </li>\r\n                <li ng-hide=\"headerCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"auth.register\">\r\n                        <span class=\"glyphicon glyphicon-check\"></span>\r\n                        <span>Register</span></a>\r\n                </li>\r\n                <li ng-show=\"headerCtrl.isAuthenticated()\">\r\n                    <a ui-sref=\"admin.main\">\r\n                        <span class=\"header-user__avatar\" ng-if=\"headerCtrl.user\">\r\n                            <img ng-src=\"images/users/32/{{headerCtrl.user.image[0]}}\"/>\r\n                        </span>\r\n\r\n                        <span class=\"glyphicon glyphicon-user\" ng-if=\"!headerCtrl.user\"></span>\r\n                        <span class=\"bordered-right\">{{ headerCtrl.user.username }}</span>\r\n                    </a>\r\n                </li>\r\n                <li ng-show=\"headerCtrl.isAuthenticated()\">\r\n                    <a href=\"#\" ng-click=\"headerCtrl.logOut()\">\r\n                        <span class=\"glyphicon glyphicon-log-out\"></span>\r\n                        <span>Log Out</span>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n        <!-- /.navbar-collapse -->\r\n    </div>\r\n    <!-- /.container -->\r\n</nav>");
 $templateCache.put("admin/templates/user-management/edit-profile/profile.html","<h2 class=\"sub-header\"><i class=\"fa fa-user-secret\"></i> Edit profile</h2>\r\n\r\n<form name=\"userInfoForm\">\r\n    <div class=\"row\">\r\n\r\n        <div class=\"alert alert-success\" role=\"alert\" ng-show=\"profileCtrl.message.length\">\r\n            {{profileCtrl.message}}\r\n        </div>\r\n\r\n        <!--Change password-->\r\n        <div class=\"col-xs-12 col-md-4\">\r\n            <h3 class=\"sub-header\">Change password</h3>\r\n            <div class=\"form-group\">\r\n                <label>Enter old password</label>\r\n                <input type=\"password\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.oldPassword\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Enter new password</label>\r\n                <input type=\"password\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.newPassword\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Repeat new password</label>\r\n                <input type=\"password\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.repeatPassword\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <button class=\"btn btn-primary\"\r\n                    ng-click=\"profileCtrl.changeUserPassword()\">Change password</button>\r\n        </div>\r\n\r\n        <!--Change username-->\r\n        <div class=\"col-xs-12 col-md-4\">\r\n            <h3 class=\"sub-header\">Change username</h3>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Enter old username</label>\r\n                <input type=\"text\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.oldUsername\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Enter new username</label>\r\n                <input type=\"text\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.newUsername\"\r\n                       value=\"\">\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Enter password</label>\r\n                <input type=\"password\"\r\n                       class=\"form-control\"\r\n                       ng-model=\"profileCtrl.user.password\">\r\n            </div>\r\n\r\n            <button class=\"btn btn-primary\"\r\n                    ng-click=\"profileCtrl.changeUserName()\">Change name</button>\r\n        </div>\r\n\r\n        <!--Change photo-->\r\n        <div class=\"col-xs-12 col-md-4\">\r\n            <h3 class=\"sub-header\">Change photo</h3>\r\n            <div class=\"form-group\">\r\n                <label>Upload new photo</label>\r\n                <div class=\"thumbnail drag-drop-field drag-drop-field_ava\"\r\n                     ngf-drop\r\n                     ngf-select\r\n                     ngf-drag-over-class=\"dragover\"\r\n                     ng-model=\"profileCtrl.file\"\r\n                     name=\"file\"\r\n                     accept=\"image/*\"\r\n                     ngf-max-size=\"2MB\">\r\n\r\n\r\n                    <img ng-show=\"profileCtrl.user.image && !profileCtrl.file\"\r\n                         ng-src=\"images/users/origin/{{profileCtrl.user.image[0]}}\"\r\n                         class=\"image-centered\">\r\n\r\n                    <img ng-show=\"userInfoForm.file.$valid\"\r\n                         ngf-src=\"!profileCtrl.file.$error && profileCtrl.file\"\r\n                         class=\"image-centered\">\r\n                </div>\r\n\r\n                <button class=\"btn btn-primary\"\r\n                        ng-disabled=\"!profileCtrl.file\"\r\n                        ng-click=\"profileCtrl.uploadPhoto()\">Upload photo</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</form");

@@ -37,11 +37,12 @@ router.post('/add-to-cart/', function (req, res, next) {
             }
 
             var cartItem = new CartItem({
-                _id:    result.id,
-                images: result.images,
-                title:  result.title,
-                price:  result.price,
-                qty:    item.qty
+                _id:            result.id,
+                images:         result.images,
+                title:          result.title,
+                price:          result.price,
+                mainImageIndex: result.mainImageIndex,
+                qty:            item.qty
             });
 
             console.log('New cart item: ', cartItem);

@@ -5,19 +5,27 @@
         .module('app')
         .controller('StoreController', StoreController);
 
-    function StoreController(cart, CartService){
+    function StoreController(cart, CartService, $state){
 
         var vm = this;
 
         angular.extend(vm, {
             cart: cart,
             addToCart: addToCart,
+            buyNow: buyNow,
             error: errorFunc
         });
 
-        function addToCart(id){
-            CartService.addToCart(id).then(function(cart){
+        function addToCart(item){
+            CartService.addToCart(item).then(function(cart){
                 vm.cart = cart;
+            });
+        }
+
+        function buyNow(item){
+            CartService.addToCart(item).then(function(cart){
+                vm.cart = cart;
+                $state.go('store.checkout');
             });
         }
 

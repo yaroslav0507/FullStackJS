@@ -9343,6 +9343,9 @@ textarea.form-control {
   right: 0;
   margin: auto; }
 
+body {
+  overflow-x: hidden; }
+
 .main-wrapper {
   padding-top: 70px;
   /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
@@ -9438,7 +9441,10 @@ footer {
   top: 65px; }
 
 .thumbnail_item {
-  position: relative; }
+  position: relative;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.075); }
   .thumbnail_item:before {
     content: '';
     display: block;
@@ -9526,7 +9532,8 @@ footer {
     padding-bottom: 5px; }
 
 .cart-item-image {
-  max-height: 100px; }
+  max-height: 100px;
+  max-width: 100%; }
 
 .cart-view__items {
   border: 10px solid #337AB7;
@@ -9537,6 +9544,14 @@ footer {
   text-align: center; }
   .cart-view_empty h2 {
     margin: 60px 0 20px; }
+
+.cart-view .row {
+  font-size: 0; }
+  .cart-view .row [class^='col-'] {
+    display: inline-block;
+    font-size: 16px;
+    float: none;
+    vertical-align: middle; }
 
 .cart-header {
   font-weight: 700;
@@ -9554,10 +9569,42 @@ footer {
 .cart-total {
   float: right;
   font-size: 24px; }
-  .cart-total .badge {
-    font-size: 25px;
-    background-color: #337AB7;
-    margin-top: -5px; }
+
+.badge {
+  font-size: 25px;
+  background-color: #337AB7;
+  margin-top: -5px; }
+
+.checkout-item__image {
+  max-height: 80px;
+  max-width: 100%; }
+
+.checkout-item__title {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 35px; }
+
+.checkout__order-actions {
+  margin-top: 25px; }
+
+.checkout__total {
+  font-size: 24px;
+  margin-top: 25px; }
+
+.checkout-success {
+  text-align: center;
+  margin: 150px auto; }
+  .checkout-success__body {
+    margin-bottom: 25px; }
+
+.order-view {
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  padding: 0 15px; }
+
+.success-icon {
+  font-size: 45px;
+  color: #5cb85c; }
 
 .header-user__avatar {
   display: inline-block;
@@ -9659,4 +9706,8 @@ footer {
 @media (min-width: 1200px) {
   .container {
     width: 1170px;
-    padding: 0; } }
+    padding: 0; }
+  .item-old-price {
+    font-size: 35px; }
+  .item-new-price {
+    font-size: 65px; } }

@@ -5,7 +5,7 @@
         .module('app')
         .controller('CartController', CartController);
 
-    function CartController(CartService, $scope){
+    function CartController(CartService){
 
         var vm = this;
 

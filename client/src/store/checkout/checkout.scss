@@ -1,4 +1,45 @@
 .checkout{
+  &-item {
+    &__image{
+      max-height: 80px;
+      max-width: 100%;
+    }
+
+    &__title{
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 35px;
+    }
+  }
 
 
+  &__order-actions{
+    margin-top: 25px;
+  }
+
+  &__total{
+    font-size: 24px;
+    margin-top: 25px;
+
+  }
+
+  &-success{
+    text-align: center;
+    margin: 150px auto;
+    
+    &__body{
+      margin-bottom: 25px;
+    }
+  }
+}
+
+.order-view{
+  background-color: #f7f7f7;
+  border-radius: $globalBorderRadius;
+  padding: 0 15px;
+}
+
+.success-icon{
+  font-size: 45px;
+  color: $successColor;
 }

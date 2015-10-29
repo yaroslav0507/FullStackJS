@@ -68,10 +68,20 @@
                 }
             })
             .state('store.checkout', {
-                url: '/checkout/',
+                url: '/checkout',
                 views: {
                     'content@store': {
                         templateUrl: 'store/checkout/checkout.html',
+                        controller: 'CheckoutController',
+                        controllerAs: 'checkoutCtrl'
+                    }
+                }
+            })
+            .state('store.checkout.success', {
+                url: '/success',
+                views: {
+                    'content@store': {
+                        templateUrl: 'store/checkout/success/success-checkout.html',
                         controller: 'CheckoutController',
                         controllerAs: 'checkoutCtrl'
                     }

@@ -7,8 +7,73 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
+        <form>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="name">Your name</label>
 
-        </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <input type="text" class="form-control" placeholder="Name" id="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Delivery address</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-map"></i></span>
+                        <input type="text" class="form-control" placeholder="Address" id="address">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Contact phone</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                        <input type="phone" class="form-control" placeholder="Phone" id="phone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mail">Your e-mail</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <input type="email" class="form-control" placeholder="E-mail" id="mail">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="order-view">
+                    <div class="row cart-row" ng-repeat="item in checkoutCtrl.cart.items">
+                        <div class="col-xs-2 col-sm-4 text-center">
+                            <img class="checkout-item__image" ng-src="images/items/160/{{item.images[item.mainImageIndex]}}"
+                                 alt=""/>
+                        </div>
+                        <div class="col-xs-10 col-sm-8">
+                            <div class="col-xs-12 no-padding checkout-item__title">{{ item.title }}</div>
+                            <div class="col-xs-12 no-padding checkout-item__price">
+                            <span class="pull-left">{{ item.qty }} <span ng-if="item.qty == 1">item</span> <span
+                                    ng-if="item.qty > 1">items</span></span>
+                                <span class="pull-right">{{ item.total | currency }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkout__total">Total: <div class="badge pull-right">{{checkoutCtrl.cart.total | currency}}</div></div>
+
+            </div>
+
+            <div class="col-xs-12">
+                <div class="checkout__order-actions">
+                    <button type="submit" class="btn btn-success" ng-click="checkoutCtrl.checkout()">Validate order</button>
+                    <a ui-sref="store.cart" class="btn btn-default">Edit order</a>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

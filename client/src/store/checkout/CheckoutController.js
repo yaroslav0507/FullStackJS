@@ -5,7 +5,7 @@
         .module('app')
         .controller('CheckoutController', CheckoutController);
 
-    function CheckoutController(CartService){
+    function CheckoutController(CartService, $state){
 
         var vm = this;
 
@@ -14,12 +14,10 @@
             checkout: checkout
         });
 
-        function deleteFromCart(item){
-            CartService.deleteFromCart(item);
-        }
-
         function checkout(){
-            CartService.saveCart(vm.cart);
+            CartService.deleteAll().then(function(){
+                $state.go('store.checkout.success');
+            })
         }
 
     }

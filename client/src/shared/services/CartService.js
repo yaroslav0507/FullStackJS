@@ -58,7 +58,7 @@
         function deleteAll(){
             return $http.delete('/delete-all-from-cart/').then(function(response){
                 angular.copy(response.data, cart);
-                toastr["info"]( deletedItem + " All items are deleted", "Shopping Cart");
+                toastr["info"]("Cart is empty", "Shopping Cart");
 
                 return cart;
             }, function(err){
