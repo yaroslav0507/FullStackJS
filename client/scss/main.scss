@@ -1,3 +1,7 @@
+body{
+  overflow-x: hidden;
+}
+
 .main-wrapper {
   padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
   font-family: "Roboto", sans-serif;
@@ -128,6 +132,9 @@ footer {
 .thumbnail{
   &_item{
     position: relative;
+    border-radius: $globalBorderRadius;
+    border: none;
+    box-shadow: 0 0 30px rgba(0,0,0,.075);
     
     &:before{
       content: '';

@@ -30,7 +30,11 @@
                         <div class="col-xs-2">Price</div>
                         <div class="col-xs-2">Quantity</div>
                         <div class="col-xs-2">Total</div>
-                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1 text-center">
+                            <button class="btn btn-default"
+                                    ng-click="cartCtrl.deleteAll()">
+                                <i class="fa fa-trash"></i> All</button>
+                        </div>
                     </div>
 
                     <div class="row cart-row" ng-repeat="item in cartCtrl.cart.items">
@@ -46,7 +50,7 @@
                         <div class="col-xs-2">
                             {{ item.total | currency }}
                         </div>
-                        <div class="col-xs-1">
+                        <div class="col-xs-1 text-center">
                             <button class="btn btn-default"
                                     ng-click="cartCtrl.deleteFromCart(item)">
                                 <i class="fa fa-close"></i>

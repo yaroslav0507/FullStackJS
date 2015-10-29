@@ -4,9 +4,8 @@
            class="form-control"
            value="{{ value }}"
            ng-model="value"
-           ng-model-options="{debounce: { 'default': 5000, 'blur': 0 }}"
-           min="1"
-           max="99">
+           ng-model-options="{debounce: { 'default': 200, 'blur': 0 }}"
+           min="1">
     <div class="input-group-btn-vertical">
         <button class="btn btn-default" type="button"
                 ng-click="qtyCtrl.increase()">

@@ -12,6 +12,7 @@
         angular.extend(vm, {
             cart: CartService.getCurrentCart(),
             deleteFromCart: deleteFromCart,
+            deleteAll: CartService.deleteAll,
             updateCart: updateCart
         });
 

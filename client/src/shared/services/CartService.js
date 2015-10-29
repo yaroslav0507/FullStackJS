@@ -11,6 +11,7 @@
         var service = {
             addToCart: addToCart,
             deleteFromCart: deleteFromCart,
+            deleteAll: deleteAll,
             getCart: getCart,
             updateCart: updateCart,
             getCurrentCart: getCurrentCart
@@ -47,6 +48,17 @@
             return $http.delete('/delete-from-cart/' + item._id).then(function(response){
                 angular.copy(response.data, cart);
                 toastr["info"]( deletedItem + " was successfully deleted", "Shopping Cart");
+
+                return cart;
+            }, function(err){
+                return err;
+            });
+        }
+
+        function deleteAll(){
+            return $http.delete('/delete-all-from-cart/').then(function(response){
+                angular.copy(response.data, cart);
+                toastr["info"]( deletedItem + " All items are deleted", "Shopping Cart");
 
                 return cart;
             }, function(err){

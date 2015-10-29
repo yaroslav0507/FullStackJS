@@ -60,6 +60,17 @@
         margin: 60px 0 20px;
       }
     }
+
+    .row{
+      font-size: 0;
+
+      [class^='col-']{
+        display: inline-block;
+        font-size: 16px;
+        float: none;
+        vertical-align: middle;
+      }
+    }
   }
 
   &-header{
