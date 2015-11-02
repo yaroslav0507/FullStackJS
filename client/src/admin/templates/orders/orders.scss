@@ -21,7 +21,7 @@
     border-radius: $globalBorderRadius;
   }
 
-  &:nth-child(even){
+  &:nth-child(odd){
     background-color: #F7F7F7;
     box-shadow: 0 2px 0 #C1C0C0;
 
@@ -31,13 +31,16 @@
     }
   }
 
-  &__actions{
-    padding-top: 20px;
-    text-align: center;
-  }
-
   table{
     table-layout: fixed;
+  }
+
+  &__customer-label{
+    width: 20%;
+  }
+
+  &__order-label{
+    width: 20%;
   }
 }
 
@@ -49,4 +52,8 @@
       display: inline-block;
     }
   }
+}
+
+.label-spacing{
+  padding-top: 20px;
 }

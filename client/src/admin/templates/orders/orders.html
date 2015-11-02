@@ -6,25 +6,27 @@
 
 <div class="row">
     <div class="order" ng-repeat="order in ordersCtrl.orders | orderBy: $index: true">
-        <div class="col-xs-1 col-lg-1">{{ $index + 1 }}</div>
+        <div class="col-xs-1 col-lg-1 label-spacing text-center">
+            <span class="label label-success">{{ $index + 1 }}</span>
+        </div>
         <div class="col-xs-10 col-lg-5">
             <b>Customer</b>
             <table class="table table-bordered">
                 <tr>
-                    <td class="td"><b>Name</b></td>
-                    <td class="td">{{ order.customer[0].name }}</td>
+                    <td class="order__customer-label"><b>Name</b></td>
+                    <td>{{ order.customer[0].name }}</td>
                 </tr>
                 <tr>
-                    <td class="td"><b>Phone</b></td>
-                    <td class="td">{{ order.customer[0].phone }}</td>
+                    <td class="order__customer-label"><b>Phone</b></td>
+                    <td>{{ order.customer[0].phone }}</td>
                 </tr>
                 <tr>
-                    <td class="td"><b>Address</b></td>
-                    <td class="td">{{ order.customer[0].address }}</td>
+                    <td class="order__customer-label"><b>Address</b></td>
+                    <td>{{ order.customer[0].address }}</td>
                 </tr>
                 <tr>
-                    <td class="td"><b>E-mail</b></td>
-                    <td class="td">{{ order.customer[0].email }}</td>
+                    <td class="order__customer-label"><b>E-mail</b></td>
+                    <td>{{ order.customer[0].email }}</td>
                 </tr>
             </table>
         </div>
@@ -35,8 +37,8 @@
             <b>Order</b>
             <table class="table table-bordered">
                 <tr>
-                    <td class="td"><b>Items</b</td>
-                    <td class="td">
+                    <td class="order__order-label"><b>Items</b></td>
+                    <td>
                         <ul class="no-margin">
                             <li ng-repeat="item in order.cart[0].items">
                                 {{ item.qty }} x {{ item.title }}
@@ -45,12 +47,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="td"><b>Date</b></td>
-                    <td class="td text-center"><b>{{ order.date | date : 'medium'}}</b></td>
+                    <td class="order__order-label"><b>Date</b></td>
+                    <td><b>{{ order.date | date : 'medium'}}</b></td>
                 </tr>
                 <tr>
-                    <td class="td"><b>Total</b></td>
-                    <td class="td text-center"><b>{{ order.cart[0].total | currency}}</b></td>
+                    <td class="order__order-label"><b>Total</b></td>
+                    <td><b>{{ order.cart[0].total | currency}}</b></td>
                 </tr>
             </table>
         </div>
@@ -58,7 +60,7 @@
                     col-xs-offset-1
                     col-lg-1
                     col-lg-offset-0
-                    order__actions">
+                    label-spacing text-center">
             <button class="btn btn-default btn_order-actions"
                     ng-click="ordersCtrl.deleteOrder(order)">
                 <i class="fa fa-remove"></i>
