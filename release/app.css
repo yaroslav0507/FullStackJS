@@ -9525,23 +9525,27 @@ footer {
     border-bottom: 4px solid #DADADA;
     background: #eee;
     border-radius: 5px; }
-  .order:nth-child(even) {
+  .order:nth-child(odd) {
     background-color: #F7F7F7;
     box-shadow: 0 2px 0 #C1C0C0; }
-    .order:nth-child(even) td {
+    .order:nth-child(odd) td {
       border-color: #CCCCCC;
       box-shadow: 2px 2px 0px #FFF; }
-  .order__actions {
-    padding-top: 20px;
-    text-align: center; }
   .order table {
     table-layout: fixed; }
+  .order__customer-label {
+    width: 20%; }
+  .order__order-label {
+    width: 20%; }
 
 @media (max-width: 991px) {
   .order__actions {
     margin-bottom: 10px; }
     .order__actions .btn {
       display: inline-block; } }
+
+.label-spacing {
+  padding-top: 20px; }
 
 .login-form {
   padding: 15px;
