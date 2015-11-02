@@ -11,8 +11,8 @@
 
         angular.extend(vm, {
             items: items.map(makeShortDescriptions.bind(null, 120)),
-            predicate: 'price',
-            reverse: false,
+            predicate: '',
+            reverse: true,
             order: order
         });
 
