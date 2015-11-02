@@ -7,7 +7,11 @@
     "start": "nodemon ./server/app.js",
     "inspect": "node --debug ./server/app.js"
   },
-  "author": "",
+  "author": "Yaroslav Zaklinsky",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yaroslav0507/FullStackJS.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "bower": "^1.5.2",
@@ -41,6 +45,7 @@
     "mongoose": "^4.1.5",
     "morgan": "^1.6.1",
     "multer": "^1.0.3",
+    "nodemailer": "^1.8.0",
     "nodemon": "^1.4.1",
     "passport": "^0.3.0",
     "passport-local": "^1.0.0"

@@ -9059,6 +9059,7 @@ button.toast-close-button {
   width: 100%; }
 
 .btn_order-actions {
+  display: block;
   width: 40px;
   height: 40px;
   margin-bottom: 15px; }
@@ -9358,9 +9359,6 @@ textarea.form-control {
   right: 0;
   margin: auto; }
 
-body {
-  overflow-x: hidden; }
-
 .main-wrapper {
   padding-top: 70px;
   /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
@@ -9510,11 +9508,40 @@ footer {
     top: 0;
     left: 4px; }
 
-.table .table {
-  table-layout: fixed; }
-
 .narrow-list li {
   margin: 0; }
+
+.order {
+  display: block;
+  float: left;
+  padding: 10px 0;
+  border-radius: 5px;
+  min-width: 500px;
+  width: 100%; }
+  .order_header {
+    font-weight: 700;
+    padding: 10px 0;
+    margin-bottom: 25px;
+    border-bottom: 4px solid #DADADA;
+    background: #eee;
+    border-radius: 5px; }
+  .order:nth-child(even) {
+    background-color: #F7F7F7;
+    box-shadow: 0 2px 0 #C1C0C0; }
+    .order:nth-child(even) td {
+      border-color: #CCCCCC;
+      box-shadow: 2px 2px 0px #FFF; }
+  .order__actions {
+    padding-top: 20px;
+    text-align: center; }
+  .order table {
+    table-layout: fixed; }
+
+@media (max-width: 991px) {
+  .order__actions {
+    margin-bottom: 10px; }
+    .order__actions .btn {
+      display: inline-block; } }
 
 .login-form {
   padding: 15px;
