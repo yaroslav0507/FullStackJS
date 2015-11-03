@@ -29,7 +29,7 @@
                     UsersService.updateUser(vm.user).then(function () {
                         vm.message = 'Your profile is successfully updated.';
                     });
-                })
+                });
             } else {
                 UsersService.updateUser(vm.user).then(function () {
                     vm.message = 'Your profile is successfully updated.';
@@ -44,7 +44,7 @@
                 UsersService.changeUserPhoto(vm.user);
 
                 $state.reload();
-            })
+            });
         }
 
         function getUserData(){

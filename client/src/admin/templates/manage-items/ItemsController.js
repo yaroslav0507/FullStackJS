@@ -38,7 +38,7 @@
                     vm.item.images = imageNames;
                 })
                 .then(function(){
-                        return ItemsService.addItem(vm.item)
+                        return ItemsService.addItem(vm.item);
                     })
                 .then(function (response) {
                         console.log(response);
@@ -69,7 +69,7 @@
             if (item.description.length > length) {
                 item.shortDescription = item.description.substr(0, length) + '..';
             } else {
-                item.shortDescription = item.description
+                item.shortDescription = item.description;
             }
             return item;
         }

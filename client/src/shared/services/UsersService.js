@@ -29,7 +29,7 @@
 
                 return payload;
             } else {
-                return ''
+                return '';
             }
         }
 

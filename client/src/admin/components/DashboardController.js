@@ -26,7 +26,7 @@
             return UsersService.getUserData().then(function(response){
                 vm.user = response.data;
                 return vm.user;
-            })
+            });
         }
 
         function onNameChange(){
@@ -51,7 +51,7 @@
                     profileOcupancy += 100/2;
                 }
                 vm.profileOccupancy =  profileOcupancy;
-            })
+            });
         }
 
         getProfileOccupancy();

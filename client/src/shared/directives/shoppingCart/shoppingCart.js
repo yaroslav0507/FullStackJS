@@ -17,7 +17,7 @@
             link: function(scope, CartService){
 
             }
-        }
+        };
 
     }
 

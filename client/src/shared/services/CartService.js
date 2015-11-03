@@ -29,7 +29,7 @@
                 angular.copy(response.data, cart);
 
                 var toastMessage = cart.items[cart.items.length-1].title + " was added to your cart";
-                toastr["success"]( toastMessage , "Shopping Cart");
+                toastr.success( toastMessage , "Shopping Cart");
 
                 return cart;
             }, function(err){
@@ -47,7 +47,7 @@
 
             return $http.delete('/delete-from-cart/' + item._id).then(function(response){
                 angular.copy(response.data, cart);
-                toastr["info"]( deletedItem + " was successfully deleted", "Shopping Cart");
+                toastr.info( deletedItem + " was successfully deleted", "Shopping Cart");
 
                 return cart;
             }, function(err){
@@ -60,8 +60,8 @@
                 angular.copy(response.data, cart);
                 console.log(config.silent);
                 if(arguments.length){
-                    if(config.silent == false){
-                        toastr["info"]("Cart is empty", "Shopping Cart");
+                    if(config.silent === false){
+                        toastr.info("Cart is empty", "Shopping Cart");
                     }
                 }
 
@@ -75,14 +75,14 @@
             return $http.get('/get-cart/').then(function(response){
                 angular.copy(response.data, cart);
                 return cart;
-            })
+            });
         }
 
         function updateCart(cart){
             return $http.put('/update-cart/', cart).then(function(response){
                 angular.copy(response.data, cart);
                 return cart;
-            })
+            });
         }
 
 

@@ -37,7 +37,7 @@
         function logIn(user){
             return $http.post('/login', user).success(function(data){
                 HttpTokenAuthService.saveToken(data.token);
-            })
+            });
         }
 
         function logOut(){

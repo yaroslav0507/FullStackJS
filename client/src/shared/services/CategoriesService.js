@@ -18,13 +18,13 @@
         function getAll(){
             return $http.get('/categories/').then(function(response){
                 return response.data;
-            })
+            });
         }
 
         function addNew(category){
             return $http.post('/categories/', category).then(function(response){
                 return response.data;
-            })
+            });
         }
 
         function deleteCategory(id){

@@ -5,7 +5,7 @@
         .module('app', [
             'ui.router',
             'ngFileUpload'
-        ])
+        ]);
 
 })();
 

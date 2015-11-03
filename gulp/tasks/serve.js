@@ -1,6 +1,6 @@
 'use strict';
 
-gulp.task('dev', ['lint', 'scripts', 'html', 'styles', 'fonts', 'images','watch']);
+gulp.task('dev', ['scripts', 'html', 'styles', 'fonts', 'images', 'watch']);
 
 gulp.task('serve', ['dev'], function(){
 

@@ -20,7 +20,7 @@
             if (item.description.length > length) {
                 item.shortDescription = item.description.substr(0, length) + '..';
             } else {
-                item.shortDescription = item.description
+                item.shortDescription = item.description;
             }
             return item;
         }
@@ -34,7 +34,7 @@
             $('#myCarousel').carousel({
                 interval: 4000
             });
-        })
+        });
     }
 
 })();

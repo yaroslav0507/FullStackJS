@@ -7,7 +7,7 @@
 
     function OrdersService($http){
 
-        var order = {}
+        var order = {};
 
         var service = {
             checkout: checkout,
@@ -21,7 +21,7 @@
             order.cart = cart;
             order.customer = customer;
 
-            return $http.post('/checkout/', order).then(function(response){;
+            return $http.post('/checkout/', order).then(function(response){
                 return response;
             }, function(err){
                 return err;

@@ -23,13 +23,13 @@
                         }
 
                         debounce(function(){
-                            $scope.change()
-                        }, 500)
+                            $scope.change();
+                        }, 500);
 
                     }
                 });
             }
-        }
+        };
     }
 
     function debounce(func, delay){

@@ -8,12 +8,12 @@ var templateCache = require('gulp-angular-templatecache');
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('lint', function(){
-    return gulp.src('src/*js')
+    return gulp.src('./client/src/**/*js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('scripts', function(){
+gulp.task('scripts', ['lint'], function(){
 
     var vendors = gulp.src([
         'client/vendors/angular/angular.js',
@@ -22,14 +22,13 @@ gulp.task('scripts', function(){
         'client/vendors/angular-ui-router/release/angular-ui-router.js',
         'client/vendors/ng-file-upload/ng-file-upload-all.js',
         'client/vendors/bootstrap/dist/js/bootstrap.js',
-        //'client/vendors/angular-bootstrap/ui-bootstrap-tpls.js',
         'client/vendors/toastr/toastr.js'
     ], {base: 'vendors'});
 
     var app = gulp.src([
         './client/src/app/app.js',
         './client/src/**/*.js'
-    ]);
+    ], {base: 'src'});
 
     var views = gulp.src([
         './client/src/**/*.html'

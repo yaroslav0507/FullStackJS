@@ -21,7 +21,7 @@
         function getUser(){
             UsersService.getUserData().then(function(response){
                 vm.user = response.data;
-            })
+            });
         }
 
     }

@@ -21,7 +21,7 @@
             if(vm.category.name.length){
                 CategoriesService.addNew(vm.category).then(function(response){
                     vm.categories.push(response);
-                    vm.category = {}
+                    vm.category = {};
                 });
             }
         }

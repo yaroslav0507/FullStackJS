@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 if(app.settings.env === 'development'){
-    app.use(express.static(path.join(__dirname, "../dist")));
+    app.use(express.static(path.join(__dirname, "../release")));
 } else {
     app.use(express.static(path.join(__dirname, "../release")));
 }

@@ -4,6 +4,7 @@ var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var seq = require('sequence-stream');
 var cssGlobbing = require('gulp-css-globbing');
+var sourcemaps = require('gulp-sourcemaps');
 
 
 gulp.task('styles', function(){
@@ -12,7 +13,9 @@ gulp.task('styles', function(){
         .pipe(cssGlobbing({
             extensions : ['.scss']
         }))
-        .pipe(sass());
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(sourcemaps.write('maps', {sourceRoot: '/client'}));
 
     var assets = gulp.src([
         'client/vendors/bootstrap/dist/css/bootstrap.css',
