@@ -10,7 +10,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 gulp.task('buildJS', function(){
     return gulp.src('dist/**/*.js')
         .pipe(concat('app.js'))
-
+        .pipe(ngAnnotate())
         .pipe(uglify({mangle: true}))
         .pipe(gulp.dest('release'));
 });
