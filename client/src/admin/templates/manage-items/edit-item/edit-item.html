@@ -18,7 +18,7 @@
 
                     <div class="images-preview__remote" ng-show="editCtrl.item.images.length > 1">
                         <!--Image thumbnails from remote-->
-                        <img ng-repeat="image in editCtrl.item.images"
+                        <img ng-repeat="image in editCtrl.item.images track by $index"
                              class="images-preview__image"
                              ng-src="images/items/160/{{image}}"
                              alt=""

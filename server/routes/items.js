@@ -19,7 +19,7 @@ router.post('/items', function(req, res, next){
     item.description = req.body.description;
     item.price = req.body.price;
     item.images = req.body.images;
-
+    item.category = req.body.category;
 
     item.save(function(err, item){
         if(err){ return next(err) }

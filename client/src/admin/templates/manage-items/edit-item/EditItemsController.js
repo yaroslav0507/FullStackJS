@@ -15,7 +15,6 @@
             imageIndex: 0,
             checkMainImage: checkMainImage,
             showMainThumbnail: true,
-            message: '',
             uploadImage: ItemsService.uploadImage,
             currentImage: currentImage,
             selectImage: selectImage,

@@ -5,13 +5,13 @@
         .module('app')
         .controller('MainController', MainController);
 
-    function MainController(items, CartService, $scope){
+    function MainController(items, $scope){
 
         var vm = this;
 
         angular.extend(vm, {
             items: items.map(makeShortDescriptions.bind(null, 120)),
-            predicate: '',
+            predicate: 'price',
             reverse: true,
             order: order
         });

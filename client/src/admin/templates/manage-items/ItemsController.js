@@ -11,11 +11,9 @@
 
         angular.extend(vm, {
             items: items.map(makeShortDescriptions.bind(null, 120)),
-            item: {
-            },
+            item: {},
             category: 'Select category',
             categories: categories,
-            message: '',
             addItem: addItem,
             deleteItem: deleteItem,
             validateInputs: validateInputs,
@@ -74,8 +72,8 @@
             return item;
         }
 
-        function selectCategory(){
-
+        function selectCategory(category){
+            vm.item.category = category.name;
         }
 
 

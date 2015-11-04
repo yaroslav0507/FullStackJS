@@ -40,7 +40,7 @@
             <div class="images-preview__remote" ng-show="singleItemCtrl.item.images.length > 1">
                 <!--Image thumbnails from remote-->
                 <img class="images-preview__image"
-                     ng-repeat="image in singleItemCtrl.item.images"
+                     ng-repeat="image in singleItemCtrl.item.images track by $index"
                      ng-src="images/items/160/{{image}}"
                      alt="image.title"
                      ng-click="singleItemCtrl.selectImage($index)"/>
