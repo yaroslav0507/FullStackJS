@@ -77,7 +77,4 @@ router.param('user', function(req, res, next, id){
     });
 });
 
-require('./users/change-username');
-require('./users/change-password');
-require('./users/change-image');
 

@@ -8,7 +8,11 @@ global.mongoose      = require('mongoose');
 //global.auth          = jwt({secret: process.env.JWT_CERT, userProperty: 'payload'});
 
 require('./items');
-require('./users');
+require('./users/users-auth');
+require('./users/change-username');
+require('./users/change-password');
+require('./users/change-image');
+
 require('./categories');
 require('./file-upload');
 

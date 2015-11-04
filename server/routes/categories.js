@@ -22,7 +22,7 @@ router.post('/categories', function(req, res, next){
 });
 
 /* Preloading category objects */
-router.param('category', function(req, res, next, id){
+router.param('category-id', function(req, res, next, id){
     var query = Category.findById(id);
 
     query.exec(function(err, cat){
@@ -35,7 +35,7 @@ router.param('category', function(req, res, next, id){
 });
 
 /* Remove category */
-router.delete('/categories/:category', function(req, res){
+router.delete('/categories/:category-id', function(req, res){
     Category.find(function(err, categories, category){
         if(err){ return next(err); }
 
@@ -47,4 +47,5 @@ router.delete('/categories/:category', function(req, res){
         res.json(categories);
     });
 });
+
 

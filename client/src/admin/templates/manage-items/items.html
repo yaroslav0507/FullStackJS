@@ -65,7 +65,7 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="categorySelector">
                             <li ng-repeat="category in itemsCtrl.categories track by $index">
-                                <a ng-click="itemsCtrl.selectCategory(category)">{{category.name}}</a>
+                                <a ng-click="itemsCtrl.selectCategory(category.name)">{{category.name}}</a>
                             </li>
                         </ul>
                     </div>
@@ -124,14 +124,16 @@
         <div class="dropdown pull-right items-filter">
             <span>Category: </span>
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{ itemsCtrl.category }}
+                <span ng-show="itemsCtrl.category">{{ itemsCtrl.category}} </span>
+                <span ng-hide="itemsCtrl.category">Select category</span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li ng-repeat="category in itemsCtrl.categories">
-                    <a ng-click="itemsCtrl.selectCategory(category)">{{category.name}}</a>
+                    <a ng-click="itemsCtrl.filterByCategory(category.name)">{{category.name}}</a>
                 </li>
             </ul>
+            <button class="btn btn-primary" ng-click="itemsCtrl.getAllItems()">All items</button>
         </div>
 
     </div>

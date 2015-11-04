@@ -13,7 +13,8 @@
             addItem: addItem,
             uploadImage: uploadImage,
             updateItem: updateItem,
-            deleteItem: deleteItem
+            deleteItem: deleteItem,
+            filterByCategory: filterByCategory
         };
 
         return service;
@@ -54,6 +55,12 @@
 
         function deleteItem(id){
             return $http.delete('/items/' + id).then(function(response){
+                return response.data;
+            });
+        }
+
+        function filterByCategory(category){
+            return $http.get('/category-items/' + category).then(function(response){
                 return response.data;
             });
         }

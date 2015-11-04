@@ -12,12 +12,13 @@
         angular.extend(vm, {
             items: items.map(makeShortDescriptions.bind(null, 120)),
             item: {},
-            category: 'Select category',
+            getAllItems: getAllItems,
             categories: categories,
             addItem: addItem,
             deleteItem: deleteItem,
             validateInputs: validateInputs,
-            selectCategory: selectCategory
+            selectCategory: selectCategory,
+            filterByCategory: filterByCategory
         });
 
 
@@ -73,9 +74,19 @@
         }
 
         function selectCategory(category){
-            vm.item.category = category.name;
+            vm.item.category = category;
         }
 
+        function filterByCategory(category){
+            ItemsService.filterByCategory(category).then(function(response){
+                vm.items = response;
+            })
+        }
 
+        function getAllItems(){
+            ItemsService.getAll().then(function(response){
+                vm.items = response;
+            })
+        }
     }
 })();

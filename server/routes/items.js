@@ -11,6 +11,13 @@ router.get('/items', function(req, res, next){
     });
 });
 
+router.get('/category-items/:category', function(req, res, next){
+    Item.find({category: req.params.category}, function(err, items){
+        if(err){ return next(err); }
+        res.json(items);
+    });
+});
+
 /* Add item */
 router.post('/items', function(req, res, next){
     var item = new Item();
