@@ -5,14 +5,15 @@
         .module('app')
         .controller('SingleItemController', SingleItemController);
 
-    function SingleItemController(item, CartService) {
+    function SingleItemController(item, $state, CartService) {
 
         var vm = this;
 
         angular.extend(vm, {
             item: item,
             addToCart: addToCart,
-            selectImage: selectImage
+            selectImage: selectImage,
+            goBack: goBack
         });
 
         var img = $('.zoomable');
@@ -51,6 +52,10 @@
             //Re-create
             img.elevateZoom(zoomConfig);
 
+        }
+
+        function goBack(){
+            window.history.back();
         }
 
     }

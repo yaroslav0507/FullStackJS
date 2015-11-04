@@ -5,12 +5,13 @@
         .module('app')
         .controller('StoreController', StoreController);
 
-    function StoreController(cart, CartService, $state){
+    function StoreController(cart, categories, CartService, $state){
 
         var vm = this;
 
         angular.extend(vm, {
             cart: cart,
+            categories: categories,
             addToCart: addToCart,
             buyNow: buyNow,
             error: errorFunc

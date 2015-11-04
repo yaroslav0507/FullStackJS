@@ -29,6 +29,9 @@
                         controller: 'FooterController',
                         controllerAs: 'footerCtrl'
                     }
+                },
+                resolve: {
+                    categories: resolveCategories
                 }
             })
             .state('store.main', {
@@ -53,6 +56,19 @@
                         controllerAs: 'singleItemCtrl',
                         resolve: {
                             item: resolveItem
+                        }
+                    }
+                }
+            })
+            .state('store.category', {
+                url: '/category/{category}',
+                views: {
+                    'content@store': {
+                        templateUrl: 'store/category-items/category-items.html',
+                        controller: 'CategoryItemsController',
+                        controllerAs: 'catItemsCtrl',
+                        resolve: {
+                            items: resolveCategoryItems
                         }
                     }
                 }
@@ -101,5 +117,14 @@
         function resolveCart(CartService){
             return CartService.getCart();
         }
+
+        function resolveCategories(CategoriesService){
+            return CategoriesService.getAll();
+        }
+
+        function resolveCategoryItems($stateParams, ItemsService){
+            return ItemsService.filterByCategory($stateParams.category);
+        }
+
     }
 })();

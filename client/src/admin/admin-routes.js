@@ -127,10 +127,6 @@
             return UsersService.getUsers();
         }
 
-        function resolveUserPayload(UsersService){
-            return UsersService.getUserPayload();
-        }
-
         function resolveOrders(OrdersService){
             return OrdersService.getAll();
         }
