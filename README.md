@@ -3,7 +3,7 @@
 Let me introduce my pet application.
 
 ## Stack of technologies
-
+<img align="right" src="http://mean.jediupc.com/img/logo-mean.png" alt="MEAN Stack" height="150px">
 - [Mongo DB](https://www.mongodb.org/);
 - [Express JS](http://expressjs.com/);
 - [Angular JS](https://angularjs.org/);
