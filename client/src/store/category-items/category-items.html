@@ -10,12 +10,9 @@
     <hr/>
     <div class="row">
         <div class="col-xs-12 col-sm-3">
-            <div class="list-group">
-                <a href="{{ '#/category/' + category.name }}"
-                   ng-repeat="category in storeCtrl.categories track by $index"
-                   class="list-group-item">{{category.name}}</a>
-            </div>
-            <button class="btn btn-wide btn-primary " ui-sref="store.main">
+            <categories-menu categories="storeCtrl.categories"></categories-menu>
+
+            <button class="btn btn-wide btn-primary" ui-sref="store.main">
                 <i class="glyphicon glyphicon-chevron-left"></i>
                 <span>Back to main page</span>
             </button>
@@ -23,7 +20,7 @@
 
         <div class="col-xs-12
                     col-sm-9">
-            <div class="row category-item" ng-repeat="item in catItemsCtrl.items track by $index">
+            <div class="category-item clearfix" ng-repeat="item in catItemsCtrl.items track by $index">
                 <div class="col-xs-6 col-md-3 text-center">
                     <a href="{{ '#/items/' + item._id }}">
                         <span class="item-hover-mask">

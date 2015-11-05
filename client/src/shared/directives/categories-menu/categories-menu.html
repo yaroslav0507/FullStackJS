@@ -1,0 +1,5 @@
+<div class="list-group">
+    <a href="{{ '#/category/' + category.name }}"
+       ng-repeat="category in categories track by $index"
+       class="list-group-item">{{category.name}}</a>
+</div>

@@ -12,8 +12,7 @@
         angular.extend(vm, {
             item: item,
             addToCart: addToCart,
-            selectImage: selectImage,
-            goBack: goBack
+            selectImage: selectImage
         });
 
         var img = $('.zoomable');
@@ -52,10 +51,6 @@
             //Re-create
             img.elevateZoom(zoomConfig);
 
-        }
-
-        function goBack(){
-            window.history.back();
         }
 
     }
