@@ -21,6 +21,21 @@
             filterByCategory: filterByCategory
         });
 
+        function selectCategory(category){
+            vm.item.category = category;
+        }
+
+        function filterByCategory(category){
+            ItemsService.filterByCategory(category).then(function(response){
+                vm.items = response;
+            })
+        }
+
+        function getAllItems(){
+            ItemsService.getAll().then(function(response){
+                vm.items = response;
+            })
+        }
 
         function validateInputs() {
             if (vm.item.title && vm.item.price && vm.item.description) {
@@ -73,20 +88,5 @@
             return item;
         }
 
-        function selectCategory(category){
-            vm.item.category = category;
-        }
-
-        function filterByCategory(category){
-            ItemsService.filterByCategory(category).then(function(response){
-                vm.items = response;
-            })
-        }
-
-        function getAllItems(){
-            ItemsService.getAll().then(function(response){
-                vm.items = response;
-            })
-        }
     }
 })();

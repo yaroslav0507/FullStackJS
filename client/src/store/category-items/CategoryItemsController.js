@@ -5,21 +5,14 @@
         .module('app')
         .controller('CategoryItemsController', CategoryItemsController);
 
-    function CategoryItemsController(items, CartService) {
+    function CategoryItemsController(items, ItemsLocalService) {
 
         var vm = this;
 
         angular.extend(vm, {
-            items: items.map(makeShortDescriptions.bind(null, 400)),
+            items: items.map(ItemsLocalService.makeShortDescriptions.bind(null, 375))
         });
 
-        function makeShortDescriptions(length, item) {
-            if (item.description.length > length) {
-                item.shortDescription = item.description.substr(0, length) + '..';
-            } else {
-                item.shortDescription = item.description;
-            }
-            return item;
-        }
+
     }
 })();
