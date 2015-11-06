@@ -28,13 +28,13 @@
         function filterByCategory(category){
             ItemsService.filterByCategory(category).then(function(response){
                 vm.items = response;
-            })
+            });
         }
 
         function getAllItems(){
             ItemsService.getAll().then(function(response){
                 vm.items = response;
-            })
+            });
         }
 
         function validateInputs() {

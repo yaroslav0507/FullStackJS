@@ -1,27 +1,26 @@
 <div class="container">
-    <!-- Jumbotron Header -->
-    <header class="promo-header">
-        <div class="promo-header__text">
-            <h1>Sale up to 30%</h1>
-            <p>For all Meizu smartphones</p>
-        </div>
-        <img class="promo-header__image" src="./img/meizu_promo.png" alt=""/>
-    </header>
+
+    <promo-banner></promo-banner>
+
     <hr/>
     <div class="row">
         <div class="col-xs-12 col-sm-3">
             <categories-menu categories="storeCtrl.categories"></categories-menu>
 
-            <button class="btn btn-wide btn-primary" ui-sref="store.main">
-                <i class="glyphicon glyphicon-chevron-left"></i>
-                <span>Back to main page</span>
-            </button>
+            <div class="form-group">
+                <button class="btn btn-wide btn-primary" ui-sref="store.main">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    <span>Back to main page</span>
+                </button>
+            </div>
+
         </div>
 
         <div class="col-xs-12
                     col-sm-9">
             <div class="category-item clearfix" ng-repeat="item in catItemsCtrl.items track by $index">
-                <div class="col-xs-6 col-md-3 text-center">
+                <div class="col-xs-12 col-sm-3 text-center">
+                    <h4 class="visible-xs">{{item.title}}</h4>
                     <a href="{{ '#/items/' + item._id }}">
                         <span class="item-hover-mask">
                             <i class="glyphicon glyphicon-search">
@@ -30,21 +29,22 @@
                         </span>
                         <img ng-src="images/items/160/{{item.images[item.mainImageIndex]}}" alt="{{item.title}}" class="image"/>
                     </a>
+                    <h4 class="visible-xs">Price: {{item.price | currency}}</h4>
                 </div>
-                <div class="col-xs-6 col-md-9">
+                <div class="col-xs-12 col-sm-9">
                     <div class="row">
-                        <div class="col-xs-9">
-                            <h4>{{item.title}}</h4>
+                        <div class="col-xs-12 col-sm-8 col-md-9">
+                            <h4 class="hidden-xs">{{item.title}}</h4>
                             <hr/>
                             {{item.shortDescription}}
                         </div>
-                        <div class="col-xs-3 text-center">
-                            <h4>Price: {{item.price | currency}}</h4>
+                        <div class="col-xs-12 col-sm-4 col-md-3 text-center">
+                            <h4 class="hidden-xs">Price: {{item.price | currency}}</h4>
                             <hr/>
                             <div class="controls-group">
                                 <button class="btn btn-wide btn-info"
                                         ng-click="storeCtrl.addToCart(item)">
-                                    <i class="fa fa-cart-arrow-down"></i> Add to cart
+                                    <i class="fa fa-cart-arrow-down"></i> To cart
                                 </button>
                             </div>
                             <div class="controls-group">

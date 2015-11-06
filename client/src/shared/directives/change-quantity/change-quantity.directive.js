@@ -14,7 +14,7 @@
             },
             controller: changeQuantityController,
             controllerAs: 'qtyCtrl',
-            templateUrl: 'shared/directives/changeQuantity/quantity-directive.html',
+            templateUrl: 'shared/directives/change-quantity/quantity-directive.html',
             link: function($scope){
                 $scope.$watch('value', function(newValue, oldValue){
                     if(newValue !== oldValue){

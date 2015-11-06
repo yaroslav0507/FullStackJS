@@ -13,15 +13,15 @@
             },
             controller: categoriesMenuController,
             controllerAs: 'catMenuCtrl',
-            templateUrl: 'shared/directives/categories-menu/categories-menu.html',
-            link: function(scope, element, attrs){
-                var path = attrs.href;
-
-            }
+            templateUrl: 'shared/directives/categories-menu/categories-menu.html'
         };
     }
 
     function categoriesMenuController($location){
-        console.log("Path: ", $location.path());
+
+        this.isActive = function(link){
+            return '#' + $location.path() === link;
+        };
     }
+
 })();

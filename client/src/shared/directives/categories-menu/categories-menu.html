@@ -1,5 +1,6 @@
 <div class="list-group">
     <a href="{{ '#/category/' + category.name }}"
        ng-repeat="category in categories track by $index"
+       ng-class="{'active' : catMenuCtrl.isActive('#/category/' + category.name)}"
        class="list-group-item">{{category.name}}</a>
 </div>

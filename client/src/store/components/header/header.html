@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="store-header navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -13,7 +13,7 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <div class="header-cart">
+            <div class="header-cart navbar-nav">
                 <btn class="btn btn-default" ui-sref="store.cart">
                     <span class="header-cart__title">Shopping cart</span>
                     <span class="label label-info" ng-if="!headerCtrl.cart.items.length">is empty </span>
@@ -36,7 +36,7 @@
                         <span>Register</span></a>
                 </li>
                 <li ng-show="headerCtrl.isAuthenticated()">
-                    <a ui-sref="admin.main">
+                    <a ui-sref="admin.main" class="header-user__name">
                         <span class="header-user__avatar" ng-if="headerCtrl.user">
                             <img ng-src="images/users/32/{{headerCtrl.user.image[0]}}"/>
                         </span>

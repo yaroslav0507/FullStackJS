@@ -1,13 +1,6 @@
-
 .main-wrapper {
   padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
   font-family: "Roboto", sans-serif;
-}
-
-a {
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 .label{
@@ -113,7 +106,32 @@ footer {
 }
 
 
+.navbar-main {
+  background-color: #f8f8f8;
+  border-color: #DCDCDC;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 
+  a{
+    color: #47454C;
+  }
+
+  &__item{
+    position: relative;
+
+    &:after{
+      position: absolute;
+      content: '';
+      height: 50%;
+      width: 1px;
+      display: block;
+      border-right: 1px solid #ccc;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+  }
+}
 
 
 .navbar-brand.navbar-logo {

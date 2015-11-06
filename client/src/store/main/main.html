@@ -65,7 +65,7 @@
 
     <hr/>
 
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-main">
         <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
         <div class="container-fluid">
             <div class="navbar-header">
@@ -82,7 +82,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
                 <ul class="nav navbar-nav">
                     <li ng-repeat="category in storeCtrl.categories track by $index">
-                        <a href="{{ '#/category/' + category.name }}">{{category.name}}</a>
+                        <a href="{{ '#/category/' + category.name }}" class="navbar-main__item">{{category.name}}</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
