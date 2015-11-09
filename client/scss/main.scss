@@ -130,6 +130,12 @@ footer {
       right: 0;
       margin: auto;
     }
+    
+    &:last-child{
+      &:after{
+        display: none;
+      }
+    }
   }
 }
 

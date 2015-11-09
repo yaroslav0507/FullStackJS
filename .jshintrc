@@ -1,0 +1,27 @@
+{
+    "unused"  : true,
+    "bitwise" : false,
+    "browser" : true,
+    "devel" : true,
+    "eqeqeq" : true,
+    "newcap" : false,
+    "noarg" : true,
+    "noempty" : true,
+    "nonew" : true,
+    "strict" : false,
+    "undef" : true,
+    "evil"  : true,
+    "expr" : true,
+    "quotmark": "single",
+    "validthis": true,
+    "mocha": true,
+    "globals": {
+        "angular": false,
+        "inject": false,
+        "env": false,
+        "sinon": true,
+        "module": false,
+        "should": false,
+        "resolveState": false
+    }
+}

@@ -13,7 +13,7 @@ gulp.task('lint', function(){
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('scripts', ['lint'], function(){
+gulp.task('scripts', function(){
 
     var vendors = gulp.src([
         'client/vendors/angular/angular.js',
