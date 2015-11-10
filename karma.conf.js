@@ -31,6 +31,7 @@ module.exports = function (config) {
             './client/vendors/angular-ui-router/release/angular-ui-router.js',
             './client/vendors/ng-file-upload/ng-file-upload.js',
             './client/src/app/app.js',
+            './test.config.js',
             './client/src/**/*.js'
         ],
 
