@@ -1,3 +1,5 @@
+'use strict';
+
 describe('service: ItemsLocalService', function(){
     var ItemsLocalService;
 
