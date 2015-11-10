@@ -15,7 +15,7 @@
 
         function makeShortDescriptions(length, item) {
             if (item.description.length > length) {
-                item.shortDescription = item.description.substr(0, length) + '..';
+                item.shortDescription = item.description.substr(0, length - 2) + '..';
             } else {
                 item.shortDescription = item.description;
             }

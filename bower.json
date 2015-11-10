@@ -21,7 +21,8 @@
     "toastr": "~2.1.2",
     "components-font-awesome": "~4.4.0",
     "elevatezoom": "~2.2.3",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "angular-mocks": "~1.4.7"
   },
   "devDependencies": {}
 }
