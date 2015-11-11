@@ -9,7 +9,7 @@ var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('styles', function(){
 
-    var compile = gulp.src(['client/scss/core.scss'], {base: 'app'})
+    var compile = gulp.src(['./client/scss/core.scss'], {base: 'app'})
         .pipe(cssGlobbing({
             extensions : ['.scss']
         }))

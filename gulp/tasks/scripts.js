@@ -3,7 +3,6 @@
 var jshint = require('gulp-jshint');
 var seq = require('sequence-stream');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
 var templateCache = require('gulp-angular-templatecache');
 var sourcemaps = require('gulp-sourcemaps');
 
@@ -27,7 +26,8 @@ gulp.task('scripts', function(){
 
     var app = gulp.src([
         './client/src/app/app.js',
-        './client/src/**/*.js'
+        './client/src/**/*.js',
+        '!./client/src/**/*.spec.js'
     ], {base: 'src'});
 
     var views = gulp.src([

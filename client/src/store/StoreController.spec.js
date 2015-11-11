@@ -6,6 +6,7 @@ describe('StoreController', function(){
        cart,
        categories,
        CartService,
+       $controller,
        $state;
 
    beforeEach(function(){
@@ -19,7 +20,7 @@ describe('StoreController', function(){
           addToCart : env.stub()
       };
 
-      cart = {}
+      cart = {};
    });
 
    beforeEach(inject(function(_$controller_,
@@ -32,8 +33,9 @@ describe('StoreController', function(){
        categories = _categories_;
        CartService = _CartService_;
        $state = _$state_;
+       $controller = _$controller_;
 
-       sut = _$controller_('StoreController', {
+       sut = $controller('StoreController', {
            cart: cart,
            categories: categories,
            CartService: CartService,

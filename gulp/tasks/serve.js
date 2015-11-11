@@ -1,6 +1,9 @@
 'use strict';
+var runSequence = require('run-sequence');
 
-gulp.task('dev', ['scripts', 'html', 'styles', 'fonts', 'images', 'watch']);
+gulp.task('dev', function(callback){
+    runSequence('scripts', 'styles', ['html',  'fonts', 'images', 'watch'], callback)
+});
 
 gulp.task('serve', ['dev'], function(){
 

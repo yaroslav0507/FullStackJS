@@ -8,11 +8,11 @@
     function routeConfig($stateProvider){
         $stateProvider
             .state('auth', {
-                url: "/auth",
+                url: '/auth',
                 abstract: true,
                 templateUrl: 'auth/auth-base.html',
-                controller: "AuthController",
-                controllerAs: "authCtrl"
+                controller: 'AuthController',
+                controllerAs: 'authCtrl'
             })
             .state('auth.login', {
                 url: '/login',
