@@ -5,8 +5,7 @@
         .module('app')
         .controller('UsersController', UsersController);
 
-    function UsersController(users, UsersService) {
-
+    function UsersController(users) {
         var vm = this;
 
         angular.extend(vm, {

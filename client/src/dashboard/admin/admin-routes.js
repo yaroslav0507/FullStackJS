@@ -7,33 +7,31 @@
 
     function routeConfig($stateProvider){
         $stateProvider
-            .state('admin', {
+            .state('dashboard.admin', {
                 url: '/admin',
                 abstract: true,
-                onEnter: ['$state', 'AuthService', function($state, AuthService){
-                    if(!AuthService.isLoggedIn()){
-                        $state.go('store.main');
-                    }
-                }],
+                resolve: {
+                    isAdmin: resolveIsAdmin
+                },
                 views:{
                     '':{
-                        templateUrl: 'admin/admin-base.html',
+                        templateUrl: 'dashboard/admin/admin-base.html',
                         controller: 'DashboardController',
-                        controllerAs: 'dashboardCtrl',
+                        controllerAs: 'dashboardCtrl'
                     },
-                    'navigation@admin': {
-                        templateUrl: 'admin/components/navigation.html'
+                    'navigation@dashboard': {
+                        templateUrl: 'dashboard/admin/components/navigation.html'
                     },
-                    'sidebar@admin': {
-                        templateUrl: 'admin/components/sidebar.html'
+                    'sidebar@dashboard': {
+                        templateUrl: 'dashboard/admin/components/sidebar.html'
                     }
                 }
             })
-            .state('admin.main', {
+            .state('dashboard.admin.main', {
                 url: '/main',
                 views: {
-                    'content@admin': {
-                        templateUrl: 'admin/templates/manage-items/items.html',
+                    'content@dashboard': {
+                        templateUrl: 'dashboard/admin/templates/manage-items/items.html',
                         controller: 'ItemsController',
                         controllerAs: 'itemsCtrl',
                         resolve: {
@@ -43,11 +41,11 @@
                     }
                 }
             })
-            .state('admin.item', {
+            .state('dashboard.admin.item', {
                 url: '/items/{id}',
                 views: {
-                    'content@admin': {
-                        templateUrl: 'admin/templates/manage-items/edit-item/edit-item.html',
+                    'content@dashboard': {
+                        templateUrl: 'dashboard/admin/templates/manage-items/edit-item/edit-item.html',
                         controller: 'EditItemsController',
                         controllerAs: 'editCtrl',
                         resolve: {
@@ -57,11 +55,11 @@
                     }
                 }
             })
-            .state('admin.users', {
+            .state('dashboard.admin.users', {
                 url: '/users',
                 views: {
-                    'content@admin': {
-                        templateUrl: 'admin/templates/user-management/edit-users/users.html',
+                    'content@dashboard': {
+                        templateUrl: 'dashboard/admin/templates/user-management/edit-users/users.html',
                         controller: 'UsersController',
                         controllerAs: 'usersCtrl',
                         resolve: {
@@ -70,11 +68,11 @@
                     }
                 }
             })
-            .state('admin.profile', {
+            .state('dashboard.admin.profile', {
                 url: '/profile',
                 views: {
-                    'content@admin': {
-                        templateUrl: 'admin/templates/user-management/edit-profile/profile.html',
+                    'content@dashboard': {
+                        templateUrl: 'dashboard/admin/templates/user-management/edit-profile/profile.html',
                         controller: 'ProfileController',
                         controllerAs: 'profileCtrl',
                         resolve: {
@@ -83,11 +81,11 @@
                     }
                 }
             })
-            .state('admin.categories', {
+            .state('dashboard.admin.categories', {
                 url: '/categories',
                 views: {
-                    'content@admin': {
-                        templateUrl: 'admin/templates/categories/edit-category.html',
+                    'content@dashboard': {
+                        templateUrl: 'dashboard/admin/templates/categories/edit-category.html',
                         controller: 'EditCategoriesController',
                         controllerAs: 'categoriesCtrl',
                         resolve: {
@@ -96,11 +94,11 @@
                     }
                 }
             })
-            .state('admin.orders', {
+            .state('dashboard.admin.orders', {
                 url: '/orders',
                 views: {
-                    'content@admin': {
-                        templateUrl: 'admin/templates/orders/orders.html',
+                    'content@dashboard': {
+                        templateUrl: 'dashboard/admin/templates/orders/orders.html',
                         controller: 'OrdersController',
                         controllerAs: 'ordersCtrl',
                         resolve: {
@@ -138,5 +136,11 @@
                 return response.data;
             });
         }
+
+        function resolveIsAdmin($q, UsersService){
+            var payload = UsersService.getUserPayload();
+            return payload.accessLevel === 2 ? true : $q.reject();
+        }
+
     }
 })();

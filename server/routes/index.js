@@ -4,27 +4,30 @@ global.express       = require('express');
 global.router        = express.Router();
 global.mongoose      = require('mongoose');
 
-//global.jwt           = require('express-jwt');
-//global.auth          = jwt({secret: process.env.JWT_CERT, userProperty: 'payload'});
+global.jwt           = require('express-jwt');
+global.auth          = jwt({secret: process.env.JWT_CERT, userProperty: 'payload'});
 
-require('./items');
-require('./users/users-auth');
-require('./users/change-username');
-require('./users/change-password');
-require('./users/change-image');
+var endpoints = [
+ './items',
+ './users/users-auth',
+ './users/change-username',
+ './users/change-password',
+ './users/change-image',
+ './categories',
+ './file-upload',
+ './cart/add-to-cart',
+ './cart/delete-from-cart',
+ './cart/delete-all-from-cart',
+ './cart/get-cart',
+ './cart/update-cart',
+ './orders/checkout',
+ './orders/get-orders',
+ './orders/delete-order'
+];
 
-require('./categories');
-require('./file-upload');
-
-require('./cart/add-to-cart');
-require('./cart/delete-from-cart');
-require('./cart/delete-all-from-cart');
-require('./cart/get-cart');
-require('./cart/update-cart');
-
-require('./orders/checkout');
-require('./orders/get-orders');
-require('./orders/delete-order');
+endpoints.forEach(function(endpoint){
+   require(endpoint);
+});
 
 require('./mailer/mail-transporter');
 require('./mailer/send-mail');

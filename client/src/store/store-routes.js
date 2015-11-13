@@ -16,7 +16,8 @@
                         controller: 'StoreController',
                         controllerAs: 'storeCtrl',
                         resolve: {
-                            cart: resolveCart
+                            cart: resolveCart,
+                            categories: resolveCategories
                         }
                     },
                     'navigation@store': {
@@ -29,9 +30,6 @@
                         controller: 'FooterController',
                         controllerAs: 'footerCtrl'
                     }
-                },
-                resolve: {
-                    categories: resolveCategories
                 }
             })
             .state('store.main', {

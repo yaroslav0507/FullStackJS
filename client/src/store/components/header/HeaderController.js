@@ -5,17 +5,18 @@
         .module('app')
         .controller('HeaderController', HeaderController);
 
-    function HeaderController(AuthService, UsersService, CartService){
+    function HeaderController($state, AuthService, UsersService, CartService){
 
         var vm = this;
         if (AuthService.isLoggedIn()){
-            var user = getUser();
+            vm.user = getUser();
         }
 
         angular.extend(vm, {
             isAuthenticated: AuthService.isLoggedIn,
             logOut: AuthService.logOut,
-            cart: CartService.getCurrentCart()
+            cart: CartService.getCurrentCart(),
+            transitionToDashboard: transitionToDashboard
         });
 
         function getUser(){
@@ -24,5 +25,15 @@
             });
         }
 
+
+        function transitionToDashboard(){
+            var payload = UsersService.getUserPayload();
+
+            if(payload.accessLevel === 2) {
+                $state.go('dashboard.admin.main');
+            } else {
+                $state.go('dashboard.user.main');
+            }
+        }
     }
 })();

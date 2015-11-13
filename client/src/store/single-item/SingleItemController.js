@@ -18,8 +18,8 @@
         var img = $('.zoomable');
 
         var zoomConfig = {
-            zoomType: "lens",
-            lensShape: "round",
+            zoomType: 'lens',
+            lensShape: 'round',
             lensSize: 300,
             zoomWindowFadeIn: 200,
             zoomWindowFadeOut: 200,

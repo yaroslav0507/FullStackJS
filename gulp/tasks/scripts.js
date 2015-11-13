@@ -21,6 +21,7 @@ gulp.task('scripts', function(){
         'client/vendors/angular-ui-router/release/angular-ui-router.js',
         'client/vendors/ng-file-upload/ng-file-upload-all.js',
         'client/vendors/bootstrap/dist/js/bootstrap.js',
+        'client/vendors/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'client/vendors/toastr/toastr.js'
     ], {base: 'vendors'});
 

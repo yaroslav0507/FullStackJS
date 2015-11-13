@@ -1,56 +1,71 @@
-'use strict';
+describe('StoreController', function () {
 
-describe('StoreController', function(){
+    var sut,
+        cart,
+        categories,
+        CartService,
+        cartDeferred,
+        $controller,
+        $timeout,
+        $state,
+        $q;
 
-   var sut,
-       cart,
-       categories,
-       CartService,
-       $controller,
-       $state;
+    beforeEach(function () {
+        CartService = {
+            addToCart: env.stub(),
+            getCart: env.stub()
+        };
 
-   beforeEach(function(){
-      module('app');
+        module('app');
 
-      $state = {
-          go: env.stub()
-      };
+        cart = {};
+        categories = {};
 
-      CartService = {
-          addToCart : env.stub()
-      };
+        $state = {
+            go: env.stub()
+        };
 
-      cart = {};
-   });
-
-   beforeEach(inject(function(_$controller_,
-                              _cart_,
-                              _categories_,
-                              _CartService_,
-                              _$state_){
-
-       cart = _cart_;
-       categories = _categories_;
-       CartService = _CartService_;
-       $state = _$state_;
-       $controller = _$controller_;
-
-       sut = $controller('StoreController', {
-           cart: cart,
-           categories: categories,
-           CartService: CartService,
-           $state: $state
-       })
-   }));
-
-   describe('@addToCart', function(){
-        beforeEach(function(){
-            var item = {};
+        inject(function (_$controller_, _$q_, _$timeout_) {
+            $q = _$q_;
+            $controller = _$controller_;
+            $timeout = _$timeout_;
         });
+    });
 
-        it('should call CartService.addToCart with item', function(){
-            CartService.addToCart.should.have.been.calledWith(item);
+    describe('performed add to cart action', function(){
+        describe('@addToCart', function () {
+            var item;
+
+            beforeEach(function () {
+                item = {};
+                cart = {};
+                cartDeferred = $q.defer();
+                CartService.addToCart.returns(cartDeferred.promise);
+                initController();
+            });
+
+            it('should call CartService.addToCart with item', function () {
+                sut.addToCart(item);
+                CartService.addToCart.should.have.been.calledWith(item);
+            });
+
+            it('should change local cart model', function () {
+                sut.addToCart(item);
+                cartDeferred.reject(cart);
+                $timeout.flush();
+                sut.cart.should.equal(cart);
+            });
         });
-   });
+    });
+
+    function initController() {
+        sut = $controller('StoreController', {
+            cart: cart,
+            categories: categories,
+            CartService: CartService,
+            $state: $state
+        });
+    }
+
 
 });

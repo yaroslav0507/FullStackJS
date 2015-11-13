@@ -21,7 +21,6 @@
 
             if(token){
                 var payload = JSON.parse($window.atob(token.split('.')[1]));
-
                 return payload.exp > Date.now() / 1000;
             } else {
                 return false;
@@ -43,5 +42,6 @@
         function logOut(){
             HttpTokenAuthService.deleteToken();
         }
+
     }
 })();

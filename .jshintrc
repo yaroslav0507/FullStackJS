@@ -12,7 +12,6 @@
     "undef" : true,
     "evil"  : true,
     "expr" : true,
-    "quotmark": "single",
     "validthis": true,
     "mocha": true,
     "globals": {
@@ -23,6 +22,8 @@
         "module": false,
         "should": false,
         "resolveState": false,
-        "toastr": true
+        "toastr": false,
+        "$": false,
+        "assert": false
     }
 }

@@ -15,7 +15,6 @@
             animationsEnabled: true
         });
 
-
         function open(size){
 
             var modalInstance = $uibModal.open({

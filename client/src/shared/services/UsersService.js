@@ -47,7 +47,7 @@
         }
 
 
-        function getUserRole(user){
+        function getUserRole(){
             var accessLevel = getUserPayload().accessLevel;
             var userRoles = ['User', 'Redactor', 'Administrator'];
             return userRoles[accessLevel];

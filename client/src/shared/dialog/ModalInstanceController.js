@@ -19,11 +19,11 @@
         });
         console.log(vm.items);
 
-        function ok(size){
+        function ok(){
             $uibModalInstance.close(vm.selected.item);
         }
 
-        function cancel (size){
+        function cancel (){
             $uibModalInstance.dismiss('cancel');
         }
     }

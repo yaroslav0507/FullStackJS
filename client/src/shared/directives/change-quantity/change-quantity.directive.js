@@ -9,8 +9,8 @@
         return {
             restrict: 'EA',
             scope: {
-                value: "=",
-                change: "&"
+                value: '=',
+                change: '&'
             },
             controller: changeQuantityController,
             controllerAs: 'qtyCtrl',
@@ -18,7 +18,7 @@
             link: function($scope){
                 $scope.$watch('value', function(newValue, oldValue){
                     if(newValue !== oldValue){
-                        if(typeof($scope.value) !== "number"){
+                        if(typeof($scope.value) !== 'number'){
                             $scope.value = 1;
                         }
 

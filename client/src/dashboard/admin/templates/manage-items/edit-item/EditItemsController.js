@@ -35,11 +35,10 @@
 
         function checkMainImage(){
             vm.item.mainImageIndex = vm.imageIndex;
-            console.log("image index", vm.item.mainImageIndex);
         }
 
         function saveChanges(){
-            ItemsService.updateItem(vm.item).then(function (item) {
+            ItemsService.updateItem(vm.item).then(function () {
                 vm.message = vm.item.title + ' successfully updated.';
             });
         }
@@ -66,9 +65,8 @@
             vm.item.images.splice(index, 1);
 
             console.log( vm.item.images);
-            if(vm.item.images.length == 1){
+            if(vm.item.images.length === 1){
                 vm.showMainThumbnail = false;
-                console.log("last image");
             }
 
             saveChanges();

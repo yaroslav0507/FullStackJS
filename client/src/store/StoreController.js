@@ -13,8 +13,7 @@
             cart: cart,
             categories: categories,
             addToCart: addToCart,
-            buyNow: buyNow,
-            error: errorFunc
+            buyNow: buyNow
         });
 
         function addToCart(item){
@@ -30,10 +29,6 @@
             });
         }
 
-        function errorFunc(evt){
-            toastr.warning('This action is under development!', 'Rejected');
-            evt.stopPropagation();
-        }
     }
 
 })();

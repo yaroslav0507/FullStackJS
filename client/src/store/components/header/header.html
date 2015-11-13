@@ -36,7 +36,7 @@
                         <span>Register</span></a>
                 </li>
                 <li ng-show="headerCtrl.isAuthenticated()">
-                    <a ui-sref="admin.main" class="header-user__name">
+                    <a ng-click="headerCtrl.transitionToDashboard()" class="header-user__name">
                         <span class="header-user__avatar" ng-if="headerCtrl.user">
                             <img ng-src="images/users/32/{{headerCtrl.user.image[0]}}"/>
                         </span>

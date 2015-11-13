@@ -12,3 +12,15 @@
     font-size: 65px;
   }
 }
+
+@media (min-width: 768px) {
+  .header-cart{
+    margin: 4px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .dropdown.items-filter{
+    float: left;
+  }
+}

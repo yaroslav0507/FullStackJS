@@ -28,8 +28,8 @@
             return $http.post('/add-to-cart/', item).then(function(response){
                 angular.copy(response.data, cart);
 
-                var toastMessage = cart.items[cart.items.length-1].title + " was added to your cart";
-                toastr.success( toastMessage , "Shopping Cart");
+                var toastMessage = cart.items[cart.items.length-1].title + ' was added to your cart';
+                toastr.success( toastMessage , 'Shopping Cart');
 
                 return cart;
             }, function(err){
@@ -47,7 +47,7 @@
 
             return $http.delete('/delete-from-cart/' + item._id).then(function(response){
                 angular.copy(response.data, cart);
-                toastr.info( deletedItem + " was successfully deleted", "Shopping Cart");
+                toastr.info( deletedItem + ' was successfully deleted', 'Shopping Cart');
 
                 return cart;
             }, function(err){
@@ -61,7 +61,7 @@
                 console.log(config.silent);
                 if(arguments.length){
                     if(config.silent === false){
-                        toastr.info("Cart is empty", "Shopping Cart");
+                        toastr.info('Cart is empty', 'Shopping Cart');
                     }
                 }
 

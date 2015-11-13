@@ -13,10 +13,10 @@
             cart: CartService.getCurrentCart(),
             checkout: checkout,
             customer: {
-                name: "Yaroslav",
-                address: "Kiev, Ukraine",
-                phone: "093 34 95 811",
-                email: "yaroslav0507@gmail.com"
+                name: 'Yaroslav',
+                address: 'Kiev, Ukraine',
+                phone: '093 34 95 811',
+                email: 'yaroslav0507@gmail.com'
             }
         });
 
