@@ -31,7 +31,7 @@
                 url: '/profile',
                 views: {
                     'content@user': {
-                        templateUrl: 'dashboard/user/templates/edit-profile/profile.html',
+                        templateUrl: 'dashboard/admin/templates/user-management/edit-profile/profile.html',
                         controller: 'ProfileController',
                         controllerAs: 'profileCtrl',
                         resolve: {
@@ -44,7 +44,7 @@
                 url: '/contacts',
                 views: {
                     'content@user': {
-                        templateUrl: 'dashboard/user/templates/edit-contact-info/edit-contact-info.html',
+                        templateUrl: 'dashboard/admin/templates/user-management/edit-contact-info/edit-contact-info.html',
                         controller: 'ProfileController',
                         controllerAs: 'profileCtrl',
                         resolve: {

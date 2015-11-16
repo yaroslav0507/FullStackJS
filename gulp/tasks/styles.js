@@ -18,10 +18,10 @@ gulp.task('styles', function(){
         .pipe(sourcemaps.write('maps', {sourceRoot: '/client'}));
 
     var assets = gulp.src([
-        'client/vendors/bootstrap/dist/css/bootstrap.css',
-        'client/vendors/angular-ui-router-anim-in-out/css/anim-in-out.css',
-        'client/vendors/components-font-awesome/css/font-awesome.css',
-        'client/vendors/toastr/toastr.css'
+        './client/vendors/bootstrap/dist/css/bootstrap.css',
+        './client/vendors/angular-ui-router-anim-in-out/css/anim-in-out.css',
+        './client/vendors/components-font-awesome/css/font-awesome.css',
+        './client/vendors/toastr/toastr.css'
     ])
         .pipe(concat('assets.css'));
 
