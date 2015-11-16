@@ -24,18 +24,18 @@
                 </btn>
             </div>
             <ul class="nav navbar-nav pull-right">
-                <li ng-hide="headerCtrl.isAuthenticated()">
+                <li ng-if="!headerCtrl.isAuthenticated()">
                     <a ui-sref="auth.login">
                         <span class="glyphicon glyphicon-log-in"></span>
                         <span class="bordered-right">Login</span>
                     </a>
                 </li>
-                <li ng-hide="headerCtrl.isAuthenticated()">
+                <li ng-if="!headerCtrl.isAuthenticated()">
                     <a ui-sref="auth.register">
                         <span class="glyphicon glyphicon-check"></span>
                         <span>Register</span></a>
                 </li>
-                <li ng-show="headerCtrl.isAuthenticated()">
+                <li ng-if="headerCtrl.isAuthenticated()">
                     <a ng-click="headerCtrl.transitionToDashboard()" class="header-user__name">
                         <span class="header-user__avatar" ng-if="headerCtrl.user">
                             <img ng-src="images/users/32/{{headerCtrl.user.image[0]}}"/>
@@ -45,7 +45,7 @@
                         <span class="bordered-right">{{ headerCtrl.user.username }}</span>
                     </a>
                 </li>
-                <li ng-show="headerCtrl.isAuthenticated()">
+                <li ng-if="headerCtrl.isAuthenticated()">
                     <a href="#" ng-click="headerCtrl.logOut()">
                         <span class="glyphicon glyphicon-log-out"></span>
                         <span>Log Out</span>
