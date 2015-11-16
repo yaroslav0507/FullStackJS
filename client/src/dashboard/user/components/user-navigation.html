@@ -1,0 +1,20 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand navbar-logo" ui-sref="store.main"><span><i class="glyphicon glyphicon-shopping-cart"></i> {{ appCtrl.title }}</span></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ui-sref="store.main">Go to store</a></li>
+                <li><a ui-sref="dashboard.admin.main">Dashboard</a></li>
+                <li><a ui-sref="dashboard.admin.profile">Profile</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

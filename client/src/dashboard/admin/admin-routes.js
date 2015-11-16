@@ -7,30 +7,30 @@
 
     function routeConfig($stateProvider){
         $stateProvider
-            .state('dashboard.admin', {
+            .state('admin', {
                 url: '/admin',
                 abstract: true,
-                resolve: {
-                    isAdmin: resolveIsAdmin
-                },
                 views:{
                     '':{
                         templateUrl: 'dashboard/admin/admin-base.html',
                         controller: 'DashboardController',
                         controllerAs: 'dashboardCtrl'
                     },
-                    'navigation@dashboard': {
-                        templateUrl: 'dashboard/admin/components/navigation.html'
+                    'navigation@admin': {
+                        templateUrl: 'dashboard/admin/components/admin-navigation.html'
                     },
-                    'sidebar@dashboard': {
-                        templateUrl: 'dashboard/admin/components/sidebar.html'
+                    'sidebar@admin': {
+                        templateUrl: 'dashboard/admin/components/admin-sidebar.html'
                     }
+                },
+                resolve: {
+                    checkAdminAccessRights: checkAdminAccessRights
                 }
             })
-            .state('dashboard.admin.main', {
+            .state('admin.main', {
                 url: '/main',
                 views: {
-                    'content@dashboard': {
+                    'content@admin': {
                         templateUrl: 'dashboard/admin/templates/manage-items/items.html',
                         controller: 'ItemsController',
                         controllerAs: 'itemsCtrl',
@@ -41,10 +41,10 @@
                     }
                 }
             })
-            .state('dashboard.admin.item', {
+            .state('admin.item', {
                 url: '/items/{id}',
                 views: {
-                    'content@dashboard': {
+                    'content@admin': {
                         templateUrl: 'dashboard/admin/templates/manage-items/edit-item/edit-item.html',
                         controller: 'EditItemsController',
                         controllerAs: 'editCtrl',
@@ -55,10 +55,10 @@
                     }
                 }
             })
-            .state('dashboard.admin.users', {
+            .state('admin.users', {
                 url: '/users',
                 views: {
-                    'content@dashboard': {
+                    'content@admin': {
                         templateUrl: 'dashboard/admin/templates/user-management/edit-users/users.html',
                         controller: 'UsersController',
                         controllerAs: 'usersCtrl',
@@ -68,10 +68,10 @@
                     }
                 }
             })
-            .state('dashboard.admin.profile', {
+            .state('admin.profile', {
                 url: '/profile',
                 views: {
-                    'content@dashboard': {
+                    'content@admin': {
                         templateUrl: 'dashboard/admin/templates/user-management/edit-profile/profile.html',
                         controller: 'ProfileController',
                         controllerAs: 'profileCtrl',
@@ -81,10 +81,10 @@
                     }
                 }
             })
-            .state('dashboard.admin.categories', {
+            .state('admin.categories', {
                 url: '/categories',
                 views: {
-                    'content@dashboard': {
+                    'content@admin': {
                         templateUrl: 'dashboard/admin/templates/categories/edit-category.html',
                         controller: 'EditCategoriesController',
                         controllerAs: 'categoriesCtrl',
@@ -94,10 +94,10 @@
                     }
                 }
             })
-            .state('dashboard.admin.orders', {
+            .state('admin.orders', {
                 url: '/orders',
                 views: {
-                    'content@dashboard': {
+                    'content@admin': {
                         templateUrl: 'dashboard/admin/templates/orders/orders.html',
                         controller: 'OrdersController',
                         controllerAs: 'ordersCtrl',
@@ -137,10 +137,10 @@
             });
         }
 
-        function resolveIsAdmin($q, UsersService){
+        function checkAdminAccessRights($q, UsersService){
             var payload = UsersService.getUserPayload();
-            return payload.accessLevel === 2 ? true : $q.reject();
-        }
 
+            return payload.accessLevel === 2 ? $q.resolve() : $q.reject() ;
+        }
     }
 })();

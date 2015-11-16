@@ -12,7 +12,8 @@
         var service = {
             checkout: checkout,
             getAll: getAll,
-            deleteOrder: deleteOrder
+            deleteOrder: deleteOrder,
+            getUserOrders: getUserOrders
         };
 
         return service;
@@ -37,6 +38,12 @@
         function deleteOrder(id){
             return $http.delete('/order/' + id).then(function(response){
                 angular.copy(order, response.data);
+                return response.data;
+            });
+        }
+
+        function getUserOrders(){
+            return $http.get('/get-orders/').then(function(response){
                 return response.data;
             });
         }

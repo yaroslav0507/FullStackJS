@@ -29,11 +29,7 @@
         function transitionToDashboard(){
             var payload = UsersService.getUserPayload();
 
-            if(payload.accessLevel === 2) {
-                $state.go('dashboard.admin.main');
-            } else {
-                $state.go('dashboard.user.main');
-            }
+            $state.go(payload.accessLevel ? 'admin.main' : 'user.profile');
         }
     }
 })();

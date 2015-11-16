@@ -1,0 +1,102 @@
+<h1 class="page-header"><i class="fa fa-user-secret"></i> Edit profile</h1>
+
+<form name="userInfoForm">
+    <div class="row">
+
+        <div class="alert alert-success" role="alert" ng-show="profileCtrl.message.length">
+            {{profileCtrl.message}}
+        </div>
+
+        <!--Change password-->
+        <div class="col-xs-12 col-md-4">
+            <h3 class="sub-header">Change password</h3>
+            <div class="form-group">
+                <label>Enter old password</label>
+                <input type="password"
+                       class="form-control"
+                       ng-model="profileCtrl.user.oldPassword"
+                       value="">
+            </div>
+
+            <div class="form-group">
+                <label>Enter new password</label>
+                <input type="password"
+                       class="form-control"
+                       ng-model="profileCtrl.user.newPassword"
+                       value="">
+            </div>
+
+            <div class="form-group">
+                <label>Repeat new password</label>
+                <input type="password"
+                       class="form-control"
+                       ng-model="profileCtrl.user.repeatPassword"
+                       value="">
+            </div>
+
+            <button class="btn btn-primary"
+                    ng-click="profileCtrl.changeUserPassword()">Change password</button>
+        </div>
+
+        <!--Change username-->
+        <div class="col-xs-12 col-md-4">
+            <h3 class="sub-header">Change username</h3>
+
+            <div class="form-group">
+                <label>Enter old username</label>
+                <input type="text"
+                       class="form-control"
+                       ng-model="profileCtrl.user.oldUsername"
+                       value="">
+            </div>
+
+            <div class="form-group">
+                <label>Enter new username</label>
+                <input type="text"
+                       class="form-control"
+                       ng-model="profileCtrl.user.newUsername"
+                       value="">
+            </div>
+
+            <div class="form-group">
+                <label>Enter password</label>
+                <input type="password"
+                       class="form-control"
+                       ng-model="profileCtrl.user.password">
+            </div>
+
+            <button class="btn btn-primary"
+                    ng-click="profileCtrl.changeUserName()">Change name</button>
+        </div>
+
+        <!--Change photo-->
+        <div class="col-xs-12 col-md-4">
+            <h3 class="sub-header">Change photo</h3>
+            <div class="form-group">
+                <label>Upload new photo</label>
+                <div class="thumbnail drag-drop-field drag-drop-field_ava"
+                     ngf-drop
+                     ngf-select
+                     ngf-drag-over-class="dragover"
+                     ng-model="profileCtrl.file"
+                     name="file"
+                     accept="image/*"
+                     ngf-max-size="2MB">
+
+
+                    <img ng-show="profileCtrl.user.image && !profileCtrl.file"
+                         ng-src="images/users/origin/{{profileCtrl.user.image[0]}}"
+                         class="image-centered">
+
+                    <img ng-show="userInfoForm.file.$valid"
+                         ngf-src="!profileCtrl.file.$error && profileCtrl.file"
+                         class="image-centered">
+                </div>
+
+                <button class="btn btn-primary"
+                        ng-disabled="!profileCtrl.file"
+                        ng-click="profileCtrl.uploadPhoto()">Upload photo</button>
+            </div>
+        </div>
+    </div>
+</form
