@@ -7,45 +7,65 @@
         </div>
     </div>
     <div class="row">
-        <form>
+        <form name="customerInfoForm">
             <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <label for="name">Your name</label>
+                <div class="form-group"
+                     ng-class="{'has-error': !customerInfoForm.name.$valid && customerInfoForm.name.$dirty}">
+                    <label for="name">Your name <span class="warning-text" ng-hide="customerInfoForm.name.$valid || customerInfoForm.name.$pristine">is required</span></label>
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <input type="text" class="form-control" placeholder="Name" id="name"
-                                ng-model="checkoutCtrl.customer.name">
+                        <input type="text" class="form-control" placeholder="Name"
+                               id="name" name="name"
+                               ng-required="true"
+                               ng-model="checkoutCtrl.user.contact.name">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Delivery address</label>
+                    <label for="address">Delivery address <span class="warning-text" ng-hide="customerInfoForm.address.$valid || customerInfoForm.address.$pristine">is required</span></label>
 
-                    <div class="input-group">
+                    <div class="input-group"
+                         ng-class="{'has-error': !customerInfoForm.address.$valid && customerInfoForm.address.$dirty}">
                         <span class="input-group-addon"><i class="fa fa-map"></i></span>
-                        <input type="text" class="form-control" placeholder="Address" id="address"
-                               ng-model="checkoutCtrl.customer.address">
+                        <input type="text" class="form-control"
+                               placeholder="Address"
+                               id="address" name="address"
+                               ng-required="true"
+                               ng-model="checkoutCtrl.user.contact.address">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="phone">Contact phone</label>
+                <div class="form-group"
+                     ng-class="{'has-error': !customerInfoForm.phone.$valid && customerInfoForm.phone.$dirty }">
+                    <label for="phone">Contact phone <span class="warning-text" ng-hide="customerInfoForm.phone.$valid || customerInfoForm.phone.$pristine">is required</span></label>
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                        <input type="phone" class="form-control" placeholder="Phone" id="phone"
-                               ng-model="checkoutCtrl.customer.phone">
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Phone"
+                               id="phone" name="phone"
+                               ng-required="true"
+                               ng-model="checkoutCtrl.user.contact.phone">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="mail">Your e-mail</label>
+                <div class="form-group"
+                     ng-class="{'has-error': !customerInfoForm.mail.$valid && customerInfoForm.mail.$dirty }">
+                    <label for="mail">Your e-mail
+                        <span class="warning-text" ng-hide="customerInfoForm.mail.$valid || customerInfoForm.mail.$pristine">is invalid</span>
+                    </label>
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                        <input type="email" class="form-control" placeholder="E-mail" id="mail"
-                               ng-model="checkoutCtrl.customer.email">
+                        <input type="text"
+                               class="form-control"
+                               placeholder="E-mail"
+                               id="mail" name="mail"
+                               ng-required="true"
+                               ng-model="checkoutCtrl.user.contact.email"
+                               ng-model-options="{ debounce: 1000 }">
                     </div>
                 </div>
             </div>
@@ -73,7 +93,10 @@
 
             <div class="col-xs-12">
                 <div class="checkout__order-actions">
-                    <button type="submit" class="btn btn-success" ng-click="checkoutCtrl.checkout()">Validate order</button>
+                    <button type="submit"
+                            class="btn btn-success"
+                            ng-disabled="!customerInfoForm.$valid"
+                            ng-click="checkoutCtrl.checkout()">Validate order</button>
                     <a ui-sref="store.cart" class="btn btn-default">Edit order</a>
                 </div>
             </div>

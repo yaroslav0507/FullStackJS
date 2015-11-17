@@ -1,0 +1,25 @@
+.admin-dashboard{
+  .navbar{
+    background-color: $brandAdminColor;
+  }
+
+  .progress-bar-info{
+    background-color: $successColor;
+  }
+
+  h1, h2, h3{
+    color: $brandAdminColor;
+  }
+
+  //Override Twitter bootstrap native navigation styles
+  &.admin-theme .nav-sidebar > .active > a,
+  &.admin-theme .nav-sidebar > .active > a:hover,
+  &.admin-theme .nav-sidebar > .active > a:focus {
+    background-color: $brandAdminColor;
+  }
+
+  .btn-primary {
+    background-color: $brandAdminColor;
+    border-color: $brandAdminColor;
+  }
+}

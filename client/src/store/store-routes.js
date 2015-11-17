@@ -87,7 +87,10 @@
                     'content@store': {
                         templateUrl: 'store/checkout/checkout.html',
                         controller: 'CheckoutController',
-                        controllerAs: 'checkoutCtrl'
+                        controllerAs: 'checkoutCtrl',
+                        resolve: {
+                            user: resolveUserData
+                        }
                     }
                 }
             })
@@ -122,6 +125,15 @@
 
         function resolveCategoryItems($stateParams, ItemsService){
             return ItemsService.filterByCategory($stateParams.category);
+        }
+
+        function resolveUserData(UsersService){
+            var payload = UsersService.getUserPayload();
+            if(payload){
+                return UsersService.getUserData(payload._id).then(function(response){
+                    return response.data;
+                });
+            }
         }
 
     }

@@ -203,6 +203,8 @@ textarea.form-control{
     margin-right: 5px;
     padding-right: 8px;
     border-right: 1px solid #D7D2D2;
+    width: 30px;
+    text-align: center;
   }
 
   .user-profile-progress{
@@ -223,3 +225,10 @@ textarea.form-control{
   .image-centered{
     @include centered;
   }
+
+.navbar-inverse .navbar-nav > li > a{
+  color: #FFF;
+  &:hover{
+    color: #eee;;
+  }
+}

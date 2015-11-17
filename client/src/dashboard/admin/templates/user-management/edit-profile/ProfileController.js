@@ -21,20 +21,9 @@
         });
 
         function updateUser(){
-            var userImage = vm.file;
-            if(userImage){
-                UsersService.uploadImage(userImage).then(function(urls){
-                    vm.user.image = urls;
-
-                    UsersService.updateUser(vm.user).then(function () {
-                        vm.message = 'Your profile is successfully updated.';
-                    });
-                });
-            } else {
-                UsersService.updateUser(vm.user).then(function () {
-                    vm.message = 'Your profile is successfully updated.';
-                });
-            }
+            UsersService.updateUserInfo(vm.user).then(function () {
+                vm.message = 'Your profile is successfully updated.';
+            });
         }
 
         function uploadPhoto(){
@@ -49,7 +38,7 @@
 
         function getUserData(){
             return UsersService.getUserData(user._id).then(function (response) {
-                vm.user.imageURL = response.image;
+                vm.user = response;
             });
         }
 

@@ -16,7 +16,8 @@
             uploadImage:            uploadImage,
             changeUserName:         changeUserName,
             changeUserPhoto:        changeUserPhoto,
-            changeUserPassword:     changeUserPassword
+            changeUserPassword:     changeUserPassword,
+            updateUserInfo:         updateUserInfo
         };
 
         return service;
@@ -93,6 +94,14 @@
 
         function changeUserPassword(user){
             return $http.put('/users/change-pass/' + user._id, user).then(function(response){
+                return response.data;
+            }, function(err){
+                return err.data;
+            });
+        }
+
+        function updateUserInfo(user){
+            return $http.put('/users/update-info/', user).then(function(response){
                 return response.data;
             }, function(err){
                 return err.data;

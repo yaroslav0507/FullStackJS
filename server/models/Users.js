@@ -11,7 +11,13 @@ var UserSchema = new mongoose.Schema({
     accessLevel: {type: Number, default: 0},
     image: Array,
     hash: String,
-    salt: String
+    salt: String,
+    contact: {
+        name: String,
+        address: String,
+        phone: Number,
+        email: String
+    }
 });
 
 UserSchema.methods.setPassword = function(password){

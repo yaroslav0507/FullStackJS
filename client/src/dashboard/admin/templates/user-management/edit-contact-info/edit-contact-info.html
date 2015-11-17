@@ -1,6 +1,11 @@
 <h1 class="page-header"><i class="fa fa-phone"></i> Edit contact info</h1>
 
 <div class="row">
+
+    <div class="alert alert-success" role="alert" ng-show="profileCtrl.message.length">
+        {{profileCtrl.message}}
+    </div>
+
     <form>
         <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
@@ -9,7 +14,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <input type="text" class="form-control" placeholder="Name" id="name"
-                           ng-model="checkoutCtrl.customer.name">
+                           ng-model="profileCtrl.user.contact.name">
                 </div>
             </div>
 
@@ -19,7 +24,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-map"></i></span>
                     <input type="text" class="form-control" placeholder="Address" id="address"
-                           ng-model="checkoutCtrl.customer.address">
+                           ng-model="profileCtrl.user.contact.address">
                 </div>
             </div>
 
@@ -29,7 +34,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                     <input type="phone" class="form-control" placeholder="Phone" id="phone"
-                           ng-model="checkoutCtrl.customer.phone">
+                           ng-model="profileCtrl.user.contact.phone">
                 </div>
             </div>
 
@@ -39,7 +44,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                     <input type="email" class="form-control" placeholder="E-mail" id="mail"
-                           ng-model="checkoutCtrl.customer.email">
+                           ng-model="profileCtrl.user.contact.email">
                 </div>
             </div>
         </div>
@@ -47,7 +52,7 @@
 
         <div class="col-xs-12">
             <div class="checkout__order-actions">
-                <button type="submit" class="btn btn-success" ng-click="checkoutCtrl.checkout()">Save changes</button>
+                <button type="submit" class="btn btn-success" ng-click="profileCtrl.updateUser()">Save changes</button>
             </div>
         </div>
     </form>

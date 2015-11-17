@@ -13,6 +13,7 @@ var endpoints = [
  './users/change-username',
  './users/change-password',
  './users/change-image',
+ './users/update-contact-info',
  './categories',
  './file-upload',
  './cart/add-to-cart',

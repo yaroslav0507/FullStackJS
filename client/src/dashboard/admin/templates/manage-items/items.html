@@ -170,7 +170,7 @@
                 {{ item.category }}
             </td>
             <td>{{ item.shortDescription }}</td>
-            <td>{{ item.price }}</td>
+            <td>{{ item.price | currency }}</td>
             <td ng-click="itemsCtrl.deleteItem(item)">
                 <button class="btn btn-default">X</button>
             </td>

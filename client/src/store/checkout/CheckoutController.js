@@ -5,24 +5,25 @@
         .module('app')
         .controller('CheckoutController', CheckoutController);
 
-    function CheckoutController(CartService, OrdersService, $state){
+    function CheckoutController(CartService, OrdersService, $state, $scope, user){
 
         var vm = this;
 
         angular.extend(vm, {
+            user: user,
             cart: CartService.getCurrentCart(),
-            checkout: checkout,
-            customer: {
-                name: 'Yaroslav',
-                address: 'Kiev, Ukraine',
-                phone: '093 34 95 811',
-                email: 'yaroslav0507@gmail.com'
-            }
+            checkout: checkout
         });
 
         function checkout(){
+            if($scope.customerInfoForm.$valid){
+                performCheckout();
+            }
+        }
 
-            OrdersService.checkout(vm.cart, vm.customer).then(function(){
+        function performCheckout(){
+
+            OrdersService.checkout(vm.cart, vm.user.contact).then(function(){
                 CartService.clearCart({
                     silent: true
                 });
@@ -30,7 +31,6 @@
             }, function(){
                 $state.go('store.main');
             });
-
         }
 
     }

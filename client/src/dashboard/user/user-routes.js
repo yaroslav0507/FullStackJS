@@ -12,7 +12,7 @@
                 abstract: true,
                 views:{
                     '':{
-                        templateUrl: 'dashboard/admin/admin-base.html',
+                        templateUrl: 'dashboard/user/user-base.html',
                         controller: 'UserDashboardController',
                         controllerAs: 'userDashboardCtrl'
                     },

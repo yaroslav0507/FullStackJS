@@ -81,6 +81,19 @@
                     }
                 }
             })
+            .state('admin.contactInfo', {
+                url: '/contacts',
+                views: {
+                    'content@user': {
+                        templateUrl: 'dashboard/admin/templates/user-management/edit-contact-info/edit-contact-info.html',
+                        controller: 'ProfileController',
+                        controllerAs: 'profileCtrl',
+                        resolve: {
+                            user: resolveUserData
+                        }
+                    }
+                }
+            })
             .state('admin.categories', {
                 url: '/categories',
                 views: {

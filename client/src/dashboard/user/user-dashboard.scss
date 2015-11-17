@@ -1,0 +1,22 @@
+.user-dashboard{
+  .navbar{
+    background-color: $brandUserColor;
+  }
+
+  .progress-bar-info{
+    background-color: $successColor;
+  }
+
+
+  //Override Twitter bootstrap native navigation styles
+  &.admin-theme .nav-sidebar > .active > a,
+  &.admin-theme .nav-sidebar > .active > a:hover,
+  &.admin-theme .nav-sidebar > .active > a:focus {
+    background-color: $brandUserColor;
+  }
+
+  .btn-primary {
+    background-color: $brandUserColor;
+    border-color: $brandUserColor;
+  }
+}

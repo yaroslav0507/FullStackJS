@@ -53,7 +53,8 @@ router.get('/users/:user', function(req, res){
     var data = {
         _id: req.user._id,
         username: req.user.username,
-        image: req.user.image
+        image: req.user.image,
+        contact: req.user.contact
     };
     res.send(data);
 });
