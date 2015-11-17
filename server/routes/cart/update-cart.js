@@ -4,7 +4,7 @@ var CartItem = mongoose.model('CartItem');
 
 router.put('/update-cart/', function (req, res, next) {
 
-    var cartID = req.cookies['connect.sid'];
+    var cartID = req.cookies['user.id'] || req.cookies['connect.sid'];
     console.log("Body: ", req.body, '\n');
 
     function findById(source, id) {

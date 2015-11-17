@@ -6,7 +6,8 @@ router.delete('/delete-from-cart/:id', function (req, res, next) {
 
     //Retrieving item id and qty for secure reasons
     var itemID = req.params.id;
-    var cartID = req.cookies['connect.sid'];
+
+    var cartID = req.cookies['user.id'] || req.cookies['connect.sid'];
 
     //Search for item in store items by ID
     checkForExistingCart(cartID, function (response) {

@@ -44,7 +44,6 @@
     "sequence-stream": "^0.1.0"
   },
   "dependencies": {
-    "angular-cookies": "^1.4.7",
     "body-parser": "^1.13.3",
     "cookie-parser": "^1.4.0",
     "dotenv": "^1.2.0",

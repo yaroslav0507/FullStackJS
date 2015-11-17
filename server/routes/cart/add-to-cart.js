@@ -9,7 +9,7 @@ router.post('/add-to-cart/', function (req, res, next) {
 
     //Retrieving item id and qty for secure reasons
     var item = req.body;
-    var cartID = req.cookies['connect.sid'];
+    var cartID = req.cookies['user.id'] || req.cookies['connect.sid'];
 
     //Search for item in store items by ID
     Item.findById(item.id, function (err, result) {

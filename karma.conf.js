@@ -29,6 +29,7 @@ module.exports = function (config) {
             './client/vendors/angular/angular.js',
             './client/vendors/angular-mocks/angular-mocks.js',
             './client/vendors/angular-ui-router/release/angular-ui-router.js',
+            './client/vendors/angular-cookies/angular-cookies.js',
             './client/vendors/ng-file-upload/ng-file-upload.js',
             './client/src/app/app.js',
             './test.config.js',

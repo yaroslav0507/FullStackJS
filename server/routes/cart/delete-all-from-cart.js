@@ -4,7 +4,7 @@ var Cart = mongoose.model('Cart');
 
 router.delete('/delete-all-from-cart/', function (req, res, next) {
 
-    var cartID = req.cookies['connect.sid'];
+    var cartID = req.cookies['user.id'] || req.cookies['connect.sid'];
 
     //Search for item in store items by ID
     checkForExistingCart(cartID, function (response) {

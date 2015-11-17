@@ -4,7 +4,8 @@
     angular
         .module('app', [
             'ui.router',
-            'ngFileUpload'
+            'ngFileUpload',
+            'ngCookies'
         ]);
 
 })();
