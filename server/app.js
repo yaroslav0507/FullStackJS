@@ -93,9 +93,5 @@ app.listen(port, function(){
 
 module.exports = app;
 
-// mongodump -h ds041583.mongolab.com:41583 -d pet -u administrator -p styleworks -o D:\dump &#45;&#45;oplog
-// mongorestore -h ds041583.mongolab.com:41583 -d pet -u administrator -p styleworks D:\dump\pet\ &#45;&#45;oplogReplay
-
-//mongorestore -h ds063833.mongolab.com:63833 -d mean-store -u administrator -p styleworks D:\dump\pet\ &#45;&#45;oplogReplay
 
 

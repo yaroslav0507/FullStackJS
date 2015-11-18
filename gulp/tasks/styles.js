@@ -13,9 +13,9 @@ gulp.task('styles', function(){
         .pipe(cssGlobbing({
             extensions : ['.scss']
         }))
-        .pipe(sourcemaps.init())
-        .pipe(sass())
-        .pipe(sourcemaps.write('maps', {sourceRoot: '/client'}));
+
+        .pipe(sass());
+
 
     var assets = gulp.src([
         './client/vendors/bootstrap/dist/css/bootstrap.css',
@@ -27,7 +27,9 @@ gulp.task('styles', function(){
 
     // Combine all the streams
     return seq([assets, compile])
+        .pipe(sourcemaps.init())
         .pipe(concat('app.css'))
+        .pipe(sourcemaps.write('maps', {sourceRoot: '/client'}))
         .pipe(gulp.dest('dist'))
         .pipe(browserSync.stream());
 

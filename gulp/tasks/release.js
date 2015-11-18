@@ -17,7 +17,8 @@ gulp.task('buildJS', function(){
 
 gulp.task('buildCSS', function(){
     var cssOption = {
-        compatibility: 'ie8'
+        compatibility: 'ie8',
+        urlQuotes: 0
     };
 
     return gulp.src('dist/**/*.css')
