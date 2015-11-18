@@ -5,7 +5,7 @@
         .module('app')
         .factory('AuthService', AuthService);
 
-    function AuthService(HttpTokenAuthService, $http, $window){
+    function AuthService(HttpTokenAuthService, UsersService, CartService, $http, $window, $cookies){
 
         var auth = {
             isLoggedIn: isLoggedIn,
@@ -36,11 +36,19 @@
         function logIn(user){
             return $http.post('/login', user).success(function(data){
                 HttpTokenAuthService.saveToken(data.token);
+                UsersService.getUserData().then(function(response){
+                    var userID = response.data._id;
+                    $cookies.put('user.id', userID);
+                    CartService.getCart();
+                });
+
             });
         }
 
         function logOut(){
             HttpTokenAuthService.deleteToken();
+            $cookies.remove('user.id');
+            CartService.getCart();
         }
 
     }

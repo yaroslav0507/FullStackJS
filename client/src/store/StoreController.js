@@ -16,7 +16,6 @@
             buyNow: buyNow
         });
 
-        initialize();
 
         function addToCart(item){
             CartService.addToCart(item).then(function(cart){
@@ -31,14 +30,6 @@
             });
         }
 
-        function initialize(){
-            UsersService.getUserData().then(function(response){
-                var userID = response.data._id;
-
-                $cookies.put('user.id', userID);
-            });
-
-        }
     }
 
 })();
