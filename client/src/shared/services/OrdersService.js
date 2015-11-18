@@ -43,7 +43,7 @@
         }
 
         function getUserOrders(){
-            return $http.get('/get-orders/').then(function(response){
+            return $http.get('/get-user-orders/').then(function(response){
                 return response.data;
             });
         }

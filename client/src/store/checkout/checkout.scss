@@ -23,14 +23,6 @@
 
   }
 
-  &-success{
-    text-align: center;
-    margin: 150px auto;
-    
-    &__body{
-      margin-bottom: 25px;
-    }
-  }
 }
 
 .order-view{
@@ -39,7 +31,19 @@
   padding: 0 15px;
 }
 
-.success-icon{
-  font-size: 45px;
-  color: $successColor;
+.empty-page{
+  &-message{
+    text-align: center;
+    margin: 150px auto;
+
+    &__body{
+      margin-bottom: 25px;
+    }
+  }
+  &-icon{
+    font-size: 45px;
+    color: $successColor;
+  }
 }
+
+

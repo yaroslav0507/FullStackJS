@@ -85,22 +85,20 @@
                 url: '/checkout',
                 views: {
                     'content@store': {
-                        templateUrl: 'store/checkout/checkout.html',
-                        controller: 'CheckoutController',
-                        controllerAs: 'checkoutCtrl',
-                        resolve: {
-                            user: resolveUserData
-                        }
+                        templateUrl: 'store/checkout/checkout.html'
                     }
+                },
+                controller: 'CheckoutController',
+                controllerAs: 'checkoutCtrl',
+                resolve: {
+                    user: resolveUserData
                 }
             })
             .state('store.checkout.success', {
                 url: '/success',
                 views: {
                     'content@store': {
-                        templateUrl: 'store/checkout/success/success-checkout.html',
-                        controller: 'CheckoutController',
-                        controllerAs: 'checkoutCtrl'
+                        templateUrl: 'store/checkout/success/success-checkout.html'
                     }
                 }
             });

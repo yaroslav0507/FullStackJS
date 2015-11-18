@@ -23,6 +23,7 @@ var endpoints = [
  './cart/update-cart',
  './orders/checkout',
  './orders/get-orders',
+ './orders/get-user-orders',
  './orders/delete-order'
 ];
 
