@@ -35,5 +35,8 @@ All changes in the code will be immediately reflected in your browser by [browse
 Store
 ![Store](https://www.dropbox.com/s/90f1i5d0yrah4zq/Macbook-Flat-Mockup_store.png?dl=1)
 
-Dashboard
-![Dashboard](https://www.dropbox.com/s/qppwxqfv7hh7iw5/Macbook-Flat-Mockup_dashboard.png?dl=1)
+Admin Dashboard
+![Admin Dashboard](https://www.dropbox.com/s/07u04pv6oq2muih/Macbook-Flat-Mockup_dashboard_admin.png?dl=1)
+
+User Dashboard
+![User Dashboard](https://www.dropbox.com/s/u71t93glo4adps5/Macbook-Flat-Mockup_dashboard_user.png?dl=1)
