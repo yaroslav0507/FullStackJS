@@ -42,6 +42,10 @@
                      alt="image.title"
                      ng-click="singleItemCtrl.selectImage($index)"/>
             </div>
+            <div class="tab-content">
+                <div class="fb-like" data-href="{{appCtrl.getLocation()}}" data-layout="button_count" data-action="like"
+                     data-show-faces="true" data-share="true"></div>
+            </div>
         </div>
 
         <div class="col-xs-12
@@ -97,7 +101,7 @@
                         </div>
                     </div>
                 </uib-tab>
-                <uib-tab heading="Comments" active="singleItemCtrl.tabs[1].active" disable="singleItemCtrl.tabs[1].disabled">
+                <uib-tab heading="Comments" active="singleItemCtrl.tabs[1].active">
                     <div class="tab-content">
                         <div class="fb-comments" data-href="{{appCtrl.getLocation()}}" data-width="100%" data-numposts="5"></div>
                     </div>
