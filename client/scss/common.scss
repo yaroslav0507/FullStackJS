@@ -31,3 +31,14 @@ a {
     display: inline-block;
   }
 }
+
+.tab-content{
+  padding-top: 10px;
+}
+
+.list-group-item{
+  &:hover{
+    cursor: pointer;
+    opacity: .8;
+  }
+}

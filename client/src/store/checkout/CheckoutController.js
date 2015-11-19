@@ -5,13 +5,13 @@
         .module('app')
         .controller('CheckoutController', CheckoutController);
 
-    function CheckoutController(CartService, OrdersService, $state, $scope, user){
+    function CheckoutController(CartService, OrdersService, $state, $scope, user, cart){
 
         var vm = this;
 
         angular.extend(vm, {
             user: user,
-            cart: CartService.getCurrentCart(),
+            cart: cart,
             checkout: checkout
         });
 

@@ -12,7 +12,8 @@
         angular.extend(vm, {
             item: item,
             addToCart: addToCart,
-            selectImage: selectImage
+            selectImage: selectImage,
+            tabs: null
         });
 
         var img = $('.zoomable');
@@ -27,6 +28,11 @@
             lensFadeOut: 200,
             scrollZoom : true
         };
+
+        vm.tabs = [
+            { title:'Dynamic Title 1', content:'Dynamic content 1' },
+            { title:'Dynamic Title 2', content:'Dynamic content 2' }
+        ];
 
         vm.item.qty = 1;
 

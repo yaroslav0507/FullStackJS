@@ -5,13 +5,14 @@
         .module('app')
         .controller('AppController', AppController);
 
-    function AppController($state, $window){
+    function AppController($state, $window, $location){
 
         var vm = this;
 
         angular.extend(vm, {
             title: 'E-commerce',
-            goBack: goBack
+            goBack: goBack,
+            getLocation: getLocation
         });
 
         toastr.options = {
@@ -38,6 +39,10 @@
 
         function goBack(){
             $window.history.back();
+        }
+
+        function getLocation(){
+            return $location.absUrl();
         }
     }
 

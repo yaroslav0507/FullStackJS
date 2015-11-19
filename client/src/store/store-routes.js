@@ -85,20 +85,27 @@
                 url: '/checkout',
                 views: {
                     'content@store': {
-                        templateUrl: 'store/checkout/checkout.html'
+                        templateUrl: 'store/checkout/checkout.html',
+                        controller: 'CheckoutController',
+                        controllerAs: 'checkoutCtrl',
+                        resolve: {
+                            user: resolveUserData,
+                            cart: resolveCart
+                        }
                     }
-                },
-                controller: 'CheckoutController',
-                controllerAs: 'checkoutCtrl',
-                resolve: {
-                    user: resolveUserData
                 }
             })
             .state('store.checkout.success', {
                 url: '/success',
                 views: {
                     'content@store': {
-                        templateUrl: 'store/checkout/success/success-checkout.html'
+                        templateUrl: 'store/checkout/success/success-checkout.html',
+                        controller: 'CheckoutController',
+                        controllerAs: 'checkoutCtrl',
+                        resolve: {
+                            user: resolveUserData,
+                            cart: resolveCart
+                        }
                     }
                 }
             });
@@ -116,6 +123,7 @@
         function resolveCart(CartService){
             return CartService.getCart();
         }
+
 
         function resolveCategories(CategoriesService){
             return CategoriesService.getAll();
