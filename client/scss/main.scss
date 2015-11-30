@@ -3,6 +3,14 @@
   font-family: "Roboto", sans-serif;
 }
 
+.navbar-fixed-top{
+  height: $navbarHeight;
+}
+
+#loading-bar {
+  transition: ease all 1.35s;
+}
+
 .label{
   padding-bottom: .2em;
 }

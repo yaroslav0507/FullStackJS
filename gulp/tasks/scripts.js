@@ -14,23 +14,9 @@ gulp.task('lint', function(){
 
 gulp.task('scripts', function(){
 
-    var vendors = gulp.src([
-        './client/vendors/angular/angular.js',
-        './client/vendors/jquery/dist/jquery.js',
-        './client/vendors/elevatezoom/jquery.elevateZoom-2.2.3.min.js',
-        './client/vendors/angular-ui-router/release/angular-ui-router.js',
-        './client/vendors/angular-cookies/angular-cookies.js',
-        './client/vendors/ng-file-upload/ng-file-upload-all.js',
-        './client/vendors/bootstrap/dist/js/bootstrap.js',
-        './client/vendors/angular-bootstrap/ui-bootstrap-tpls.js',
-        './client/vendors/toastr/toastr.js'
-    ], {base: 'vendors'});
+    var vendors = gulp.src(config.paths.src.vendors.scripts, {base: 'vendors'});
 
-    var app = gulp.src([
-        './client/src/app/app.js',
-        './client/src/**/*.js',
-        '!./client/src/**/*.spec.js'
-    ], {base: 'src'});
+    var app = gulp.src(config.paths.src.components , {base: 'src'});
 
     var views = gulp.src([
         './client/src/**/*.html'

@@ -3,10 +3,12 @@
 
     angular
         .module('app', [
+            'ngAnimate',
             'ui.router',
             'ui.bootstrap',
             'ngFileUpload',
-            'ngCookies'
+            'ngCookies',
+            'angular-loading-bar'
         ]);
 
 })();

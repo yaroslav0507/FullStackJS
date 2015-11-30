@@ -17,7 +17,8 @@ var UserSchema = new mongoose.Schema({
         address: String,
         phone: Number,
         email: String
-    }
+    },
+    fb: Object
 });
 
 UserSchema.methods.setPassword = function(password){

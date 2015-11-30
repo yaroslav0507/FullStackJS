@@ -10,6 +10,7 @@ global.auth          = jwt({secret: process.env.JWT_CERT, userProperty: 'payload
 var endpoints = [
  './items',
  './users/users-auth',
+ './users/users-info',
  './users/change-username',
  './users/change-password',
  './users/change-image',
