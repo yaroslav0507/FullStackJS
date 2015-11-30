@@ -23,9 +23,7 @@
     "elevatezoom": "~2.2.3",
     "jquery": "~2.1.4",
     "angular-mocks": "~1.4.7",
-    "angular-cookies": "~1.4.7",
-    "angular-loading-bar": "~0.8.0",
-    "angular-animate": "~1.4.8"
+    "angular-cookies": "~1.4.7"
   },
   "devDependencies": {}
 }

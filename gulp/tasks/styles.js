@@ -17,7 +17,12 @@ gulp.task('styles', function(){
         .pipe(sass());
 
 
-    var assets = gulp.src(config.paths.src.vendors.styles)
+    var assets = gulp.src([
+        './client/vendors/bootstrap/dist/css/bootstrap.css',
+        './client/vendors/angular-ui-router-anim-in-out/css/anim-in-out.css',
+        './client/vendors/components-font-awesome/css/font-awesome.css',
+        './client/vendors/toastr/toastr.css'
+    ])
         .pipe(concat('assets.css'));
 
     // Combine all the streams

@@ -61,7 +61,6 @@
     "nodemailer": "^1.8.0",
     "nodemon": "^1.4.1",
     "passport": "^0.3.0",
-    "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0"
   }
 }

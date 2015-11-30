@@ -18,8 +18,7 @@ require('./models/cart/CartItem');
 
 require('./models/orders/Order');
 
-require('./config/passport-local');
-require('./config/passport-facebook');
+require('./config/passport');
 
 var routes = require('./routes/index');
 

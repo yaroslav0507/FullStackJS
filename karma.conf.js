@@ -1,11 +1,9 @@
 // Karma configuration
 // Generated on Mon Nov 09 2015 18:18:06 GMT+0200 (FLE Standard Time)
 
-var config = global.config || require('./gulp/config.js')();
+module.exports = function (config) {
 
-module.exports = function (settings) {
-
-    settings.set({
+    config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '',
@@ -27,12 +25,16 @@ module.exports = function (settings) {
 
         // list of files / patterns to load in the browser
 
-        files: config.paths.src.vendors.ngModules.concat([
+        files: [
+            './client/vendors/angular/angular.js',
             './client/vendors/angular-mocks/angular-mocks.js',
+            './client/vendors/angular-ui-router/release/angular-ui-router.js',
+            './client/vendors/angular-cookies/angular-cookies.js',
+            './client/vendors/ng-file-upload/ng-file-upload.js',
             './client/src/app/app.js',
             './test.config.js',
             './client/src/**/*.js'
-        ]),
+        ],
 
         preprocessors: {
             './client/src/**/*.html': ['ng-html2js']
@@ -62,8 +64,8 @@ module.exports = function (settings) {
 
 
         // level of logging
-        // possible values: settings.LOG_DISABLE || settings.LOG_ERROR || settings.LOG_WARN || settings.LOG_INFO || settings.LOG_DEBUG
-        logLevel: settings.LOG_INFO,
+        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        logLevel: config.LOG_INFO,
 
 
         // enable / disable watching file and executing tests whenever any file changes
