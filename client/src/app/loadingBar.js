@@ -7,7 +7,7 @@
 
     function cfpLoadingBarProvider(cfpLoadingBarProvider){
         cfpLoadingBarProvider.includeSpinner = false;
-        cfpLoadingBarProvider.latencyThreshold = 50;
+        cfpLoadingBarProvider.latencyThreshold = 0;
     }
 
 })();
