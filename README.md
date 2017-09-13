@@ -3,11 +3,12 @@
 Demo: [http://styleworks.herokuapp.com](http://styleworks.herokuapp.com/)
 
 ## Stack of technologies
-<img align="right" src="https://www.dropbox.com/s/yg1rsufwp2pbcfq/MEAN_Stack.png?dl=1" alt="MEAN Stack" height="150px">
-- [Mongo DB](https://www.mongodb.org/);
-- [Express JS](http://expressjs.com/);
-- [Angular JS](https://angularjs.org/);
-- [Node JS](https://nodejs.org/);
+<img align="right" src="https://lh5.googleusercontent.com/-avquJ2XYkDjhsCtyy6JsUfXvpVkF1mSdbZuoFlVDLzmMbncQ0cuDBvDUy-iHx_vVwoN6DL3PVGIjxM=w2220-h1734" alt="MEAN Stack" height="150px">
+
+* [Mongo DB](https://www.mongodb.org/);
+* [Express JS](http://expressjs.com/);
+* [Angular JS](https://angularjs.org/);
+* [Node JS](https://nodejs.org/);
 
 ## Running Locally
 
@@ -33,10 +34,10 @@ All changes in the code will be immediately reflected in your browser by [browse
 
 ## Interface
 Store
-![Store](https://www.dropbox.com/s/90f1i5d0yrah4zq/Macbook-Flat-Mockup_store.png?dl=1)
+![Store](https://lh6.googleusercontent.com/XobdgVIU-q150QeOlV3160mdM7u5n4uhLmwLDPayC0LBcYcGbvTAlKH6bi-XHEIldTIhbf02IQUJ8q8=w2220-h1734-rw)
 
 Admin Dashboard
-![Admin Dashboard](https://www.dropbox.com/s/07u04pv6oq2muih/Macbook-Flat-Mockup_dashboard_admin.png?dl=1)
+![Admin Dashboard](https://lh4.googleusercontent.com/DjVmsykbu-M0jMYZzFjuEc8366L5DrQWoSTXnLbuxcRA3wu6MncmnhOXSF4awByB9WjVuePanfHHCaQ=w2220-h1734-rw)
 
 User Dashboard
-![User Dashboard](https://www.dropbox.com/s/u71t93glo4adps5/Macbook-Flat-Mockup_dashboard_user.png?dl=1)
+![User Dashboard](https://lh5.googleusercontent.com/SqMVxuMG1z3r9vFVWLlKvMhzjmJYbYfBC8s_2BdpXUv-7ldQO8ZA_VEk6dY5MDrgemU_oC_VZrZT2BM=w2220-h1734-rw)
